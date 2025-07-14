@@ -1,0 +1,64 @@
+{
+  "name": "ivo-tech-web",
+  "production_branch": "main",
+  "build_config": {
+    "build_command": "pnpm --filter=ivo-tech-web... run export",
+    "destination_dir": "apps/web/out",
+    "root_dir": "",
+    "web_analytics_tag": null,
+    "web_analytics_token": null
+  },
+  "source": {
+    "type": "github",
+    "config": {
+      "owner": "YOUR_GITHUB_USERNAME",
+      "repo_name": "ivo-tech",
+      "production_branch": "main",
+      "pr_comments_enabled": true,
+      "deployments_enabled": true,
+      "production_deployments_enabled": true,
+      "preview_deployment_setting": "all"
+    }
+  },
+  "deployment_configs": {
+    "production": {
+      "environment_variables": {
+        "NODE_VERSION": {
+          "value": "18"
+        },
+        "TURBO_TOKEN": {
+          "value": "YOUR_TURBO_TOKEN_IF_NEEDED"
+        }
+      },
+      "kv_namespaces": {},
+      "durable_object_namespaces": {},
+      "d1_databases": {},
+      "r2_buckets": {},
+      "services": {},
+      "compatibility_flags": [],
+      "compatibility_date": null,
+      "fail_open": false,
+      "usage_model": null
+    },
+    "preview": {
+      "environment_variables": {
+        "NODE_VERSION": {
+          "value": "18"
+        }
+      },
+      "kv_namespaces": {},
+      "durable_object_namespaces": {},
+      "d1_databases": {},
+      "r2_buckets": {},
+      "services": {},
+      "compatibility_flags": [],
+      "compatibility_date": null,
+      "fail_open": false,
+      "usage_model": null
+    }
+  },
+  "canonical_deployment": {
+    "type": "production_branch",
+    "branch": "main"
+  }
+}

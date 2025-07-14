@@ -1,0 +1,23 @@
+{
+  "deployment": {
+    "container_ip": "192.168.77.203",
+    "container_user": "root",
+    "web_root": "/var/www/html",
+    "backup_retention_days": 30
+  },
+  "cloudflare": {
+    "domain": "ivo-tech.com",
+    "subdomains": ["www", "api", "blog"],
+    "ttl": 300
+  },
+  "build": {
+    "minify_css": true,
+    "minify_js": true,
+    "compress_images": true
+  },
+  "development": {
+    "local_port": 8080,
+    "auto_reload": true,
+    "debug_mode": true
+  }
+}

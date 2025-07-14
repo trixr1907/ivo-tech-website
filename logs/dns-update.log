@@ -1,0 +1,24 @@
+[2025-07-13 14:16:06] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:16:06] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:16:06] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:18:03] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:18:03] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:18:03] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:19:34] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:19:34] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:19:34] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:20:32] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:20:32] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:20:32] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:20:42] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:20:42] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:20:42] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:32:23] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:32:23] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:32:23] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 14:35:17] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 14:35:17] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 14:35:17] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
+[2025-07-13 15:15:12] [ERROR] Fehler: CLOUDFLARE_API_TOKEN und CLOUDFLARE_ZONE_ID Umgebungsvariablen müssen gesetzt sein
+[2025-07-13 15:15:12] [ERROR] Setze diese mit: $env:CLOUDFLARE_API_TOKEN = 'dein_token'
+[2025-07-13 15:15:12] [ERROR] Setze diese mit: $env:CLOUDFLARE_ZONE_ID = 'deine_zone_id'
