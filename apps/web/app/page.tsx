@@ -12,6 +12,7 @@ import { CLIInterface } from '../components/ui/CLIInterface';
 import { Scene3D } from '../components/3d/Scene3D';
 import { ParallaxStarfield } from '../components/3d/ParallaxStarfield';
 import { usePerformance } from '../hooks/usePerformance';
+import MonitoringDashboard from '../components/monitoring/MonitoringDashboard';
 
 export default function HomePage() {
   const metrics = usePerformance();
@@ -64,6 +65,14 @@ export default function HomePage() {
             <div className='absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/30 to-transparent'></div>
             <div className='relative mx-auto max-w-7xl'>
               <CLIInterface />
+            </div>
+          </section>
+
+          {/* Monitoring Dashboard */}
+          <section className='relative px-4 py-20 sm:px-6 lg:px-8'>
+            <div className='bg-gradient-radial absolute inset-0 from-green-500/10 via-transparent to-transparent'></div>
+            <div className='relative mx-auto max-w-7xl'>
+              <MonitoringDashboard />
             </div>
           </section>
 
