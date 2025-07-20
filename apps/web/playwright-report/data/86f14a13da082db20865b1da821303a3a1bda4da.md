@@ -1,0 +1,90 @@
+# Page snapshot
+
+```yaml
+- text: "LIVE 18:02:59 System Status: Online"
+- navigation:
+  - text: IvoTech
+  - link "Home":
+    - /url: "#home"
+  - link "Über mich":
+    - /url: "#about"
+  - link "Projekte":
+    - /url: "#projects"
+  - link "Kontakt":
+    - /url: "#contact"
+- main:
+  - heading "Willkommen bei Ivo Tech" [level=1]
+  - paragraph: Innovative Technologielösungen für die Zukunft
+  - button "Projekte entdecken"
+  - button "Über mich"
+  - heading "Über mich" [level=2]
+  - paragraph: Ich bin ein leidenschaftlicher Entwickler mit Fokus auf moderne Webtechnologien und innovative Lösungen. Mit jahrelanger Erfahrung in der Softwareentwicklung bringe ich Ideen zum Leben.
+  - text: 🚀
+  - heading "Innovation" [level=3]
+  - paragraph: Immer auf der Suche nach neuen Technologien und kreativen Lösungen
+  - text: 💻
+  - heading "Entwicklung" [level=3]
+  - paragraph: Moderne Webanwendungen mit React, Next.js und TypeScript
+  - text: 🎯
+  - heading "Qualität" [level=3]
+  - paragraph: Hohe Standards in Code-Qualität und Benutzererfahrung
+  - heading "Technologien" [level=2]
+  - paragraph: Ich arbeite mit modernen Technologien und Tools, um leistungsstarke und skalierbare Anwendungen zu entwickeln.
+  - text: ⚛️
+  - heading "React" [level=3]
+  - paragraph: Moderne UI-Bibliothek
+  - text: ▲
+  - heading "Next.js" [level=3]
+  - paragraph: React Framework
+  - text: 📘
+  - heading "TypeScript" [level=3]
+  - paragraph: Typisiertes JavaScript
+  - text: 🎨
+  - heading "Tailwind CSS" [level=3]
+  - paragraph: Utility-First CSS
+  - text: 🟢
+  - heading "Node.js" [level=3]
+  - paragraph: Server-side JavaScript
+  - text: 🐍
+  - heading "Python" [level=3]
+  - paragraph: Vielseitige Programmiersprache
+  - heading "Entwickler-Terminal" [level=2]
+  - text: Terminal $ welcome to ivo-tech.com > Initializing system... > Loading components... ✓ > System ready.|
+  - paragraph: Echte Entwicklungsumgebung - Live-Updates und moderne Tools
+  - heading "System Status" [level=3]
+  - text: Overall Status HEALTHY Environment production Version 1.0.0 Uptime 0h 0m 0s Memory Used 25.55 MB Region unknown
+  - heading "Real-time Performance" [level=3]
+  - text: 60 FPS 0 Memory (MB) 24ms Latency 265s Load Time
+  - heading "Service Health" [level=3]
+  - text: database NOT_APPLICABLE cache HEALTHY external apis HEALTHY
+  - heading "Deployment Info" [level=3]
+  - text: "Vercel URL: ivo-tech-rar1gq6hr-trixr1907s-projects.vercel.app Git Commit: 59a228d3 Last Updated: 7/14/2025, 1:36:11 PM"
+  - heading "Interessiert an unserem Service?" [level=2]
+  - paragraph: Kontaktieren Sie uns für eine kostenlose Beratung und erfahren Sie, wie wir Ihnen helfen können, Ihre Ziele zu erreichen.
+  - button "Kontakt aufnehmen"
+- contentinfo:
+  - text: IvoTech
+  - paragraph: Innovative Technologielösungen für die Zukunft. Wir entwickeln moderne Webanwendungen und digitale Lösungen, die Ihr Unternehmen voranbringen.
+  - heading "Links" [level=3]
+  - list:
+    - listitem:
+      - link "Home":
+        - /url: "#home"
+    - listitem:
+      - link "Über uns":
+        - /url: "#about"
+    - listitem:
+      - link "Projekte":
+        - /url: "#projects"
+    - listitem:
+      - link "Kontakt":
+        - /url: "#contact"
+  - heading "Kontakt" [level=3]
+  - list:
+    - listitem: info@ivo-tech.com
+    - listitem: +49 123 456 789
+    - listitem: Berlin, Deutschland
+  - paragraph: © 2024 IvoTech. Alle Rechte vorbehalten.
+- text: "SYSTEM ONLINE FPS: 60 | LATENCY: 47ms LOAD: 265ms"
+- alert
+```

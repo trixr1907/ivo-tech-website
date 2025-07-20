@@ -1,0 +1,14 @@
+{
+  "projectToken": "chpt_YOUR_CHROMATIC_PROJECT_TOKEN",
+  "buildScriptName": "build-storybook",
+  "onlyChanged": true,
+  "exitZeroOnChanges": true,
+  "skip": "dependabot/**",
+  "ignoreLastBuildOnBranch": "main",
+  "delay": 3000,
+  "threshold": 0.2,
+  "diffThreshold": 0.063,
+  "autoAcceptChanges": "main",
+  "externals": ["public/**"],
+  "zip": true
+}

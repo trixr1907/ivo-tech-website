@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 export function CLIInterface() {
-  const [currentCommand, setCurrentCommand] = useState('');
+  // const [currentCommand, setCurrentCommand] = useState('');
   const [commandHistory, setCommandHistory] = useState([
     '$ welcome to ivo-tech.com',
     '> Initializing system...',
@@ -11,18 +11,18 @@ export function CLIInterface() {
     '> System ready.',
   ]);
 
-  const commands = [
-    '$ npm run dev',
-    '> Starting development server...',
-    '> Server running on port 3000 ✓',
-    '$ git status',
-    '> On branch main',
-    '> Your branch is up to date.',
-    '$ whoami',
-    '> ivo-tech-developer',
-  ];
-
   useEffect(() => {
+    const commands = [
+      '$ npm run dev',
+      '> Starting development server...',
+      '> Server running on port 3000 ✓',
+      '$ git status',
+      '> On branch main',
+      '> Your branch is up to date.',
+      '$ whoami',
+      '> ivo-tech-developer',
+    ];
+
     const interval = setInterval(() => {
       if (commandHistory.length < commands.length + 4) {
         const nextIndex = commandHistory.length - 4;
@@ -33,7 +33,7 @@ export function CLIInterface() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [commandHistory, commands]);
+  }, [commandHistory]);
 
   return (
     <div className='text-center'>

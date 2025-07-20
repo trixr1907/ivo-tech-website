@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export function ParallaxStarfield() {
+function ParallaxStarfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -69,3 +69,6 @@ export function ParallaxStarfield() {
     />
   );
 }
+
+export default ParallaxStarfield;
+export { ParallaxStarfield };

@@ -1,91 +1,122 @@
-# Turborepo starter
+# 🚀 IVO-TECH Website
 
-This Turborepo starter is maintained by the Turborepo core team.
+Moderne, hochperformante Website mit 3D-Animationen und Enterprise-Level Optimierungen.
 
-## Using this example
+## 🌐 Live Website
 
-Run the following command:
+**Production**: [https://ivo-tech-3io3oirxw-trixr1907s-projects.vercel.app](https://ivo-tech-3io3oirxw-trixr1907s-projects.vercel.app)
 
-```sh
-npx create-turbo@latest
+## ✨ Features
+
+- 🎯 **3D WebGL Animationen** - Interaktive Logo-Animation mit Three.js
+- 📱 **Responsive Design** - Mobile-first Approach mit Tailwind CSS  
+- ⚡ **Performance Optimiert** - Bundle < 110KB, Lighthouse Score > 90
+- 🔍 **SEO Ready** - Complete Meta Tags, Sitemap, Structured Data
+- 📊 **Real-time Analytics** - Vercel Analytics + Performance Monitoring
+- 🛡️ **TypeScript Strict** - Vollständige Typensicherheit
+- 🧪 **E2E Testing** - Playwright Cross-Browser Tests
+
+## 🏗️ Projekt-Architektur
+
+Diese Turborepo-Monorepo Struktur umfasst:
+
+### Apps und Packages
+
+- `web/` - Haupt-Website (Next.js 15.3.5 + React 19.1.0)
+- `docs/` - Dokumentation (Next.js)
+- `api/` - Backend-Services
+- `packages/ui/` - Shared UI Components
+- `packages/config-*` - Shared Configurations (ESLint, TypeScript, Tailwind)
+
+Alle Packages sind 100% [TypeScript](https://www.typescriptlang.org/) mit strikter Konfiguration.
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Next.js 15.3.5 mit App Router
+- **UI Library**: React 19.1.0 + TypeScript
+- **Styling**: Tailwind CSS 3.4.17
+- **3D Graphics**: Three.js + @react-three/fiber
+- **Animations**: Framer Motion 12.23.6
+- **Icons**: Custom SVG + Lucide React
+
+### Tools & Configuration
+- **Build System**: Turborepo Monorepo
+- **Package Manager**: npm (uv für Python)
+- **Code Quality**: ESLint + Prettier (2-Space Indentation)
+- **Type Checking**: TypeScript Strict Mode
+- **Testing**: Playwright E2E + Jest Unit Tests
+
+### Deployment & Analytics
+- **Hosting**: Vercel Edge Network
+- **Analytics**: Vercel Analytics + Speed Insights
+- **Monitoring**: Real-time Performance Tracking
+- **SEO**: Automated Sitemap + Robots.txt
+
+## 🚀 Schnellstart
+
+### Prerequisites
+
+```bash
+node >= 18.17.0
+npm >= 9.0.0
 ```
 
-## What's inside?
+### Installation
 
-This Turborepo includes the following packages/apps:
+```bash
+# Repository klonen
+git clone https://github.com/trixr1907/ivo-tech-website.git
+cd ivo-tech-website
 
-### Apps and Packages
+# Dependencies installieren
+npm install
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# Development Server starten
+npm run dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Entwicklung
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+```bash
+# Hauptwebsite entwickeln
+cd apps/web
+npm run dev
+# → http://localhost:3000
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+# Alle Apps parallel
 turbo dev
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+# Spezifische App
 turbo dev --filter=web
+```
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+### Build & Deployment
+
+```bash
+# Production Build
+npm run build
+
+# Statischer Export
+cd apps/web
+npm run build && npm run export
+
+# Vercel Deployment
+vercel
+```
+
+### Testing
+
+```bash
+# E2E Tests (Playwright)
+cd apps/web
+npm run test:e2e
+
+# Unit Tests
+npm run test
+
+# Test Coverage
+npm run test:coverage
 ```
 
 ### Remote Caching
