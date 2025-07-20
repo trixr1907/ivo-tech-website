@@ -13,6 +13,7 @@ import { CLIInterface } from '../components/ui/CLIInterface';
 import { usePerformance } from '../hooks/usePerformance';
 import { ServicesSection } from '../components/ui/ServicesSection';
 import { LoginModal } from '../components/ui/LoginModal';
+import ClientOnly3D from '../components/ClientOnly3D';
 
 // Dynamic imports to prevent SSR issues
 const Scene3D = dynamic(() => import('../components/3d/Scene3D').then(mod => ({ default: mod.Scene3D })), {
@@ -69,7 +70,7 @@ const MotionControlPanel = dynamic(
 );
 
 // Hook import (not dynamic)
-import { useMotionOrchestrator } from '../components/motion/MotionOrchestrator';
+// import { useMotionOrchestrator } from '../components/motion/MotionOrchestrator';
 
 export default function HomePage() {
   const metrics = usePerformance();
@@ -87,14 +88,17 @@ export default function HomePage() {
 
   return (
     <div className='relative min-h-screen overflow-hidden bg-gray-900 text-white'>
-      {/* Background Elements */}
+      {/* Background Elements - TEMPORARILY DISABLED FOR DEPLOYMENT */}
       <div className='fixed inset-0 z-0'>
-        <ParallaxStarfield />
-        <Scene3D />
+        {/* <ClientOnly3D>
+          <ParallaxStarfield />
+          <Scene3D />
+        </ClientOnly3D> */}
+        <div className='bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 h-full w-full opacity-50'></div>
       </div>
 
-      {/* Performance Engine (invisible) */}
-      <AdaptivePerformanceEngine />
+      {/* Performance Engine - TEMPORARILY DISABLED */}
+      {/* <AdaptivePerformanceEngine /> */}
 
       {/* Grid Pattern Overlay */}
       <div className='pointer-events-none fixed inset-0 z-10 opacity-20'></div>
@@ -110,47 +114,53 @@ export default function HomePage() {
 
         <main className='relative pt-16' role='main' aria-label='Hauptinhalt'>
           {/* Hero Section */}
-          <OrchestatedSection
+          {/* <OrchestatedSection
             id='hero'
             className='relative flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8'
             enableParallax={true}
             parallaxSpeed={0.3}
             enable3D={true}
             delayAnimation={0}
-          >
-            <div className='bg-gradient-radial absolute inset-0 from-blue-500/10 via-transparent to-transparent'></div>
-            <HeroSection />
-          </OrchestatedSection>
+          > */}
+            <div className='relative flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8'>
+              <div className='bg-gradient-radial absolute inset-0 from-blue-500/10 via-transparent to-transparent'></div>
+              <HeroSection />
+            </div>
+          {/* </OrchestatedSection> */}
 
           {/* About Section */}
-          <OrchestatedSection
+          {/* <OrchestatedSection
             id='about'
             className='relative px-4 py-20 sm:px-6 lg:px-8'
             enableParallax={true}
             parallaxSpeed={0.4}
             enable3D={true}
             delayAnimation={0.1}
-          >
-            <div className='absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/50 to-transparent'></div>
-            <div className='relative mx-auto max-w-7xl'>
-              <AboutSection />
+          > */}
+            <div id='about' className='relative px-4 py-20 sm:px-6 lg:px-8'>
+              <div className='absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/50 to-transparent'></div>
+              <div className='relative mx-auto max-w-7xl'>
+                <AboutSection />
+              </div>
             </div>
-          </OrchestatedSection>
+          {/* </OrchestatedSection> */}
 
           {/* Services Section */}
-          <OrchestatedSection
+          {/* <OrchestatedSection
             id='services'
             className='relative px-4 py-20 sm:px-6 lg:px-8'
             enableParallax={true}
             parallaxSpeed={0.6}
             enable3D={true}
             delayAnimation={0.2}
-          >
-            <div className='absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-blue-500/5'></div>
-            <div className='relative mx-auto max-w-7xl'>
-              <ServicesSection />
+          > */}
+            <div id='services' className='relative px-4 py-20 sm:px-6 lg:px-8'>
+              <div className='absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-blue-500/5'></div>
+              <div className='relative mx-auto max-w-7xl'>
+                <ServicesSection />
+              </div>
             </div>
-          </OrchestatedSection>
+          {/* </OrchestatedSection> */}
 
           {/* Tech Showcase */}
           <section className='relative px-4 py-20 sm:px-6 lg:px-8'>
@@ -172,7 +182,7 @@ export default function HomePage() {
                   Interaktive 3D-Welten powered by WebGL und Three.js
                 </p>
               </div>
-              <Adaptive3DContainer
+              {/* <Adaptive3DContainer
                 component='epic-scene'
                 className='h-96 overflow-hidden rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-500/20'
                 enablePerformanceMonitoring={true}
@@ -181,7 +191,10 @@ export default function HomePage() {
                   enablePostProcessing: true,
                   enableShadows: true,
                 }}
-              />
+              /> */}
+              <div className='h-96 flex items-center justify-center bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl border border-cyan-500/30'>
+                <p className='text-cyan-400 text-xl'>🚀 3D Experience - Coming Soon!</p>
+              </div>
             </div>
           </section>
 
@@ -200,7 +213,10 @@ export default function HomePage() {
               </div>
               <div className='flex justify-center'>
                 <div className='h-96 w-full max-w-4xl overflow-hidden rounded-2xl border border-orange-500/30 shadow-2xl shadow-orange-500/20'>
-                  <NoCoinerRoastMachine />
+                {/* <NoCoinerRoastMachine /> */}
+                <div className='h-full flex items-center justify-center'>
+                  <p className='text-orange-400 text-xl'>🎰 Roast Machine - Coming Soon!</p>
+                </div>
                 </div>
               </div>
             </div>
@@ -218,7 +234,10 @@ export default function HomePage() {
                   Echtzeit-Kryptowährungsdaten mit interaktiven Charts und Live-Updates
                 </p>
               </div>
-              <CryptoDashboard />
+              {/* <CryptoDashboard /> */}
+              <div className='h-96 flex items-center justify-center bg-gradient-to-r from-yellow-500/10 to-red-500/10 rounded-2xl border border-yellow-500/30'>
+                <p className='text-yellow-400 text-xl'>💰 Crypto Dashboard - Coming Soon!</p>
+              </div>
             </div>
           </section>
 
@@ -234,7 +253,10 @@ export default function HomePage() {
                   3D/4D Micro-Interactions mit CSS Houdini Paint API + React Three Fiber Portals
                 </p>
               </div>
-              <NeonUIDemo />
+              {/* <NeonUIDemo /> */}
+              <div className='h-96 flex items-center justify-center bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-2xl border border-pink-500/30'>
+                <p className='text-pink-400 text-xl'>🌈 Neon UI Library - Coming Soon!</p>
+              </div>
             </div>
           </section>
 
@@ -258,7 +280,10 @@ export default function HomePage() {
                   Echtzeit-Analyse und Optimierung der 3D/4D Komponenten mit erweiterten Metriken
                 </p>
               </div>
-              <Advanced3DPerformanceDashboard />
+              {/* <Advanced3DPerformanceDashboard /> */}
+              <div className='h-96 flex items-center justify-center bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-2xl border border-green-500/30'>
+                <p className='text-green-400 text-xl'>📊 3D Performance Monitor - Coming Soon!</p>
+              </div>
             </div>
           </section>
 
@@ -266,7 +291,10 @@ export default function HomePage() {
           <section className='relative px-4 py-20 sm:px-6 lg:px-8'>
             <div className='bg-gradient-radial absolute inset-0 from-green-500/10 via-transparent to-transparent'></div>
             <div className='relative mx-auto max-w-7xl'>
-              <MonitoringDashboard />
+              {/* <MonitoringDashboard /> */}
+              <div className='h-64 flex items-center justify-center bg-gradient-to-r from-green-500/5 to-cyan-500/5 rounded-2xl border border-green-500/20'>
+                <p className='text-green-400'>🔧 Monitoring Dashboard - Coming Soon!</p>
+              </div>
             </div>
           </section>
 
@@ -300,8 +328,8 @@ export default function HomePage() {
       {/* Login Modal */}
       <LoginModal isOpen={isLoginOpen} onClose={handleCloseLogin} />
 
-      {/* Motion Control Panel */}
-      <MotionControlPanel isOpen={isMotionPanelOpen} onClose={() => setIsMotionPanelOpen(false)} />
+      {/* Motion Control Panel - TEMPORARILY DISABLED */}
+      {/* <MotionControlPanel isOpen={isMotionPanelOpen} onClose={() => setIsMotionPanelOpen(false)} /> */}
 
       {/* Motion Control Trigger (Development) */}
       {process.env.NODE_ENV === 'development' && (
@@ -314,8 +342,8 @@ export default function HomePage() {
         </button>
       )}
 
-      {/* PWA Provider für Service Worker und Installation */}
-      <PWAProvider />
+      {/* PWA Provider für Service Worker und Installation - TEMPORARILY DISABLED */}
+      {/* <PWAProvider /> */}
     </div>
   );
 }

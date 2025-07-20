@@ -58,7 +58,7 @@ export function isLowEndDevice(): boolean {
  * Media Query Helper für Responsive Design
  */
 export function createMediaQuery(query: string): MediaQueryList | null {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || !window.matchMedia) return null;
   return window.matchMedia(query);
 }
 

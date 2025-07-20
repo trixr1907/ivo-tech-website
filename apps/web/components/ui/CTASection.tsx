@@ -2,15 +2,19 @@ import React from 'react';
 
 export function CTASection() {
   const handleEmailClick = () => {
-    window.location.href =
-      'mailto:info@ivo-tech.com?subject=Projektanfrage&body=Hallo,%0D%0A%0D%0AIch interessiere mich für Ihre Services und hätte gerne weitere Informationen.';
+    if (typeof window !== 'undefined') {
+      window.location.href =
+        'mailto:info@ivo-tech.com?subject=Projektanfrage&body=Hallo,%0D%0A%0D%0AIch interessiere mich für Ihre Services und hätte gerne weitere Informationen.';
+    }
   };
 
   const handleWhatsAppClick = () => {
-    window.open(
-      'https://wa.me/4915123456789?text=Hallo,%20ich%20interessiere%20mich%20für%20Ihre%20IT-Services',
-      '_blank'
-    );
+    if (typeof window !== 'undefined') {
+      window.open(
+        'https://wa.me/4915123456789?text=Hallo,%20ich%20interessiere%20mich%20für%20Ihre%20IT-Services',
+        '_blank'
+      );
+    }
   };
 
   return (

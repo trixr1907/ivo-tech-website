@@ -1,7 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { reportError } from '../components/monitoring/MonitoringProvider';
+
+// Safe import for reportError
+let reportError: ((error: Error, context?: any) => void) | undefined;
+try {
+  const monitoring = require('../components/monitoring/MonitoringProvider');
+  reportError = monitoring.reportError;
+} catch (error) {
+  // MonitoringProvider not available, use fallback
+  reportError = undefined;
+}
 
 interface PerformanceMetrics {
   fps: number;
@@ -19,6 +28,11 @@ export function usePerformance(): PerformanceMetrics {
   });
 
   useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === 'undefined' || typeof performance === 'undefined') {
+      return;
+    }
+
     let animationId: number;
     let lastTime = performance.now();
     let frameCount = 0;
@@ -33,13 +47,17 @@ export function usePerformance(): PerformanceMetrics {
           frameCount = 0;
           lastTime = currentTime;
         }
-        animationId = requestAnimationFrame(trackFPS);
+        if (typeof requestAnimationFrame !== 'undefined') {
+          animationId = requestAnimationFrame(trackFPS);
+        }
       } catch (error) {
         // Log the error for further investigation
         console.error('Error tracking FPS:', error);
         
         // Report the error using a monitoring tool
-        reportError(new Error('Error tracking FPS'), { component: 'usePerformance' });
+        if (typeof reportError === 'function') {
+          reportError(new Error('Error tracking FPS'), { component: 'usePerformance' });
+        }
         
         // Set fallback values
         setMetrics(prev => ({ ...prev, fps: 30 }));
@@ -49,13 +67,15 @@ export function usePerformance(): PerformanceMetrics {
     // Memory Usage
     const trackMemory = () => {
       try {
-        if ('memory' in performance) {
+        if (typeof performance !== 'undefined' && 'memory' in performance) {
           const memory = Math.round((performance as any).memory.usedJSHeapSize / 1048576);
           setMetrics(prev => ({ ...prev, memory }));
         }
       } catch (error) {
         console.error('Error tracking memory usage:', error);
-        reportError(new Error('Error tracking memory usage'), { component: 'usePerformance' });
+        if (typeof reportError === 'function') {
+          reportError(new Error('Error tracking memory usage'), { component: 'usePerformance' });
+        }
         
         // Set fallback value
         setMetrics(prev => ({ ...prev, memory: 0 }));
@@ -65,7 +85,7 @@ export function usePerformance(): PerformanceMetrics {
     // Page Load Time
     const trackLoadTime = () => {
       try {
-        if (document.readyState === 'complete') {
+        if (typeof document !== 'undefined' && typeof performance !== 'undefined' && document.readyState === 'complete') {
           const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
           if (navigationEntry) {
             const loadTime = Math.round(navigationEntry.loadEventEnd - navigationEntry.fetchStart);
@@ -74,7 +94,9 @@ export function usePerformance(): PerformanceMetrics {
         }
       } catch (error) {
         console.error('Error tracking page load time:', error);
-        reportError(new Error('Error tracking page load time'), { component: 'usePerformance' });
+        if (typeof reportError === 'function') {
+          reportError(new Error('Error tracking page load time'), { component: 'usePerformance' });
+        }
         
         // Set fallback value
         setMetrics(prev => ({ ...prev, loadTime: 0 }));
@@ -82,7 +104,9 @@ export function usePerformance(): PerformanceMetrics {
     };
 
     // Start tracking
-    animationId = requestAnimationFrame(trackFPS);
+    if (typeof requestAnimationFrame !== 'undefined') {
+      animationId = requestAnimationFrame(trackFPS);
+    }
     trackMemory();
     trackLoadTime();
 
@@ -93,7 +117,9 @@ export function usePerformance(): PerformanceMetrics {
     const memoryInterval = setInterval(trackMemory, 5000);
 
     return () => {
-      cancelAnimationFrame(animationId);
+      if (typeof cancelAnimationFrame !== 'undefined' && animationId) {
+        cancelAnimationFrame(animationId);
+      }
       clearInterval(memoryInterval);
     };
   }, []);

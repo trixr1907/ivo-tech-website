@@ -10,8 +10,10 @@ export function NavigationHeader({ onLoginClick }: NavigationHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById(sectionId.replace('#', ''));
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMenuOpen(false);
   };
 

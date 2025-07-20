@@ -20,11 +20,13 @@ const ImmersiveHeroSection3D = dynamic(
 );
 
 export function HeroSection() {
-  const [use3D, setUse3D] = useState(true);
+  const [use3D, setUse3D] = useState(false); // Temporarily disabled for deployment
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById(sectionId);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   // Fallback 2D version for compatibility

@@ -59,8 +59,8 @@ export const useScroll3D = (sectionConfig: ScrollSection3D, targetRef: React.Ref
         scrub: 1.5,
         markers: sectionConfig.markers || false,
         refreshPriority: -1,
-        onUpdate: self => {
-          const progress = self.progress;
+        onUpdate: (trigger) => {
+          const progress = trigger.progress;
 
           // Find current keyframes
           const keyframes = sectionConfig.keyframes;
