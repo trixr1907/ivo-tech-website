@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 import bundleAnalyzer from '@next/bundle-analyzer';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -11,6 +13,22 @@ const nextConfig = {
   // Removed 'output: export' to enable middleware
   basePath: prefix,
   trailingSlash: true,
+  
+  // Transpile Three.js and related packages
+  transpilePackages: [
+    'three',
+    '@react-three/fiber',
+    '@react-three/drei',
+    '@react-three/cannon',
+    '@react-three/postprocessing',
+    'postprocessing',
+    'troika-three-text',
+    'troika-worker-utils',
+    'stats.js',
+    'leva',
+    'use-sound',
+    'gsap',
+  ],
   
   // Enhanced image optimization
   images: {
@@ -24,11 +42,11 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     optimizeCss: true,
-    esmExternals: true,
+    esmExternals: 'loose',
   },
   
-  // Server external packages
-  serverExternalPackages: ['three', '@react-three/fiber', 'nodemailer'],
+  // Server external packages (removed three packages as they're in transpilePackages)
+  serverExternalPackages: ['nodemailer'],
   
   // Webpack optimizations
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
@@ -111,14 +129,25 @@ const nextConfig = {
       ];
     }
     
-    // Prevent browser-only code from running on server
+    // Handle webpack 5 polyfills
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      crypto: false,
+      buffer: false,
+      stream: false,
+    };
+    
+    // Fix for SSR issues
     if (isServer) {
-      config.externals = [
-        ...(Array.isArray(config.externals) ? config.externals : []),
-        // Browser-only APIs
-        'canvas',
-        'gl',
-      ];
+      // Make sure webpack doesn't try to bundle server-incompatible modules
+      config.externals = config.externals || [];
+      config.externals.push({
+        canvas: 'canvas',
+        gl: 'gl',
+        'react-native-fs': 'react-native-fs',
+      });
     }
     
     return config;

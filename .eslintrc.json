@@ -1,0 +1,1 @@
+{\n  \"extends\": [\"next\", \"turbo\"],\n  \"rules\": {\n    \"turbo/no-undeclared-env-vars\": \"off\"\n  }\n}
