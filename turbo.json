@@ -1,12 +1,20 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "ui": "tui",
-  "tasks": {
+  "globalDependencies": [".env*"],
+  "pipeline": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_*", "ANALYTICS_ID", "API_URL"]
+      "env": [
+        "NEXT_PUBLIC_*",
+        "ANALYTICS_ID",
+        "API_KEY",
+        "API_URL",
+        "AUTH_SECRET",
+        "DATABASE_URL",
+        "NODE_ENV"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
