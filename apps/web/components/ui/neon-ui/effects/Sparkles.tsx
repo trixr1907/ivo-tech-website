@@ -3,7 +3,12 @@
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import { Vector3, Color, BufferAttribute, AdditiveBlending } from '@/lib/three-utils';
+import {
+  Vector3,
+  Color,
+  BufferAttribute,
+  AdditiveBlending,
+} from '@/lib/three-utils';
 import { SparkleProps } from '../types';
 
 interface SparkleParticle {
@@ -38,10 +43,16 @@ function SparkleSystem({
             (Math.random() - 0.5) * 2,
             (Math.random() - 0.5) * 0.5
           ),
-          velocity: new THREE.Vector3((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 2),
+          velocity: new THREE.Vector3(
+            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 2
+          ),
           life: 1.0,
           maxLife: duration / 1000,
-          color: new THREE.Color(colors[Math.floor(Math.random() * colors.length)]),
+          color: new THREE.Color(
+            colors[Math.floor(Math.random() * colors.length)]
+          ),
           size: size * (0.5 + Math.random() * 0.5),
         };
         newParticles.push(particle);
@@ -88,9 +99,18 @@ function SparkleSystem({
 
     // Geometry aktualisieren
     if (pointsRef.current.geometry) {
-      pointsRef.current.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      pointsRef.current.geometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
-      pointsRef.current.geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+      pointsRef.current.geometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(positions, 3)
+      );
+      pointsRef.current.geometry.setAttribute(
+        'color',
+        new THREE.BufferAttribute(colorsArray, 3)
+      );
+      pointsRef.current.geometry.setAttribute(
+        'size',
+        new THREE.BufferAttribute(sizes, 1)
+      );
       pointsRef.current.geometry.attributes.position.needsUpdate = true;
       pointsRef.current.geometry.attributes.color.needsUpdate = true;
       pointsRef.current.geometry.attributes.size.needsUpdate = true;
@@ -101,21 +121,21 @@ function SparkleSystem({
     <Points ref={pointsRef} frustumCulled={false}>
       <bufferGeometry>
         <bufferAttribute
-          attach='attributes-position'
+          attach="attributes-position"
           args={[new Float32Array(count * 3), 3]}
           count={count}
           array={new Float32Array(count * 3)}
           itemSize={3}
         />
         <bufferAttribute
-          attach='attributes-color'
+          attach="attributes-color"
           args={[new Float32Array(count * 3), 3]}
           count={count}
           array={new Float32Array(count * 3)}
           itemSize={3}
         />
         <bufferAttribute
-          attach='attributes-size'
+          attach="attributes-size"
           args={[new Float32Array(count), 1]}
           count={count}
           array={new Float32Array(count)}
@@ -136,7 +156,10 @@ function SparkleSystem({
 
 export function Sparkles(props: SparkleProps) {
   return (
-    <div className='pointer-events-none absolute inset-0' style={{ mixBlendMode: 'screen' }}>
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{ mixBlendMode: 'screen' }}
+    >
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{

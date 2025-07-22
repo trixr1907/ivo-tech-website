@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { NeonContextType } from './types';
 
 const NeonContext = createContext<NeonContextType | null>(null);
@@ -10,7 +16,10 @@ interface NeonProviderProps {
   enableAudio?: boolean;
 }
 
-export function NeonProvider({ children, enableAudio = false }: NeonProviderProps) {
+export function NeonProvider({
+  children,
+  enableAudio = false,
+}: NeonProviderProps) {
   const [is4DMode, setIs4DMode] = useState(false);
   const [audioContext, setAudioContext] = useState<AudioContext>();
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode>();
@@ -27,7 +36,9 @@ export function NeonProvider({ children, enableAudio = false }: NeonProviderProp
         const analyser = context.createAnalyser();
 
         // Mikrofon-Stream anfragen
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
         const source = context.createMediaStreamSource(stream);
 
         source.connect(analyser);
@@ -66,13 +77,17 @@ export function NeonProvider({ children, enableAudio = false }: NeonProviderProp
     toggle4DMode,
   };
 
-  return <NeonContext.Provider value={contextValue}>{children}</NeonContext.Provider>;
+  return (
+    <NeonContext.Provider value={contextValue}>{children}</NeonContext.Provider>
+  );
 }
 
 export function useNeonContext(): NeonContextType {
   const context = useContext(NeonContext);
   if (!context) {
-    throw new Error('useNeonContext muss innerhalb eines NeonProviders verwendet werden');
+    throw new Error(
+      'useNeonContext muss innerhalb eines NeonProviders verwendet werden'
+    );
   }
   return context;
 }

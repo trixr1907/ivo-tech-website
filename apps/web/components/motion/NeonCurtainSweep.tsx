@@ -114,7 +114,11 @@ const CurtainMesh: React.FC<{
 // Main Neon Curtain Sweep Component
 interface NeonCurtainSweepProps {
   isActive: boolean;
-  direction: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top';
+  direction:
+    | 'left-to-right'
+    | 'right-to-left'
+    | 'top-to-bottom'
+    | 'bottom-to-top';
   color?: [number, number, number];
   duration?: number;
   intensity?: number;
@@ -161,21 +165,28 @@ export const NeonCurtainSweep: React.FC<NeonCurtainSweepProps> = ({
 
   return (
     <motion.div
-      className='pointer-events-none fixed inset-0 z-[9999]'
+      className="pointer-events-none fixed inset-0 z-[9999]"
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className='h-full w-full'>
-        <Canvas camera={{ position: [0, 0, 1], fov: 75 }} style={{ background: 'transparent' }}>
-          <CurtainMesh progress={progress} color={color} intensity={intensity} />
+      <div className="h-full w-full">
+        <Canvas
+          camera={{ position: [0, 0, 1], fov: 75 }}
+          style={{ background: 'transparent' }}
+        >
+          <CurtainMesh
+            progress={progress}
+            color={color}
+            intensity={intensity}
+          />
         </Canvas>
       </div>
 
       {/* Additional CSS-based effect overlay */}
       <div
-        className='absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent'
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
         style={{
           transform: `translateX(${(progress - 0.5) * 200}%)`,
           filter: `blur(${(1 - progress) * 4}px)`,
@@ -249,7 +260,7 @@ export const NeonLink: React.FC<{
 
         {/* Neon underline effect */}
         <motion.div
-          className='absolute bottom-0 left-0 h-0.5 bg-current'
+          className="absolute bottom-0 left-0 h-0.5 bg-current"
           initial={{ width: '0%' }}
           whileHover={{ width: '100%' }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -262,7 +273,7 @@ export const NeonLink: React.FC<{
 
       <NeonCurtainSweep
         isActive={isTransitioning}
-        direction='left-to-right'
+        direction="left-to-right"
         color={curtainColor}
         duration={1.2}
         intensity={1.5}

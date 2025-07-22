@@ -5,8 +5,12 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Box, Text, Html, useGLTF, Sphere } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSound from 'use-sound';
-import { BoxGeometry, ConeGeometry, Color } from 'three';
-import { roastEngine, formatRoastForDisplay, type RoastEntry } from './RoastEngine';
+import * as THREE from 'three';
+import {
+  roastEngine,
+  formatRoastForDisplay,
+  type RoastEntry,
+} from './RoastEngine';
 
 // Types
 interface RoastJoke {
@@ -28,26 +32,74 @@ interface ParticleProps {
 
 // Roast Jokes Database
 const roastJokes: RoastJoke[] = [
-  { text: 'Still waiting for that Bitcoin crash since 2009? 📉😂', level: 'mild' },
-  { text: 'Your portfolio is flatter than the Earth you think it is 🌍💸', level: 'medium' },
-  { text: 'Buying the dip... of traditional banking tears 🏦😭', level: 'mild' },
+  {
+    text: 'Still waiting for that Bitcoin crash since 2009? 📉😂',
+    level: 'mild',
+  },
+  {
+    text: 'Your portfolio is flatter than the Earth you think it is 🌍💸',
+    level: 'medium',
+  },
+  {
+    text: 'Buying the dip... of traditional banking tears 🏦😭',
+    level: 'mild',
+  },
   { text: 'HODL? More like NOPE-L for you! 💎🙌', level: 'mild' },
-  { text: 'Your fiat money printer goes BRRR... straight to zero 🖨️💸', level: 'medium' },
-  { text: "Still believing in 'store of value' gold while missing digital gold? ⚡🪙", level: 'medium' },
+  {
+    text: 'Your fiat money printer goes BRRR... straight to zero 🖨️💸',
+    level: 'medium',
+  },
+  {
+    text: "Still believing in 'store of value' gold while missing digital gold? ⚡🪙",
+    level: 'medium',
+  },
   { text: "Web3? You're still stuck in Web0.5 mindset! 🕸️🧠", level: 'savage' },
-  { text: 'Your investment strategy: Buy high, sell low, repeat 📊🤡', level: 'savage' },
-  { text: 'Satoshi would be disappointed in your paper hands 📄🤲', level: 'savage' },
-  { text: 'Still paying bank fees while DeFi laughs in your face 🏛️😂', level: 'medium' },
+  {
+    text: 'Your investment strategy: Buy high, sell low, repeat 📊🤡',
+    level: 'savage',
+  },
+  {
+    text: 'Satoshi would be disappointed in your paper hands 📄🤲',
+    level: 'savage',
+  },
+  {
+    text: 'Still paying bank fees while DeFi laughs in your face 🏛️😂',
+    level: 'medium',
+  },
 ];
 
 // Mock positive tech headlines
 const techHeadlines: NewsHeadline[] = [
-  { title: 'Revolutionary AI Breakthrough Promises Better Healthcare', source: 'TechCrunch', positive: true },
-  { title: 'Sustainable Energy Solutions Reach New Efficiency Records', source: 'GreenTech', positive: true },
-  { title: 'Quantum Computing Makes Major Leap Forward', source: 'ScienceDaily', positive: true },
-  { title: 'Blockchain Technology Enhances Supply Chain Transparency', source: 'CoinDesk', positive: true },
-  { title: 'Neural Interfaces Show Promise for Paralyzed Patients', source: 'MedTech', positive: true },
-  { title: 'Clean Water Technology Deployed in Remote Areas', source: 'HumanitarianTech', positive: true },
+  {
+    title: 'Revolutionary AI Breakthrough Promises Better Healthcare',
+    source: 'TechCrunch',
+    positive: true,
+  },
+  {
+    title: 'Sustainable Energy Solutions Reach New Efficiency Records',
+    source: 'GreenTech',
+    positive: true,
+  },
+  {
+    title: 'Quantum Computing Makes Major Leap Forward',
+    source: 'ScienceDaily',
+    positive: true,
+  },
+  {
+    title: 'Blockchain Technology Enhances Supply Chain Transparency',
+    source: 'CoinDesk',
+    positive: true,
+  },
+  {
+    title: 'Neural Interfaces Show Promise for Paralyzed Patients',
+    source: 'MedTech',
+    positive: true,
+  },
+  {
+    title: 'Clean Water Technology Deployed in Remote Areas',
+    source: 'HumanitarianTech',
+    positive: true,
+  },
 ];
 
 // Konami Code sequence
@@ -65,7 +117,13 @@ const KONAMI_CODE = [
 ];
 
 // Particle System Component
-function ParticleSystem({ trigger, position }: { trigger: number; position: [number, number, number] }) {
+function ParticleSystem({
+  trigger,
+  position,
+}: {
+  trigger: number;
+  position: [number, number, number];
+}) {
   const particlesRef = useRef<THREE.Points>(null);
   const [particles, setParticles] = useState<ParticleProps[]>([]);
 
@@ -76,7 +134,11 @@ function ParticleSystem({ trigger, position }: { trigger: number; position: [num
       for (let i = 0; i < 50; i++) {
         newParticles.push({
           position: [...position] as [number, number, number],
-          velocity: [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10],
+          velocity: [
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 10,
+          ],
           life: 1.0,
         });
       }
@@ -109,7 +171,11 @@ function ParticleSystem({ trigger, position }: { trigger: number; position: [num
     <group>
       {particles.map((particle, index) => (
         <Sphere key={index} position={particle.position} args={[0.05]}>
-          <meshBasicMaterial color='#ffd700' transparent opacity={particle.life} />
+          <meshBasicMaterial
+            color="#ffd700"
+            transparent
+            opacity={particle.life}
+          />
         </Sphere>
       ))}
     </group>
@@ -117,7 +183,13 @@ function ParticleSystem({ trigger, position }: { trigger: number; position: [num
 }
 
 // Shader Material for Screen Effect
-const ScreenMaterial = ({ text, isRaptor }: { text: string; isRaptor: boolean }) => {
+const ScreenMaterial = ({
+  text,
+  isRaptor,
+}: {
+  text: string;
+  isRaptor: boolean;
+}) => {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
   const vertexShader = `
@@ -199,25 +271,22 @@ function ArcadeCabinet({
 
   useFrame(state => {
     if (cabinetRef.current && !isTransformed) {
-      cabinetRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+      cabinetRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
     }
   });
 
-  const cabinetGeometry = useMemo(() => {
-    if (isTransformed) {
-      // Laser Raptor transformation
-      const geometry = new THREE.ConeGeometry(1, 3, 8);
-      return geometry;
-    } else {
-      // Regular arcade cabinet
-      return new THREE.BoxGeometry(2, 3, 1);
-    }
-  }, [isTransformed]);
+  // Verwende JSX-Geometrien statt Three.js-Konstruktoren
 
   return (
     <group ref={cabinetRef} onClick={onClick}>
       {/* Main Cabinet Body */}
-      <mesh geometry={cabinetGeometry}>
+      <mesh>
+        {isTransformed ? (
+          <coneGeometry args={[1, 3, 8]} />
+        ) : (
+          <boxGeometry args={[2, 3, 1]} />
+        )}
         <meshStandardMaterial
           color={isTransformed ? '#ff4500' : '#2a0845'}
           emissive={isTransformed ? '#ff2200' : '#4a1a5a'}
@@ -235,20 +304,24 @@ function ArcadeCabinet({
 
       {/* Screen Frame */}
       <Box position={[0, 0.5, 0.52]} args={[1.8, 1.2, 0.05]}>
-        <meshStandardMaterial color='#1a1a1a' metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
       </Box>
 
       {/* Control Panel */}
       {!isTransformed && (
         <Box position={[0, -0.5, 0.51]} args={[1.5, 0.5, 0.1]}>
-          <meshStandardMaterial color='#333333' metalness={0.5} roughness={0.5} />
+          <meshStandardMaterial
+            color="#333333"
+            metalness={0.5}
+            roughness={0.5}
+          />
         </Box>
       )}
 
       {/* Coin Slot */}
       {!isTransformed && (
         <Box position={[0.6, 0, 0.51]} args={[0.2, 0.05, 0.02]}>
-          <meshStandardMaterial color='#000000' />
+          <meshStandardMaterial color="#000000" />
         </Box>
       )}
 
@@ -256,10 +329,10 @@ function ArcadeCabinet({
       {isTransformed && (
         <>
           <Box position={[-0.8, 1, 0]} args={[0.05, 2, 0.05]}>
-            <meshBasicMaterial color='#ff0000' />
+            <meshBasicMaterial color="#ff0000" />
           </Box>
           <Box position={[0.8, 1, 0]} args={[0.05, 2, 0.05]}>
-            <meshBasicMaterial color='#ff0000' />
+            <meshBasicMaterial color="#ff0000" />
           </Box>
         </>
       )}
@@ -268,7 +341,13 @@ function ArcadeCabinet({
 }
 
 // Virtual Coin Component
-function VirtualCoin({ position, onLand }: { position: [number, number, number]; onLand: () => void }) {
+function VirtualCoin({
+  position,
+  onLand,
+}: {
+  position: [number, number, number];
+  onLand: () => void;
+}) {
   const coinRef = useRef<THREE.Mesh>(null);
   const [velocity, setVelocity] = useState<[number, number, number]>([0, 0, 0]);
   const [hasLanded, setHasLanded] = useState(false);
@@ -301,22 +380,33 @@ function VirtualCoin({ position, onLand }: { position: [number, number, number];
   return (
     <mesh ref={coinRef} position={position}>
       <cylinderGeometry args={[0.15, 0.15, 0.05, 32]} />
-      <meshStandardMaterial color='#ffd700' metalness={0.8} roughness={0.2} />
+      <meshStandardMaterial color="#ffd700" metalness={0.8} roughness={0.2} />
     </mesh>
   );
 }
 
 // Main Component
-export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }) {
+export function NoCoinerRoastMachine({
+  onComplete,
+}: {
+  onComplete?: () => void;
+}) {
   const [currentRoast, setCurrentRoast] = useState<RoastEntry | null>(null);
-  const [currentHeadline, setCurrentHeadline] = useState<NewsHeadline>(techHeadlines[0]);
-  const [humorLevel, setHumorLevel] = useState<'mild' | 'medium' | 'savage'>('mild');
-  const [coins, setCoins] = useState<Array<{ id: number; position: [number, number, number] }>>([]);
+  const [currentHeadline, setCurrentHeadline] = useState<NewsHeadline>(
+    techHeadlines[0]
+  );
+  const [humorLevel, setHumorLevel] = useState<'mild' | 'medium' | 'savage'>(
+    'mild'
+  );
+  const [coins, setCoins] = useState<
+    Array<{ id: number; position: [number, number, number] }>
+  >([]);
   const [particleTrigger, setParticleTrigger] = useState(0);
   const [konamiSequence, setKonamiSequence] = useState<string[]>([]);
   const [isTransformed, setIsTransformed] = useState(false);
   const [score, setScore] = useState(0);
-  const [rssHeadlines, setRssHeadlines] = useState<NewsHeadline[]>(techHeadlines);
+  const [rssHeadlines, setRssHeadlines] =
+    useState<NewsHeadline[]>(techHeadlines);
   const [enableMarkdown, setEnableMarkdown] = useState(true);
 
   // Sound effects (mock URLs - in production use actual sound files)
@@ -368,7 +458,8 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
       setCurrentRoast(roast);
 
       // Rotate headlines from RSS or fallback
-      const randomHeadline = rssHeadlines[Math.floor(Math.random() * rssHeadlines.length)];
+      const randomHeadline =
+        rssHeadlines[Math.floor(Math.random() * rssHeadlines.length)];
       setCurrentHeadline(randomHeadline);
     }, roastEngine.getSettings().rotationInterval);
 
@@ -404,7 +495,11 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
   const throwCoin = () => {
     const newCoin = {
       id: Date.now(),
-      position: [Math.random() * 4 - 2, 5, Math.random() * 2 - 1] as [number, number, number],
+      position: [Math.random() * 4 - 2, 5, Math.random() * 2 - 1] as [
+        number,
+        number,
+        number,
+      ],
     };
 
     setCoins(prev => [...prev, newCoin]);
@@ -431,44 +526,56 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
   };
 
   return (
-    <div className='relative h-full w-full bg-gradient-to-b from-purple-900 via-blue-900 to-black'>
+    <div className="relative h-full w-full bg-gradient-to-b from-purple-900 via-blue-900 to-black">
       {/* Game UI Overlay */}
-      <div className='absolute left-4 top-4 z-10 rounded-lg bg-black/80 p-4 text-white backdrop-blur'>
-        <h3 className='mb-2 text-xl font-bold'>{isTransformed ? '🦖 LASER RAPTOR' : '🎰 No-Coiner Roast Machine'}</h3>
-        <div className='space-y-2 text-sm'>
+      <div className="absolute left-4 top-4 z-10 rounded-lg bg-black/80 p-4 text-white backdrop-blur">
+        <h3 className="mb-2 text-xl font-bold">
+          {isTransformed ? '🦖 LASER RAPTOR' : '🎰 No-Coiner Roast Machine'}
+        </h3>
+        <div className="space-y-2 text-sm">
           <div>Score: {score} coins</div>
           <div>
             Humor Level:
             <select
               value={humorLevel}
-              onChange={e => setHumorLevel(e.target.value as 'mild' | 'medium' | 'savage')}
-              className='ml-2 rounded bg-gray-800 px-2 text-white'
+              onChange={e =>
+                setHumorLevel(e.target.value as 'mild' | 'medium' | 'savage')
+              }
+              className="ml-2 rounded bg-gray-800 px-2 text-white"
               disabled={isTransformed}
             >
-              <option value='mild'>😊 Mild</option>
-              <option value='medium'>😏 Medium</option>
-              <option value='savage'>🔥 Savage</option>
+              <option value="mild">😊 Mild</option>
+              <option value="medium">😏 Medium</option>
+              <option value="savage">🔥 Savage</option>
             </select>
           </div>
-          <div className='text-xs text-gray-300'>
-            {isTransformed ? 'RAPTOR MODE ACTIVE!' : 'Klick to throw coins! Try the Konami Code...'}
+          <div className="text-xs text-gray-300">
+            {isTransformed
+              ? 'RAPTOR MODE ACTIVE!'
+              : 'Klick to throw coins! Try the Konami Code...'}
           </div>
         </div>
       </div>
 
       {/* Current Message Display */}
-      <div className='absolute right-4 top-4 z-10 max-w-md rounded-lg bg-black/80 p-4 text-white backdrop-blur'>
-        <h4 className='mb-2 text-sm font-bold'>
-          {isTransformed ? 'ROAR!' : Math.random() > 0.5 ? '🔥 Current Roast:' : '📰 Tech News:'}
+      <div className="absolute right-4 top-4 z-10 max-w-md rounded-lg bg-black/80 p-4 text-white backdrop-blur">
+        <h4 className="mb-2 text-sm font-bold">
+          {isTransformed
+            ? 'ROAR!'
+            : Math.random() > 0.5
+              ? '🔥 Current Roast:'
+              : '📰 Tech News:'}
         </h4>
-        <div className='text-sm leading-relaxed'>{getScreenText()}</div>
+        <div className="text-sm leading-relaxed">{getScreenText()}</div>
         {!isTransformed && currentHeadline.source && Math.random() <= 0.5 && (
-          <div className='mt-1 text-xs text-gray-400'>Source: {currentHeadline.source}</div>
+          <div className="mt-1 text-xs text-gray-400">
+            Source: {currentHeadline.source}
+          </div>
         )}
       </div>
 
       {/* Throw Coin Button */}
-      <div className='absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transform'>
+      <div className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transform">
         <button
           onClick={throwCoin}
           className={`rounded-lg px-6 py-3 font-bold transition-all ${
@@ -483,14 +590,23 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
       </div>
 
       {/* Konami Code Hint */}
-      <div className='absolute bottom-4 right-4 z-10 text-xs text-gray-400'>Easter Egg: ↑↑↓↓←→←→BA</div>
+      <div className="absolute bottom-4 right-4 z-10 text-xs text-gray-400">
+        Easter Egg: ↑↑↓↓←→←→BA
+      </div>
 
       {/* 3D Scene */}
-      <Canvas camera={{ position: [0, 2, 8], fov: 50 }} gl={{ antialias: true }}>
+      <Canvas
+        camera={{ position: [0, 2, 8], fov: 50 }}
+        gl={{ antialias: true }}
+      >
         {/* Lighting */}
         <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={1} color='#ffffff' />
-        <pointLight position={[-10, 5, 5]} intensity={0.8} color={isTransformed ? '#ff4500' : '#00ffff'} />
+        <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
+        <pointLight
+          position={[-10, 5, 5]}
+          intensity={0.8}
+          color={isTransformed ? '#ff4500' : '#00ffff'}
+        />
         <spotLight
           position={[0, 8, 0]}
           angle={0.3}
@@ -500,11 +616,19 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
         />
 
         {/* Arcade Cabinet */}
-        <ArcadeCabinet onClick={throwCoin} isTransformed={isTransformed} screenText={getScreenText()} />
+        <ArcadeCabinet
+          onClick={throwCoin}
+          isTransformed={isTransformed}
+          screenText={getScreenText()}
+        />
 
         {/* Virtual Coins */}
         {coins.map(coin => (
-          <VirtualCoin key={coin.id} position={coin.position} onLand={() => handleCoinLand(coin.id)} />
+          <VirtualCoin
+            key={coin.id}
+            position={coin.position}
+            onLand={() => handleCoinLand(coin.id)}
+          />
         ))}
 
         {/* Particle Systems */}
@@ -512,12 +636,20 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
 
         {/* Background Elements */}
         <Box position={[0, 0, -5]} args={[20, 12, 0.1]}>
-          <meshStandardMaterial color={isTransformed ? '#2a0000' : '#0a0a2a'} transparent opacity={0.3} />
+          <meshStandardMaterial
+            color={isTransformed ? '#2a0000' : '#0a0a2a'}
+            transparent
+            opacity={0.3}
+          />
         </Box>
 
         {/* Floor */}
         <Box position={[0, -3, 0]} args={[20, 0.2, 10]}>
-          <meshStandardMaterial color='#1a1a1a' metalness={0.8} roughness={0.3} />
+          <meshStandardMaterial
+            color="#1a1a1a"
+            metalness={0.8}
+            roughness={0.3}
+          />
         </Box>
 
         {/* Floating Text */}
@@ -525,10 +657,12 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
           position={[0, -1.5, 2]}
           fontSize={0.3}
           color={isTransformed ? '#ff4500' : '#00ff88'}
-          anchorX='center'
-          anchorY='middle'
+          anchorX="center"
+          anchorY="middle"
         >
-          {isTransformed ? '🦖 LASER RAPTOR ACTIVATED! 🔥' : 'Click the Machine to Throw Coins!'}
+          {isTransformed
+            ? '🦖 LASER RAPTOR ACTIVATED! 🔥'
+            : 'Click the Machine to Throw Coins!'}
         </Text>
 
         {/* Success particles when transformed */}
@@ -537,10 +671,14 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
             {Array.from({ length: 20 }).map((_, i) => (
               <Sphere
                 key={i}
-                position={[Math.sin(i * 0.5) * 3, Math.cos(i * 0.3) * 2 + 2, Math.sin(i * 0.7) * 2]}
+                position={[
+                  Math.sin(i * 0.5) * 3,
+                  Math.cos(i * 0.3) * 2 + 2,
+                  Math.sin(i * 0.7) * 2,
+                ]}
                 args={[0.1]}
               >
-                <meshBasicMaterial color='#ff4500' />
+                <meshBasicMaterial color="#ff4500" />
               </Sphere>
             ))}
           </group>
@@ -554,13 +692,13 @@ export function NoCoinerRoastMachine({ onComplete }: { onComplete?: () => void }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className='pointer-events-none absolute inset-0 z-30'
+            className="pointer-events-none absolute inset-0 z-30"
           >
-            <div className='absolute inset-0 animate-pulse bg-gradient-to-r from-red-500/20 to-orange-500/20' />
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-red-500/20 to-orange-500/20" />
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
-              className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-6xl'
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-6xl"
             >
               🦖
             </motion.div>

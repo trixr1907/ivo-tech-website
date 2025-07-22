@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ContentAggregator, getCachedData, setCachedData, RateLimiter } from '../../../../lib/contentProviders';
+import {
+  ContentAggregator,
+  getCachedData,
+  setCachedData,
+  RateLimiter,
+} from '../../../../lib/contentProviders';
 
 // Edge Runtime für low-latency
 export const runtime = 'edge';
@@ -17,7 +22,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     // Rate Limiting - 100 requests per hour per IP
-    const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'anonymous';
+    const clientIP =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'anonymous';
     if (!rateLimiter.canMakeRequest(clientIP, 100, 60 * 60 * 1000)) {
       return NextResponse.json(
         {

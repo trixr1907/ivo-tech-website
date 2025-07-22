@@ -38,13 +38,17 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 // Mock Recharts components
 jest.mock('recharts', () => ({
-  ResponsiveContainer: ({ children }: any) => <div data-testid='responsive-container'>{children}</div>,
-  AreaChart: ({ children }: any) => <div data-testid='area-chart'>{children}</div>,
-  Area: () => <div data-testid='area' />,
-  XAxis: () => <div data-testid='x-axis' />,
-  YAxis: () => <div data-testid='y-axis' />,
-  CartesianGrid: () => <div data-testid='cartesian-grid' />,
-  Tooltip: () => <div data-testid='tooltip' />,
+  ResponsiveContainer: ({ children }: any) => (
+    <div data-testid="responsive-container">{children}</div>
+  ),
+  AreaChart: ({ children }: any) => (
+    <div data-testid="area-chart">{children}</div>
+  ),
+  Area: () => <div data-testid="area" />,
+  XAxis: () => <div data-testid="x-axis" />,
+  YAxis: () => <div data-testid="y-axis" />,
+  CartesianGrid: () => <div data-testid="cartesian-grid" />,
+  Tooltip: () => <div data-testid="tooltip" />,
 }));
 
 describe('CryptoDashboard', () => {
@@ -69,7 +73,9 @@ describe('CryptoDashboard', () => {
         expect(screen.getByText('Live')).toBeInTheDocument();
         expect(screen.getByText('Crypto')).toBeInTheDocument();
         expect(screen.getByText('Dashboard')).toBeInTheDocument();
-        expect(screen.getByText(/Echtzeit-Kryptowährungsdaten/)).toBeInTheDocument();
+        expect(
+          screen.getByText(/Echtzeit-Kryptowährungsdaten/)
+        ).toBeInTheDocument();
       });
     });
 
@@ -103,7 +109,9 @@ describe('CryptoDashboard', () => {
 
       await waitFor(() => {
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          expect.stringContaining('https://api.coingecko.com/api/v3/coins/markets')
+          expect.stringContaining(
+            'https://api.coingecko.com/api/v3/coins/markets'
+          )
         );
       });
     });
@@ -114,7 +122,9 @@ describe('CryptoDashboard', () => {
       render(<CryptoDashboard />);
 
       await waitFor(() => {
-        expect(screen.getByText(/Failed to fetch crypto data/)).toBeInTheDocument();
+        expect(
+          screen.getByText(/Failed to fetch crypto data/)
+        ).toBeInTheDocument();
         // Should still render fallback demo data
         expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       });
@@ -196,7 +206,9 @@ describe('CryptoDashboard', () => {
       render(<CryptoDashboard />);
 
       await waitFor(() => {
-        expect(screen.getByText('⚠️ Failed to fetch crypto data. Using demo data.')).toBeInTheDocument();
+        expect(
+          screen.getByText('⚠️ Failed to fetch crypto data. Using demo data.')
+        ).toBeInTheDocument();
       });
     });
 

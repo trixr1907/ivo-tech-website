@@ -1,8 +1,18 @@
 'use client';
 
-import React, { Suspense, useState, useEffect, lazy, ComponentType, Component } from 'react';
+import React, {
+  useState,
+  useEffect,
+  lazy,
+  ComponentType,
+  Component,
+} from 'react';
 import { Canvas } from '@react-three/fiber';
-import { isLowEndDevice, prefersReducedMotion, getPerformanceBudget } from '../../lib/utils';
+import {
+  isLowEndDevice,
+  prefersReducedMotion,
+  getPerformanceBudget,
+} from '../../lib/utils';
 import { SVGLogoFallback } from '../ui/SVGLogoFallback';
 
 // Lazy Loading für schwere 3D-Komponenten
@@ -36,68 +46,47 @@ interface DeviceCapabilities {
 /**
  * 3D Loading Spinner
  */
-function Loading3D({ message = '3D-Inhalte werden geladen...' }: { message?: string }) {
+function Loading3D({
+  message = '3D-Inhalte werden geladen...',
+}: {
+  message?: string;
+}) {
   return (
-    <div className='flex h-full min-h-[200px] items-center justify-center rounded-lg border border-cyan-500/30 bg-gray-900/50'>
-      <div className='text-center'>
-        <div className='mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent' />
-        <p className='font-mono text-sm text-cyan-400'>{message}</p>
-        <div className='mt-2 text-xs text-gray-400'>Optimiere für dein Gerät...</div>
+    <div className="flex h-full min-h-[200px] items-center justify-center rounded-lg border border-cyan-500/30 bg-gray-900/50">
+      <div className="text-center">
+        <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
+        <p className="font-mono text-sm text-cyan-400">{message}</p>
+        <div className="mt-2 text-xs text-gray-400">
+          Optimiere für dein Gerät...
+        </div>
       </div>
     </div>
   );
 }
 
-/**
- * Custom Error Boundary für 3D-Komponenten
- */
-class ThreeJSErrorBoundary extends Component<
-  { children: React.ReactNode; fallback: React.ComponentType<{ error: Error; retry: () => void }> },
-  { hasError: boolean; error: Error | null }
-> {
-  constructor(props: {
-    children: React.ReactNode;
-    fallback: React.ComponentType<{ error: Error; retry: () => void }>;
-  }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('3D Component Error:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError && this.state.error) {
-      const FallbackComponent = this.props.fallback;
-      return (
-        <FallbackComponent error={this.state.error} retry={() => this.setState({ hasError: false, error: null })} />
-      );
-    }
-
-    return this.props.children;
-  }
-}
+// Vereinfachte Error Boundary - temporär deaktiviert
 
 /**
  * Error Fallback für 3D-Komponenten
  */
-function Error3DFallback({ error, retry }: { error: Error; retry: () => void }) {
+function Error3DFallback({
+  error,
+  retry,
+}: {
+  error: Error;
+  retry: () => void;
+}) {
   return (
-    <div className='flex h-full min-h-[200px] items-center justify-center rounded-lg border border-red-500/30 bg-red-900/20'>
-      <div className='p-6 text-center'>
-        <div className='mb-2 text-2xl text-red-400'>⚠️</div>
-        <h3 className='mb-2 font-semibold text-red-400'>3D-Rendering Fehler</h3>
-        <p className='mb-4 text-sm text-red-300'>
+    <div className="flex h-full min-h-[200px] items-center justify-center rounded-lg border border-red-500/30 bg-red-900/20">
+      <div className="p-6 text-center">
+        <div className="mb-2 text-2xl text-red-400">⚠️</div>
+        <h3 className="mb-2 font-semibold text-red-400">3D-Rendering Fehler</h3>
+        <p className="mb-4 text-sm text-red-300">
           {error.message || 'WebGL wird nicht unterstützt oder ist deaktiviert'}
         </p>
         <button
           onClick={retry}
-          className='rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700'
+          className="rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
         >
           Erneut versuchen
         </button>
@@ -117,15 +106,18 @@ export function Adaptive3DContainer({
   forceSVGFallback = false,
   enablePerformanceMonitoring = true,
 }: Adaptive3DContainerProps) {
-  const [deviceCapabilities, setDeviceCapabilities] = useState<DeviceCapabilities>({
-    canHandle3D: true,
-    canHandleAnimations: true,
-    shouldUseLowPoly: false,
-    recommendedFPS: 60,
-    maxParticles: 500,
-  });
+  const [deviceCapabilities, setDeviceCapabilities] =
+    useState<DeviceCapabilities>({
+      canHandle3D: true,
+      canHandleAnimations: true,
+      shouldUseLowPoly: false,
+      recommendedFPS: 60,
+      maxParticles: 500,
+    });
   const [showFallback, setShowFallback] = useState(false);
-  const [performanceGrade, setPerformanceGrade] = useState<'A' | 'B' | 'C' | 'D' | 'F'>('A');
+  const [performanceGrade, setPerformanceGrade] = useState<
+    'A' | 'B' | 'C' | 'D' | 'F'
+  >('A');
 
   // Device Capabilities Detection
   useEffect(() => {
@@ -152,7 +144,9 @@ export function Adaptive3DContainer({
 
       // GPU-Info abrufen (falls verfügbar)
       const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-      const renderer = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : '';
+      const renderer = debugInfo
+        ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+        : '';
 
       // Intel HD Graphics = Low-End GPU
       const isLowEndGPU = renderer.includes('Intel') && renderer.includes('HD');
@@ -258,7 +252,9 @@ export function Adaptive3DContainer({
       gl: {
         antialias: !isLowEnd,
         alpha: true,
-        powerPreference: (isLowEnd ? 'low-power' : 'high-performance') as WebGLPowerPreference,
+        powerPreference: (isLowEnd
+          ? 'low-power'
+          : 'high-performance') as WebGLPowerPreference,
         stencil: false,
         depth: true,
       },
@@ -280,7 +276,7 @@ export function Adaptive3DContainer({
   // Zeige SVG-Fallback wenn nötig
   if (showFallback || !deviceCapabilities.canHandle3D) {
     if (FallbackComponent) {
-      return <FallbackComponent {...componentProps} />;
+      return React.createElement(FallbackComponent, componentProps);
     }
 
     if (component === '3d-logo') {
@@ -297,11 +293,13 @@ export function Adaptive3DContainer({
     }
 
     return (
-      <div className={`${className} flex items-center justify-center rounded-lg bg-gray-800/50`}>
-        <div className='text-center text-gray-400'>
-          <div className='mb-2 text-2xl'>📱</div>
-          <p className='text-sm'>Optimiert für dein Gerät</p>
-          <p className='mt-1 text-xs'>3D-Inhalte sind deaktiviert</p>
+      <div
+        className={`${className} flex items-center justify-center rounded-lg bg-gray-800/50`}
+      >
+        <div className="text-center text-gray-400">
+          <div className="mb-2 text-2xl">📱</div>
+          <p className="text-sm">Optimiert für dein Gerät</p>
+          <p className="mt-1 text-xs">3D-Inhalte sind deaktiviert</p>
         </div>
       </div>
     );
@@ -314,23 +312,21 @@ export function Adaptive3DContainer({
   return (
     <div className={`relative ${className}`}>
       {/* Performance Badge (nur in Development) */}
-      {process.env.NODE_ENV === 'development' && enablePerformanceMonitoring && (
-        <div className='absolute right-2 top-2 z-10 rounded bg-black/80 px-2 py-1 font-mono text-xs text-white'>
-          Grade: {performanceGrade} | FPS: {deviceCapabilities.recommendedFPS}
-        </div>
-      )}
+      {process.env.NODE_ENV === 'development' &&
+        enablePerformanceMonitoring && (
+          <div className="absolute right-2 top-2 z-10 rounded bg-black/80 px-2 py-1 font-mono text-xs text-white">
+            Grade: {performanceGrade} | FPS: {deviceCapabilities.recommendedFPS}
+          </div>
+        )}
 
-      <ThreeJSErrorBoundary fallback={Error3DFallback}>
-        <Suspense fallback={<Loading3D message='3D-Assets werden geladen...' />}>
-          <Canvas {...canvasSettings}>
-            <Component3D {...adaptiveProps} />
-          </Canvas>
-        </Suspense>
-      </ThreeJSErrorBoundary>
+      {/* Temporarily disabled due to Canvas issues */}
+      <div className="flex h-full w-full items-center justify-center">
+        <p className="text-gray-400">3D-Komponente temporär deaktiviert</p>
+      </div>
 
       {/* Mobile Performance Warning */}
       {deviceCapabilities.shouldUseLowPoly && (
-        <div className='absolute bottom-2 left-2 rounded bg-black/60 px-2 py-1 text-xs text-yellow-400'>
+        <div className="absolute bottom-2 left-2 rounded bg-black/60 px-2 py-1 text-xs text-yellow-400">
           ⚡ Reduzierte Qualität für bessere Performance
         </div>
       )}

@@ -27,7 +27,11 @@ function CardLayer({
   return (
     <mesh ref={meshRef} position={[0, 0, depth]}>
       <planeGeometry args={[6, 4]} />
-      <meshBasicMaterial transparent opacity={opacity * (isHovered ? 1.2 : 1)} color={glowColor} />
+      <meshBasicMaterial
+        transparent
+        opacity={opacity * (isHovered ? 1.2 : 1)}
+        color={glowColor}
+      />
       <Html
         center
         transform
@@ -38,7 +42,7 @@ function CardLayer({
           height: '200px',
         }}
       >
-        <div className='h-full w-full'>{children}</div>
+        <div className="h-full w-full">{children}</div>
       </Html>
     </mesh>
   );
@@ -131,11 +135,11 @@ export function NeonCard({
       onMouseEnter={() => interactive && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       variants={cardVariants}
-      initial='rest'
+      initial="rest"
       animate={isHovered ? 'hover' : 'rest'}
     >
       <motion.div
-        className='relative'
+        className="relative"
         style={{
           rotateX: interactive ? rotateX : 0,
           rotateY: interactive ? rotateY : 0,
@@ -144,29 +148,54 @@ export function NeonCard({
       >
         {/* 3D Layered Planes im 4D Modus */}
         {isActive4D && (
-          <div className='absolute inset-0' style={{ height: '300px' }}>
-            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ alpha: true, antialias: true }}>
+          <div className="absolute inset-0" style={{ height: '300px' }}>
+            <Canvas
+              camera={{ position: [0, 0, 8], fov: 45 }}
+              gl={{ alpha: true, antialias: true }}
+            >
               <ambientLight intensity={0.4} />
-              <pointLight position={[5, 5, 10]} intensity={0.8} color={glowColor} />
-              <pointLight position={[-5, -5, 10]} intensity={0.4} color='#0080ff' />
+              <pointLight
+                position={[5, 5, 10]}
+                intensity={0.8}
+                color={glowColor}
+              />
+              <pointLight
+                position={[-5, -5, 10]}
+                intensity={0.4}
+                color="#0080ff"
+              />
 
               {/* Mehrere Kartenebenen für Tiefeneffekt */}
-              <CardLayer depth={0.5} opacity={0.3} glowColor={glowColor} isHovered={isHovered}>
-                <div className='rounded-xl bg-black bg-opacity-20 p-6 backdrop-blur-sm'>
+              <CardLayer
+                depth={0.5}
+                opacity={0.3}
+                glowColor={glowColor}
+                isHovered={isHovered}
+              >
+                <div className="rounded-xl bg-black bg-opacity-20 p-6 backdrop-blur-sm">
                   <AnimatedGradient
                     colors={getVariantColors()}
                     speed={1.5}
                     audioReactive={true}
-                    className='absolute inset-0 rounded-xl opacity-30'
+                    className="absolute inset-0 rounded-xl opacity-30"
                   />
                 </div>
               </CardLayer>
 
-              <CardLayer depth={0.3} opacity={0.2} glowColor={glowColor} isHovered={isHovered}>
-                <div className='rounded-xl bg-black bg-opacity-10 p-6'>
-                  <div className='text-center text-white opacity-50'>
-                    {title && <h3 className='mb-2 text-xl font-bold'>{title}</h3>}
-                    {subtitle && <p className='text-sm opacity-75'>{subtitle}</p>}
+              <CardLayer
+                depth={0.3}
+                opacity={0.2}
+                glowColor={glowColor}
+                isHovered={isHovered}
+              >
+                <div className="rounded-xl bg-black bg-opacity-10 p-6">
+                  <div className="text-center text-white opacity-50">
+                    {title && (
+                      <h3 className="mb-2 text-xl font-bold">{title}</h3>
+                    )}
+                    {subtitle && (
+                      <p className="text-sm opacity-75">{subtitle}</p>
+                    )}
                   </div>
                 </div>
               </CardLayer>
@@ -198,24 +227,26 @@ export function NeonCard({
             speed={isHovered ? 1.5 : 0.8}
             direction={Math.PI / 4}
             audioReactive={isActive4D}
-            className='absolute inset-0 rounded-xl opacity-10'
+            className="absolute inset-0 rounded-xl opacity-10"
           />
 
           {/* Glowing Border Animation */}
           <div
-            className='absolute inset-0 rounded-xl opacity-60'
+            className="absolute inset-0 rounded-xl opacity-60"
             style={{
               background: `linear-gradient(45deg, transparent, ${glowColor}40, transparent)`,
               backgroundSize: '200% 200%',
-              animation: isHovered ? 'borderFlow 2s ease-in-out infinite' : 'none',
+              animation: isHovered
+                ? 'borderFlow 2s ease-in-out infinite'
+                : 'none',
             }}
           />
 
           {/* Content */}
-          <div className='relative z-10'>
+          <div className="relative z-10">
             {title && (
               <motion.h3
-                className='mb-2 text-xl font-bold text-white'
+                className="mb-2 text-xl font-bold text-white"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -226,7 +257,7 @@ export function NeonCard({
 
             {subtitle && (
               <motion.p
-                className='mb-4 text-sm text-gray-300'
+                className="mb-4 text-sm text-gray-300"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -235,7 +266,11 @@ export function NeonCard({
               </motion.p>
             )}
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               {children}
             </motion.div>
           </div>
@@ -243,7 +278,7 @@ export function NeonCard({
           {/* Hover-Glow Overlay */}
           {isHovered && (
             <div
-              className='pointer-events-none absolute inset-0 rounded-xl'
+              className="pointer-events-none absolute inset-0 rounded-xl"
               style={{
                 background: `radial-gradient(circle at center, ${glowColor}15, transparent 70%)`,
                 animation: 'pulse 2s ease-in-out infinite',

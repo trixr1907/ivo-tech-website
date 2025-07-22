@@ -14,10 +14,16 @@ describe('AnimatedLogo4DShowcase', () => {
 
   it('includes multiple themes in showcasing', () => {
     const { getByText } = render(<AnimatedLogo4DShowcase />);
-    expect(getByText(/Enterprise Neon Hologram \(Standard\)/i)).toBeInTheDocument();
-    expect(getByText(/High Performance \(30fps, reduzierte Effekte\)/i)).toBeInTheDocument();
+    expect(
+      getByText(/Enterprise Neon Hologram \(Standard\)/i)
+    ).toBeInTheDocument();
+    expect(
+      getByText(/High Performance \(30fps, reduzierte Effekte\)/i)
+    ).toBeInTheDocument();
     expect(getByText(/Mobile Optimized \(kleine Größe\)/i)).toBeInTheDocument();
-    expect(getByText(/Minimal \(nur Logo, keine Effekte\)/i)).toBeInTheDocument();
+    expect(
+      getByText(/Minimal \(nur Logo, keine Effekte\)/i)
+    ).toBeInTheDocument();
   });
 
   it('displays interactive component controls', () => {

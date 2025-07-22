@@ -2,19 +2,37 @@
 
 import React, { useRef, useState, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Box, Sphere, Torus, Stars, Float, Html } from '@react-three/drei';
+import {
+  OrbitControls,
+  Text,
+  Box,
+  Sphere,
+  Torus,
+  Stars,
+  Float,
+  Html,
+} from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { Vector3 } from '@/lib/three-utils';
+import * as THREE from 'three';
+import { ThreeElements, MaterialNode } from '@react-three/fiber';
 
 // Floating Tech Orbs Component
-function TechOrb({ position, color, tech, onClick }: any) {
+interface TechOrbProps {
+  position: [number, number, number];
+  color: string;
+  tech: string;
+  onClick?: () => void;
+}
+
+function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
   const mesh = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame(state => {
     if (mesh.current) {
       mesh.current.rotation.y += 0.01;
-      mesh.current.position.y = position[1] + Math.sin(state.clock.elapsedTime) * 0.2;
+      mesh.current.position.y =
+        position[1] + Math.sin(state.clock.elapsedTime) * 0.2;
     }
   });
 
@@ -38,7 +56,9 @@ function TechOrb({ position, color, tech, onClick }: any) {
         />
         {hovered && (
           <Html center>
-            <div className='rounded bg-black/80 p-2 font-mono text-sm text-white backdrop-blur'>{tech}</div>
+            <div className="rounded bg-black/80 p-2 font-mono text-sm text-white backdrop-blur">
+              {tech}
+            </div>
           </Html>
         )}
       </mesh>
@@ -52,7 +72,8 @@ function AnimatedGrid() {
 
   useFrame(state => {
     if (gridRef.current) {
-      gridRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+      gridRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     }
   });
 
@@ -61,10 +82,20 @@ function AnimatedGrid() {
       {Array.from({ length: 20 }, (_, i) => (
         <Box
           key={i}
-          position={[(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20]}
+          position={
+            new THREE.Vector3(
+              (Math.random() - 0.5) * 20,
+              (Math.random() - 0.5) * 20,
+              (Math.random() - 0.5) * 20
+            )
+          }
           args={[0.1, 0.1, 0.1]}
         >
-          <meshBasicMaterial color='#0099ff' transparent opacity={0.6} />
+          <meshBasicMaterial
+            color={new THREE.Color('#0099ff')}
+            transparent
+            opacity={0.6}
+          />
         </Box>
       ))}
     </group>
@@ -93,8 +124,14 @@ function DNAHelix() {
   return (
     <group ref={helixRef} position={[8, 0, 0]}>
       {points.map((point, index) => (
-        <Sphere key={index} position={[point.x, point.y, point.z]} args={[0.05]}>
-          <meshStandardMaterial color={`hsl(${index * 3.6}, 70%, 60%)`} />
+        <Sphere
+          key={index}
+          position={[point.x, point.y, point.z]}
+          args={[0.05]}
+        >
+          <meshStandardMaterial
+            color={new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)}
+          />
         </Sphere>
       ))}
     </group>
@@ -102,7 +139,11 @@ function DNAHelix() {
 }
 
 // Main Epic Scene Component
-function EpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) {
+function EpicScene3D({
+  onTechClick,
+}: {
+  onTechClick?: (tech: string) => void;
+}) {
   const technologies = [
     { name: 'React', position: [-4, 2, 0], color: '#61DAFB' },
     { name: 'TypeScript', position: [4, -2, 2], color: '#3178C6' },
@@ -113,7 +154,7 @@ function EpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) 
   ];
 
   return (
-    <div className='h-full w-full'>
+    <div className="h-full w-full">
       <Canvas
         camera={{ position: [0, 0, 10], fov: 60 }}
         gl={{ antialias: true, alpha: true }}
@@ -123,11 +164,29 @@ function EpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) 
         {/* Lighting */}
         <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color='#ff0040' />
-        <spotLight position={[15, 15, 15]} angle={0.3} penumbra={1} intensity={0.5} castShadow />
+        <pointLight
+          position={[-10, -10, -10]}
+          intensity={0.5}
+          color="#ff0040"
+        />
+        <spotLight
+          position={[15, 15, 15]}
+          angle={0.3}
+          penumbra={1}
+          intensity={0.5}
+          castShadow
+        />
 
         {/* Background Stars */}
-        <Stars radius={300} depth={60} count={1000} factor={7} saturation={0} fade speed={0.5} />
+        <Stars
+          radius={300}
+          depth={60}
+          count={1000}
+          factor={7}
+          saturation={0}
+          fade
+          speed={0.5}
+        />
 
         {/* Tech Orbs */}
         {technologies.map((tech, index) => (
@@ -149,7 +208,12 @@ function EpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) 
         {/* Central Torus */}
         <Float speed={1} rotationIntensity={2}>
           <Torus position={[0, 0, 0]} args={[2, 0.5, 16, 32]}>
-            <meshStandardMaterial color='#ff6b6b' emissive='#ff6b6b' emissiveIntensity={0.2} wireframe />
+            <meshStandardMaterial
+              color={new THREE.Color('#ff6b6b')}
+              emissive={new THREE.Color('#ff6b6b')}
+              emissiveIntensity={0.2}
+              wireframe
+            />
           </Torus>
         </Float>
 
@@ -157,10 +221,10 @@ function EpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) 
         <Text
           position={[0, -6, 0]}
           fontSize={1}
-          color='#ffffff'
-          anchorX='center'
-          anchorY='middle'
-          font='/fonts/inter-bold.woff'
+          color="#ffffff"
+          anchorX="center"
+          anchorY="middle"
+          font="/fonts/inter-bold.woff"
         >
           IVO-TECH 3D
         </Text>

@@ -217,7 +217,11 @@ describe('CoinGecko API Integration', () => {
     // Test multiple requests within rate limit
     const requests = Array(10)
       .fill(0)
-      .map(() => fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin'));
+      .map(() =>
+        fetch(
+          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin'
+        )
+      );
 
     const responses = await Promise.allSettled(requests);
     const successfulRequests = responses.filter(r => r.status === 'fulfilled');

@@ -21,7 +21,8 @@ function ParallaxStarfield() {
     window.addEventListener('resize', resizeCanvas);
 
     // Create stars
-    const stars: Array<{ x: number; y: number; size: number; speed: number }> = [];
+    const stars: Array<{ x: number; y: number; size: number; speed: number }> =
+      [];
     const numberOfStars = 150;
 
     for (let i = 0; i < numberOfStars; i++) {
@@ -64,7 +65,7 @@ function ParallaxStarfield() {
   return (
     <canvas
       ref={canvasRef}
-      className='pointer-events-none absolute inset-0 h-full w-full'
+      className="pointer-events-none absolute inset-0 h-full w-full"
       style={{ background: 'transparent' }}
     />
   );

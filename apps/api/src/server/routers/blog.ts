@@ -42,22 +42,24 @@ export const blogRouter = router({
       };
     }),
 
-  getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input, ctx }) => {
-    const post = await ctx.db.blogPost.findUnique({
-      where: { slug: input.slug },
-      include: {
-        author: {
-          select: { id: true, email: true },
+  getBySlug: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const post = await ctx.db.blogPost.findUnique({
+        where: { slug: input.slug },
+        include: {
+          author: {
+            select: { id: true, email: true },
+          },
         },
-      },
-    });
+      });
 
-    if (!post) {
-      throw new Error('Post not found');
-    }
+      if (!post) {
+        throw new Error('Post not found');
+      }
 
-    return post;
-  }),
+      return post;
+    }),
 
   create: protectedProcedure
     .input(
@@ -111,11 +113,13 @@ export const blogRouter = router({
       return post;
     }),
 
-  delete: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ input, ctx }) => {
-    await ctx.db.blogPost.delete({
-      where: { id: input.id },
-    });
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.blogPost.delete({
+        where: { id: input.id },
+      });
 
-    return { success: true };
-  }),
+      return { success: true };
+    }),
 });

@@ -9,7 +9,9 @@ interface UseResizeObserverResult {
  * Custom Hook für Resize-Observer
  * Überwacht Größenänderungen eines DOM-Elements für responsive 3D-Szenen
  */
-export function useResizeObserver(ref: RefObject<HTMLElement>): UseResizeObserverResult {
+export function useResizeObserver(
+  ref: RefObject<HTMLElement>
+): UseResizeObserverResult {
   const [dimensions, setDimensions] = useState<UseResizeObserverResult>({
     width: undefined,
     height: undefined,

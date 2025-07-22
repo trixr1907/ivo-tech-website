@@ -97,7 +97,13 @@ Eine fortschrittliche UI-Library, die CSS mit `@react-three/fiber` portals kombi
 3D-Partikelsystem für Click-Interaktionen:
 
 ```tsx
-<Sparkles count={30} size={0.03} colors={['#00ff00', '#0080ff', '#ff00ff']} duration={800} trigger={sparklesTrigger} />
+<Sparkles
+  count={30}
+  size={0.03}
+  colors={['#00ff00', '#0080ff', '#ff00ff']}
+  duration={800}
+  trigger={sparklesTrigger}
+/>
 ```
 
 ### AnimatedGradient
@@ -105,7 +111,12 @@ Eine fortschrittliche UI-Library, die CSS mit `@react-three/fiber` portals kombi
 CSS Houdini Paint API mit Audio-Reaktivität:
 
 ```tsx
-<AnimatedGradient colors={['#00ff00', '#0080ff', '#00ffff']} speed={1.5} direction={Math.PI / 4} audioReactive={true} />
+<AnimatedGradient
+  colors={['#00ff00', '#0080ff', '#00ffff']}
+  speed={1.5}
+  direction={Math.PI / 4}
+  audioReactive={true}
+/>
 ```
 
 ## 🔧 Setup & Installation
@@ -116,7 +127,9 @@ CSS Houdini Paint API mit Audio-Reaktivität:
 import { NeonProvider } from './components/ui/neon-ui';
 
 function App() {
-  return <NeonProvider enableAudio={true}>{/* Your app content */}</NeonProvider>;
+  return (
+    <NeonProvider enableAudio={true}>{/* Your app content */}</NeonProvider>
+  );
 }
 ```
 

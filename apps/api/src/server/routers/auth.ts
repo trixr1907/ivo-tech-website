@@ -41,7 +41,11 @@ export const authRouter = router({
       });
 
       // Generate JWT
-      const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+      const token = jwt.sign(
+        { userId: user.id, email: user.email },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
 
       return {
         user: {
@@ -86,7 +90,11 @@ export const authRouter = router({
       }
 
       // Generate JWT
-      const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+      const token = jwt.sign(
+        { userId: user.id, email: user.email },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
 
       return {
         user: {

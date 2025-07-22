@@ -9,7 +9,7 @@ Moderne, hochperformante Website mit 3D-Animationen und Enterprise-Level Optimie
 ## ✨ Features
 
 - 🎯 **3D WebGL Animationen** - Interaktive Logo-Animation mit Three.js
-- 📱 **Responsive Design** - Mobile-first Approach mit Tailwind CSS  
+- 📱 **Responsive Design** - Mobile-first Approach mit Tailwind CSS
 - ⚡ **Performance Optimiert** - Bundle < 110KB, Lighthouse Score > 90
 - 🔍 **SEO Ready** - Complete Meta Tags, Sitemap, Structured Data
 - 📊 **Real-time Analytics** - Vercel Analytics + Performance Monitoring
@@ -33,6 +33,7 @@ Alle Packages sind 100% [TypeScript](https://www.typescriptlang.org/) mit strikt
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework**: Next.js 15.3.5 mit App Router
 - **UI Library**: React 19.1.0 + TypeScript
 - **Styling**: Tailwind CSS 3.4.17
@@ -41,6 +42,7 @@ Alle Packages sind 100% [TypeScript](https://www.typescriptlang.org/) mit strikt
 - **Icons**: Custom SVG + Lucide React
 
 ### Tools & Configuration
+
 - **Build System**: Turborepo Monorepo
 - **Package Manager**: npm (uv für Python)
 - **Code Quality**: ESLint + Prettier (2-Space Indentation)
@@ -48,6 +50,7 @@ Alle Packages sind 100% [TypeScript](https://www.typescriptlang.org/) mit strikt
 - **Testing**: Playwright E2E + Jest Unit Tests
 
 ### Deployment & Analytics
+
 - **Hosting**: Vercel Edge Network
 - **Analytics**: Vercel Analytics + Speed Insights
 - **Monitoring**: Real-time Performance Tracking

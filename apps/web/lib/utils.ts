@@ -11,7 +11,10 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Debounce-Funktion für Performance-Optimierung
  */
-export function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
@@ -22,7 +25,10 @@ export function debounce<T extends (...args: any[]) => any>(func: T, wait: numbe
 /**
  * Throttle-Funktion für Performance-Optimierung
  */
-export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
+export function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
@@ -49,7 +55,9 @@ export function isLowEndDevice(): boolean {
   const connection = (navigator as any).connection;
   const isSlowConnection =
     connection &&
-    (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g');
+    (connection.effectiveType === 'slow-2g' ||
+      connection.effectiveType === '2g' ||
+      connection.effectiveType === '3g');
 
   return cores < 4 || memory < 4 || isSlowConnection;
 }

@@ -16,7 +16,12 @@ const NeonHologramShader = shaderMaterial(
     scanlineSpeed: 2.0,
     hologramOpacity: 0.8,
     noiseScale: 10.0,
-    audioData: new THREE.DataTexture(new Uint8Array(256), 256, 1, THREE.RedFormat),
+    audioData: new THREE.DataTexture(
+      new Uint8Array(256),
+      256,
+      1,
+      THREE.RedFormat
+    ),
     mousePosition: new THREE.Vector2(0, 0),
   },
   // Vertex Shader
@@ -315,7 +320,9 @@ interface ShaderConfig {
 
 export function AdvancedShaderManager() {
   const { scene, gl, camera } = useThree();
-  const [activeShaders, setActiveShaders] = useState<Map<string, ShaderConfig>>(new Map());
+  const [activeShaders, setActiveShaders] = useState<Map<string, ShaderConfig>>(
+    new Map()
+  );
   const shaderRefs = useRef<Map<string, THREE.ShaderMaterial>>(new Map());
   const audioAnalyser = useRef<AnalyserNode | null>(null);
 
@@ -367,33 +374,36 @@ export function AdvancedShaderManager() {
   };
 
   // Create shader material
-  const createShaderMaterial = useCallback((type: keyof typeof shaderPresets) => {
-    const preset = shaderPresets[type];
-    let material: THREE.ShaderMaterial;
+  const createShaderMaterial = useCallback(
+    (type: keyof typeof shaderPresets) => {
+      const preset = shaderPresets[type];
+      let material: THREE.ShaderMaterial;
 
-    switch (type) {
-      case 'neonHologram':
-        material = new NeonHologramShader();
-        break;
-      case 'cyberpunkGrid':
-        material = new CyberpunkGridShader();
-        break;
-      case 'liquidMetal':
-        material = new LiquidMetalShader();
-        break;
-      default:
-        throw new Error(`Unknown shader type: ${type}`);
-    }
-
-    // Set initial uniforms
-    Object.entries(preset.uniforms).forEach(([key, value]) => {
-      if (material.uniforms[key]) {
-        material.uniforms[key].value = value;
+      switch (type) {
+        case 'neonHologram':
+          material = new NeonHologramShader();
+          break;
+        case 'cyberpunkGrid':
+          material = new CyberpunkGridShader();
+          break;
+        case 'liquidMetal':
+          material = new LiquidMetalShader();
+          break;
+        default:
+          throw new Error(`Unknown shader type: ${type}`);
       }
-    });
 
-    return material;
-  }, []);
+      // Set initial uniforms
+      Object.entries(preset.uniforms).forEach(([key, value]) => {
+        if (material.uniforms[key]) {
+          material.uniforms[key].value = value;
+        }
+      });
+
+      return material;
+    },
+    []
+  );
 
   // Register shader
   const registerShader = useCallback(
@@ -434,23 +444,26 @@ export function AdvancedShaderManager() {
   }, []);
 
   // Update shader uniform
-  const updateShaderUniform = useCallback((id: string, uniformName: string, value: any) => {
-    const material = shaderRefs.current.get(id);
-    if (material && material.uniforms[uniformName]) {
-      material.uniforms[uniformName].value = value;
+  const updateShaderUniform = useCallback(
+    (id: string, uniformName: string, value: any) => {
+      const material = shaderRefs.current.get(id);
+      if (material && material.uniforms[uniformName]) {
+        material.uniforms[uniformName].value = value;
 
-      // Update active shaders config
-      setActiveShaders(prev => {
-        const newMap = new Map(prev);
-        const config = newMap.get(id);
-        if (config) {
-          config.uniforms[uniformName] = value;
-          newMap.set(id, config);
-        }
-        return newMap;
-      });
-    }
-  }, []);
+        // Update active shaders config
+        setActiveShaders(prev => {
+          const newMap = new Map(prev);
+          const config = newMap.get(id);
+          if (config) {
+            config.uniforms[uniformName] = value;
+            newMap.set(id, config);
+          }
+          return newMap;
+        });
+      }
+    },
+    []
+  );
 
   // Update shader from mouse position
   const updateMousePosition = useCallback((x: number, y: number) => {
@@ -468,10 +481,17 @@ export function AdvancedShaderManager() {
 
     // Update audio data
     if (audioAnalyser.current) {
-      const frequencyData = new Uint8Array(audioAnalyser.current.frequencyBinCount);
+      const frequencyData = new Uint8Array(
+        audioAnalyser.current.frequencyBinCount
+      );
       audioAnalyser.current.getByteFrequencyData(frequencyData);
 
-      const audioTexture = new THREE.DataTexture(frequencyData, frequencyData.length, 1, THREE.RedFormat);
+      const audioTexture = new THREE.DataTexture(
+        frequencyData,
+        frequencyData.length,
+        1,
+        THREE.RedFormat
+      );
       audioTexture.needsUpdate = true;
 
       shaderRefs.current.forEach(material => {

@@ -13,28 +13,28 @@ if (typeof window === 'undefined') {
     innerWidth: 1024,
     innerHeight: 768,
     devicePixelRatio: 1,
-    ...noopObj
+    ...noopObj,
   };
-  
+
   global.self = global.window;
-  
+
   global.document = {
     createElement: () => ({
       getContext: () => null,
       addEventListener: noop,
       removeEventListener: noop,
-      ...noopObj
+      ...noopObj,
     }),
     addEventListener: noop,
     removeEventListener: noop,
-    ...noopObj
+    ...noopObj,
   };
-  
+
   global.navigator = {
     userAgent: 'node',
-    ...noopObj
+    ...noopObj,
   };
-  
+
   // WebGL related
   global.WebGLRenderingContext = {};
   global.WebGL2RenderingContext = {};

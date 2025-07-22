@@ -78,7 +78,9 @@ describe('Performance Tests', () => {
       // Simuliere Animation Frames
       for (let frame = 0; frame < 60; frame++) {
         // Simuliere Frame-Rendering
-        const frameData = new Array(1000).fill(0).map((_, i) => ({ id: i, value: Math.random() }));
+        const frameData = new Array(1000)
+          .fill(0)
+          .map((_, i) => ({ id: i, value: Math.random() }));
         // Simuliere Cleanup
         frameData.length = 0;
       }

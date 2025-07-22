@@ -1,22 +1,22 @@
-import { 
-  Vector3, 
-  Color, 
-  BufferAttribute, 
-  Points, 
-  Group, 
-  Mesh, 
-  Object3D, 
-  Matrix4, 
-  Quaternion, 
-  Euler, 
-  ShaderMaterial 
+import {
+  Vector3,
+  Color,
+  BufferAttribute,
+  Points,
+  Group,
+  Mesh,
+  Object3D,
+  Matrix4,
+  Quaternion,
+  Euler,
+  ShaderMaterial,
 } from 'three';
 
 declare global {
   namespace THREE {
     export const DoubleSide: number;
     export const AdditiveBlending: number;
-    
+
     export {
       Vector3,
       Color,
@@ -28,8 +28,8 @@ declare global {
       Matrix4,
       Quaternion,
       Euler,
-      ShaderMaterial
-    }
+      ShaderMaterial,
+    };
 
     export interface WebGLRenderer {
       setSize(width: number, height: number, updateStyle?: boolean): void;

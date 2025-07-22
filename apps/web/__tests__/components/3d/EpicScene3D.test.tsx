@@ -4,7 +4,7 @@ import EpicScene3D from '@/components/3d/EpicScene3D';
 // Mock Three.js and React Three Fiber
 jest.mock('@react-three/fiber', () => ({
   Canvas: ({ children, ...props }: any) => (
-    <div data-testid='canvas' data-props={JSON.stringify(props)}>
+    <div data-testid="canvas" data-props={JSON.stringify(props)}>
       {children}
     </div>
   ),
@@ -16,9 +16,9 @@ jest.mock('@react-three/fiber', () => ({
 }));
 
 jest.mock('@react-three/drei', () => ({
-  OrbitControls: () => <div data-testid='orbit-controls' />,
-  Stars: () => <div data-testid='stars' />,
-  Environment: () => <div data-testid='environment' />,
+  OrbitControls: () => <div data-testid="orbit-controls" />,
+  Stars: () => <div data-testid="stars" />,
+  Environment: () => <div data-testid="environment" />,
 }));
 
 jest.mock('three', () => ({
@@ -101,12 +101,16 @@ describe('EpicScene3D', () => {
 
   describe('Performance', () => {
     test('renders without performance warnings', () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'warn')
+        .mockImplementation(() => {});
 
       render(<EpicScene3D />);
 
       // Should not have performance warnings
-      expect(consoleSpy).not.toHaveBeenCalledWith(expect.stringContaining('performance'));
+      expect(consoleSpy).not.toHaveBeenCalledWith(
+        expect.stringContaining('performance')
+      );
 
       consoleSpy.mockRestore();
     });
@@ -185,7 +189,9 @@ describe('EpicScene3D', () => {
 
   describe('Error Handling', () => {
     test('handles rendering errors gracefully', () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       // This should not crash the component
       render(<EpicScene3D />);

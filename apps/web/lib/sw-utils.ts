@@ -72,7 +72,10 @@ export class PWAManager {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            if (
+              newWorker.state === 'installed' &&
+              navigator.serviceWorker.controller
+            ) {
               console.log('[PWA] Service Worker Update verfügbar');
               this.state.isUpdateAvailable = true;
               this.notifyStateChange();
@@ -82,11 +85,17 @@ export class PWAManager {
       });
 
       // Message Handler für SW-Kommunikation
-      navigator.serviceWorker.addEventListener('message', this.handleServiceWorkerMessage.bind(this));
+      navigator.serviceWorker.addEventListener(
+        'message',
+        this.handleServiceWorkerMessage.bind(this)
+      );
 
       this.notifyStateChange();
     } catch (error) {
-      console.error('[PWA] Service Worker Registrierung fehlgeschlagen:', error);
+      console.error(
+        '[PWA] Service Worker Registrierung fehlgeschlagen:',
+        error
+      );
     }
   }
 
@@ -95,11 +104,11 @@ export class PWAManager {
    */
   private initializeInstallPrompt() {
     // beforeinstallprompt Event abfangen
-    window.addEventListener('beforeinstallprompt', (event) => {
+    window.addEventListener('beforeinstallprompt', event => {
       event.preventDefault();
       this.installState.installPrompt = event;
       this.installState.isInstallable = true;
-      
+
       console.log('[PWA] Installation möglich');
       this.notifyInstallStateChange();
     });
@@ -121,13 +130,17 @@ export class PWAManager {
    * Heuristische Prüfung ob PWA installiert ist
    */
   private checkIfInstalled() {
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches;
+    const isStandalone = window.matchMedia(
+      '(display-mode: standalone)'
+    ).matches;
+    const isFullscreen = window.matchMedia(
+      '(display-mode: fullscreen)'
+    ).matches;
     const isMinimalUI = window.matchMedia('(display-mode: minimal-ui)').matches;
-    
+
     // iOS Safari spezifische Erkennung
     const isIOSPWA = (window.navigator as any).standalone === true;
-    
+
     if (isStandalone || isFullscreen || isMinimalUI || isIOSPWA) {
       this.installState.isInstalled = true;
       this.notifyInstallStateChange();
@@ -193,7 +206,7 @@ export class PWAManager {
     if (newWorker) {
       // Message senden um Skip Waiting zu triggern
       newWorker.postMessage({ type: 'SKIP_WAITING' });
-      
+
       // Seite neu laden nach Aktivierung
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
@@ -219,11 +232,13 @@ export class PWAManager {
   /**
    * State Change Listener registrieren
    */
-  public onStateChange(callback: (state: ServiceWorkerState) => void): () => void {
+  public onStateChange(
+    callback: (state: ServiceWorkerState) => void
+  ): () => void {
     this.listeners.add(callback);
     // Initial state senden
     callback(this.state);
-    
+
     return () => {
       this.listeners.delete(callback);
     };
@@ -232,11 +247,13 @@ export class PWAManager {
   /**
    * Install State Change Listener registrieren
    */
-  public onInstallStateChange(callback: (state: PWAInstallState) => void): () => void {
+  public onInstallStateChange(
+    callback: (state: PWAInstallState) => void
+  ): () => void {
     this.installListeners.add(callback);
     // Initial state senden
     callback(this.installState);
-    
+
     return () => {
       this.installListeners.delete(callback);
     };
@@ -280,7 +297,9 @@ export const pwaManager = new PWAManager();
 import React from 'react';
 
 export function useServiceWorker() {
-  const [state, setState] = React.useState<ServiceWorkerState>(pwaManager.getState());
+  const [state, setState] = React.useState<ServiceWorkerState>(
+    pwaManager.getState()
+  );
 
   React.useEffect(() => {
     return pwaManager.onStateChange(setState);
@@ -297,7 +316,9 @@ export function useServiceWorker() {
  * React Hook für PWA Installation
  */
 export function usePWAInstall() {
-  const [state, setState] = React.useState<PWAInstallState>(pwaManager.getInstallState());
+  const [state, setState] = React.useState<PWAInstallState>(
+    pwaManager.getInstallState()
+  );
 
   React.useEffect(() => {
     return pwaManager.onInstallStateChange(setState);
@@ -317,7 +338,11 @@ export const PWAUtils = {
    * Prüfen ob PWA Features unterstützt werden
    */
   isSupported: () => {
-    return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+    return (
+      'serviceWorker' in navigator &&
+      'PushManager' in window &&
+      'Notification' in window
+    );
   },
 
   /**

@@ -46,11 +46,17 @@ export default defineConfig({
     // Tablet Tests
     {
       name: 'tablet-chrome',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 768, height: 1024 } },
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 768, height: 1024 },
+      },
     },
     {
       name: 'tablet-safari',
-      use: { ...devices['Desktop Safari'], viewport: { width: 768, height: 1024 } },
+      use: {
+        ...devices['Desktop Safari'],
+        viewport: { width: 768, height: 1024 },
+      },
     },
 
     // Mobile Tests

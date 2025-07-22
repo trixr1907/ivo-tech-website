@@ -1,20 +1,20 @@
-import { ShaderMaterialParameters, WebGLRenderer, WebGLRenderTarget, Vector2 } from 'three';
+import { Vector2, Color, Vector3 } from 'three';
+import React from 'react';
 
 /**
- * Audio-Reaktive Daten Interface
+ * Gemeinsame Typen für die Cyberpunk-FX Komponenten
  */
-export interface AudioReactiveData {
-  frequency: Float32Array;
-  amplitude: number;
-  bass: number;
-  mid: number;
-  high: number;
-  time: number;
+
+export interface CyberpunkFXProps {
+  children?: React.ReactNode;
 }
 
-/**
- * Shader-Typen
- */
+export interface EnvironmentPreset {
+  name: string;
+  component: React.ComponentType;
+  postProcessing: Record<string, unknown>;
+}
+
 export type ShaderType =
   | 'neonWireframe'
   | 'hologramGrid'
@@ -23,21 +23,83 @@ export type ShaderType =
   | 'timeWarpNoise'
   | 'audioColorShift';
 
-/**
- * Props für CyberpunkMaterial
- */
-export interface CyberpunkMaterialProps extends ShaderMaterialParameters {
+export interface CyberpunkMaterialProps {
   type: ShaderType;
   audioReactive?: boolean;
   glitchIntensity?: number;
   neonIntensity?: number;
   flowSpeed?: number;
   colorShift?: number;
+  color?: Color;
+  emissive?: Color;
+  opacity?: number;
+  transparent?: boolean;
+  wireframe?: boolean;
+  wireframeLinewidth?: number;
 }
 
-/**
- * Cyberpunk-spezifische Shader Uniforms
- */
+export interface CustomEffectProps {
+  enabled?: boolean;
+  blendFunction?: number;
+}
+
+export interface RenderTargetConfig {
+  format?: number;
+  type?: number;
+  encoding?: number;
+  depthBuffer?: boolean;
+  stencilBuffer?: boolean;
+  depthTexture?: boolean;
+  samples?: number;
+}
+
+export interface AudioReactiveData {
+  volume: number;
+  frequency: Float32Array | number[];
+  waveform: Float32Array | number[];
+  time: number;
+  amplitude?: number;
+  bass?: number;
+  mid?: number;
+  high?: number;
+}
+
+export interface SceneContextState {
+  time: number;
+  deltaTime: number;
+  audioData?: AudioReactiveData;
+  shaderUniforms: CyberpunkShaderUniforms;
+  mouse: Vector2;
+  resolution: Vector2;
+}
+
+export interface PostProcessingConfig {
+  bloom?: {
+    enabled: boolean;
+    intensity: number;
+    radius: number;
+    threshold: number;
+  };
+  godRays?: {
+    enabled: boolean;
+    samples: number;
+    density: number;
+    weight: number;
+    decay: number;
+  };
+  chromaticAberration?: {
+    enabled: boolean;
+    offset: Vector2;
+    radialModulation: boolean;
+  };
+  volumetricLight?: {
+    enabled: boolean;
+    samples: number;
+    scattering: number;
+    intensity: number;
+  };
+}
+
 export interface CyberpunkShaderUniforms {
   uTime: { value: number };
   uAudioData: { value: AudioReactiveData };
@@ -47,47 +109,4 @@ export interface CyberpunkShaderUniforms {
   uGlitchIntensity: { value: number };
   uNeonIntensity: { value: number };
   uFlowSpeed: { value: number };
-}
-
-/**
- * Post-Processing Konfiguration
- */
-export interface PostProcessingConfig {
-  bloom: {
-    enabled: boolean;
-    intensity: number;
-    radius: number;
-    threshold: number;
-  };
-  godRays: {
-    enabled: boolean;
-    samples: number;
-    density: number;
-    weight: number;
-    decay: number;
-  };
-  chromaticAberration: {
-    enabled: boolean;
-    offset: Vector2;
-    radialModulation: boolean;
-  };
-  volumetricLight: {
-    enabled: boolean;
-    samples: number;
-    scattering: number;
-    intensity: number;
-  };
-}
-
-/**
- * SceneContext State Interface
- */
-export interface SceneContextState {
-  audioData: AudioReactiveData;
-  time: number;
-  mouse: Vector2;
-  resolution: Vector2;
-  currentPreset: string;
-  shaderUniforms: CyberpunkShaderUniforms;
-  postProcessing: PostProcessingConfig;
 }

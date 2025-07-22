@@ -16,13 +16,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // Validierung
     if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: 'Alle Pflichtfelder müssen ausgefüllt werden.' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Alle Pflichtfelder müssen ausgefüllt werden.' },
+        { status: 400 }
+      );
     }
 
     // E-Mail Validierung
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' },
+        { status: 400 }
+      );
     }
 
     // Transporter konfigurieren
@@ -167,7 +173,8 @@ www.ivo-tech.com
     return NextResponse.json(
       {
         success: true,
-        message: 'Ihre Nachricht wurde erfolgreich gesendet. Sie erhalten in Kürze eine Bestätigung per E-Mail.',
+        message:
+          'Ihre Nachricht wurde erfolgreich gesendet. Sie erhalten in Kürze eine Bestätigung per E-Mail.',
       },
       { status: 200 }
     );

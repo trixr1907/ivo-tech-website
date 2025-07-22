@@ -45,7 +45,10 @@ interface ScrollOrchestratorProps {
 }
 
 // Custom Hook for 3D Scroll Animations
-export const useScroll3D = (sectionConfig: ScrollSection3D, targetRef: React.RefObject<any>) => {
+export const useScroll3D = (
+  sectionConfig: ScrollSection3D,
+  targetRef: React.RefObject<any>
+) => {
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useLayoutEffect(() => {
@@ -59,7 +62,7 @@ export const useScroll3D = (sectionConfig: ScrollSection3D, targetRef: React.Ref
         scrub: 1.5,
         markers: sectionConfig.markers || false,
         refreshPriority: -1,
-        onUpdate: (trigger) => {
+        onUpdate: trigger => {
           const progress = trigger.progress;
 
           // Find current keyframes
@@ -68,7 +71,10 @@ export const useScroll3D = (sectionConfig: ScrollSection3D, targetRef: React.Ref
           let nextKeyframe: Keyframe3D | null = null;
 
           for (let i = 0; i < keyframes.length - 1; i++) {
-            if (progress >= keyframes[i].progress && progress <= keyframes[i + 1].progress) {
+            if (
+              progress >= keyframes[i].progress &&
+              progress <= keyframes[i + 1].progress
+            ) {
               currentKeyframe = keyframes[i];
               nextKeyframe = keyframes[i + 1];
               break;
@@ -77,25 +83,62 @@ export const useScroll3D = (sectionConfig: ScrollSection3D, targetRef: React.Ref
 
           if (currentKeyframe && nextKeyframe && targetRef.current) {
             const localProgress =
-              (progress - currentKeyframe.progress) / (nextKeyframe.progress - currentKeyframe.progress);
+              (progress - currentKeyframe.progress) /
+              (nextKeyframe.progress - currentKeyframe.progress);
 
             // Interpolate 3D properties
             const position = [
-              gsap.utils.interpolate(currentKeyframe.position[0], nextKeyframe.position[0], localProgress),
-              gsap.utils.interpolate(currentKeyframe.position[1], nextKeyframe.position[1], localProgress),
-              gsap.utils.interpolate(currentKeyframe.position[2], nextKeyframe.position[2], localProgress),
+              gsap.utils.interpolate(
+                currentKeyframe.position[0],
+                nextKeyframe.position[0],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.position[1],
+                nextKeyframe.position[1],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.position[2],
+                nextKeyframe.position[2],
+                localProgress
+              ),
             ];
 
             const rotation = [
-              gsap.utils.interpolate(currentKeyframe.rotation[0], nextKeyframe.rotation[0], localProgress),
-              gsap.utils.interpolate(currentKeyframe.rotation[1], nextKeyframe.rotation[1], localProgress),
-              gsap.utils.interpolate(currentKeyframe.rotation[2], nextKeyframe.rotation[2], localProgress),
+              gsap.utils.interpolate(
+                currentKeyframe.rotation[0],
+                nextKeyframe.rotation[0],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.rotation[1],
+                nextKeyframe.rotation[1],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.rotation[2],
+                nextKeyframe.rotation[2],
+                localProgress
+              ),
             ];
 
             const scale = [
-              gsap.utils.interpolate(currentKeyframe.scale[0], nextKeyframe.scale[0], localProgress),
-              gsap.utils.interpolate(currentKeyframe.scale[1], nextKeyframe.scale[1], localProgress),
-              gsap.utils.interpolate(currentKeyframe.scale[2], nextKeyframe.scale[2], localProgress),
+              gsap.utils.interpolate(
+                currentKeyframe.scale[0],
+                nextKeyframe.scale[0],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.scale[1],
+                nextKeyframe.scale[1],
+                localProgress
+              ),
+              gsap.utils.interpolate(
+                currentKeyframe.scale[2],
+                nextKeyframe.scale[2],
+                localProgress
+              ),
             ];
 
             // Apply transformations
@@ -227,7 +270,11 @@ export const ScrollLinked3D: React.FC<{
 
   // Transform scroll progress to animation values
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.9]);
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0.8, 1, 1, 0.9]
+  );
   const y = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
   const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -10]);
 
@@ -256,7 +303,13 @@ export const ParallaxSection3D: React.FC<{
   direction?: 'up' | 'down' | 'left' | 'right';
   className?: string;
   enable3D?: boolean;
-}> = ({ children, speed = 0.5, direction = 'up', className = '', enable3D = true }) => {
+}> = ({
+  children,
+  speed = 0.5,
+  direction = 'up',
+  className = '',
+  enable3D = true,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -327,13 +380,14 @@ export const ScrollProgressIndicator: React.FC<{
 
   return (
     <motion.div
-      className='pointer-events-none fixed z-[9998]'
+      className="pointer-events-none fixed z-[9998]"
       style={{
         ...positionStyles[position],
         backgroundColor: color,
         scaleX: position === 'top' || position === 'bottom' ? scaleX : 1,
         scaleY: position === 'left' || position === 'right' ? scaleX : 1,
-        transformOrigin: position === 'top' || position === 'bottom' ? 'left' : 'top',
+        transformOrigin:
+          position === 'top' || position === 'bottom' ? 'left' : 'top',
         filter: `drop-shadow(0 0 6px ${color})`,
       }}
     />

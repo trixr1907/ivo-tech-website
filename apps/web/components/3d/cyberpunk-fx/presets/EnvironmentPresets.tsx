@@ -1,264 +1,36 @@
 'use client';
 
-import React, { useMemo, ReactNode } from 'react';
-import { Environment, Stars, Sky, ContactShadows } from '@react-three/drei';
-import * as THREE from 'three';
-import { useThree } from '@react-three/fiber';
+import React from 'react';
 import { EnvironmentPreset } from '../types';
-import { PostProcessingPipeline, PostProcessingPresets } from '../effects/PostProcessingPipeline';
+import { PostProcessingPipeline } from '../effects/PostProcessingPipeline';
 
 interface EnvironmentPresetProps {
   preset: keyof typeof ENVIRONMENT_PRESETS;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
-/**
- * Cyberpunk City Night Environment
- */
-function CityNightEnvironment() {
-  return (
-    <>
-      {/* Skybox - Cyberpunk City */}
-      <Sky
-        distance={450000}
-        sunPosition={[0, 0.4, -1]}
-        inclination={0}
-        azimuth={0.25}
-        turbidity={20}
-        rayleigh={4}
-        mieCoefficient={0.005}
-        mieDirectionalG={0.8}
-      />
-
-      {/* Neon City Stars */}
-      <Stars radius={300} depth={60} count={2000} factor={6} saturation={1} fade={true} speed={0.3} />
-
-      {/* City Fog - Handled by scene.fog */}
-
-      {/* Ambient City Lighting */}
-      <ambientLight intensity={0.2} color={new THREE.Color(0x4040ff)} />
-
-      {/* Neon Street Light */}
-      <pointLight position={[-10, 5, -10]} intensity={2} color={new THREE.Color(0xff0080)} distance={30} decay={2} />
-
-      {/* Cyan Neon Light */}
-      <pointLight position={[10, 3, 5]} intensity={1.5} color={new THREE.Color(0x00ffff)} distance={25} decay={2} />
-
-      {/* Yellow Traffic Light */}
-      <pointLight position={[0, 8, -15]} intensity={1} color={new THREE.Color(0xffff00)} distance={20} decay={1.5} />
-
-      {/* Directional Moon Light */}
-      <directionalLight
-        position={[20, 20, 20]}
-        intensity={0.5}
-        color={new THREE.Color(0x8080ff)}
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-      />
-
-      {/* Ground Contact Shadows */}
-      <ContactShadows
-        position={[0, -2, 0]}
-        opacity={0.6}
-        scale={50}
-        blur={2}
-        far={20}
-        color={new THREE.Color(0x000040)}
-      />
-    </>
-  );
-}
-
-/**
- * Space Tunnel Environment
- */
-function SpaceTunnelEnvironment() {
-  const { scene } = useThree();
-
-  useMemo(() => {
-    // Schwarzer Weltraum-Hintergrund
-    scene.background = new THREE.Color(0x000008);
-  }, [scene]);
-
-  return (
-    <>
-      {/* Deep Space Stars */}
-      <Stars radius={500} depth={100} count={5000} factor={10} saturation={0} fade={true} speed={1} />
-
-      {/* Nebula-like Effect */}
-      <Stars radius={200} depth={30} count={800} factor={4} saturation={1.2} fade={true} speed={0.5} />
-
-      {/* Space Fog - Handled by scene.fog */}
-
-      {/* Minimal Ambient Space Light */}
-      <ambientLight intensity={0.1} color={new THREE.Color(0x1a1a2e)} />
-
-      {/* Central Tunnel Light */}
-      <pointLight position={[0, 0, 0]} intensity={3} color={new THREE.Color(0x00ffff)} distance={50} decay={1} />
-
-      {/* Pulsing Energy Core */}
-      <pointLight position={[0, 0, -20]} intensity={4} color={new THREE.Color(0xff0080)} distance={80} decay={0.5} />
-
-      {/* Side Portal Lights */}
-      <pointLight position={[-15, 0, 10]} intensity={2} color={new THREE.Color(0x8000ff)} distance={30} decay={2} />
-
-      <pointLight position={[15, 0, 10]} intensity={2} color={new THREE.Color(0xff8000)} distance={30} decay={2} />
-
-      {/* Directional Cosmic Light */}
-      <directionalLight position={[0, 50, 100]} intensity={0.3} color={new THREE.Color(0x4080ff)} />
-    </>
-  );
-}
-
-/**
- * Retro Arcade Environment
- */
-function RetroArcadeEnvironment() {
-  const { scene } = useThree();
-
-  useMemo(() => {
-    // Retro-Gradient Hintergrund
-    const loader = new THREE.CubeTextureLoader();
-    const gradient = new THREE.Color(0x2a0845);
-    scene.background = gradient;
-  }, [scene]);
-
-  return (
-    <>
-      {/* 80s Grid Sky */}
-      <Sky
-        distance={200000}
-        sunPosition={[0, -0.2, -1]}
-        inclination={0.6}
-        azimuth={0}
-        turbidity={0.1}
-        rayleigh={0.5}
-        mieCoefficient={0.001}
-        mieDirectionalG={0.8}
-      />
-
-      {/* Retro Stars */}
-      <Stars radius={150} depth={30} count={800} factor={3} saturation={1.5} fade={true} speed={0.2} />
-
-      {/* Light Fog - Handled by scene.fog */}
-
-      {/* Warm Ambient Light */}
-      <ambientLight intensity={0.4} color={new THREE.Color(0xff8040)} />
-
-      {/* Neon Pink Light */}
-      <pointLight position={[-8, 4, -5]} intensity={2} color={new THREE.Color(0xff0080)} distance={25} decay={1.5} />
-
-      {/* Electric Blue Light */}
-      <pointLight position={[8, 2, 8]} intensity={1.5} color={new THREE.Color(0x0080ff)} distance={20} decay={1.8} />
-
-      {/* Retro Green Light */}
-      <pointLight position={[0, 6, 0]} intensity={1.2} color={new THREE.Color(0x00ff40)} distance={15} decay={2} />
-
-      {/* Sun-like Directional Light */}
-      <directionalLight position={[-10, 10, 5]} intensity={0.8} color={new THREE.Color(0xffa040)} castShadow />
-
-      {/* Retro Ground Shadow */}
-      <ContactShadows
-        position={[0, -1.5, 0]}
-        opacity={0.4}
-        scale={30}
-        blur={1.5}
-        far={15}
-        color={new THREE.Color(0x400040)}
-      />
-    </>
-  );
-}
-
-/**
- * Environment Presets Definition
- */
 export const ENVIRONMENT_PRESETS = {
   'city-night': {
     name: 'Cyberpunk City Night',
-    component: CityNightEnvironment,
-    postProcessing: PostProcessingPresets.CyberpunkCity,
-    skybox: 'city-night',
-    fog: {
-      enabled: true,
-      color: new THREE.Color(0x0a0a0f),
-      near: 10,
-      far: 200,
-    },
-    lighting: {
-      ambient: { color: new THREE.Color(0x4040ff), intensity: 0.2 },
-      directional: {
-        color: new THREE.Color(0x8080ff),
-        intensity: 0.5,
-        position: new THREE.Vector3(20, 20, 20),
-      },
-      point: [
-        { color: new THREE.Color(0xff0080), intensity: 2, position: new THREE.Vector3(-10, 5, -10) },
-        { color: new THREE.Color(0x00ffff), intensity: 1.5, position: new THREE.Vector3(10, 3, 5) },
-        { color: new THREE.Color(0xffff00), intensity: 1, position: new THREE.Vector3(0, 8, -15) },
-      ],
-    },
+    component: () => <div>Temporär deaktiviert</div>,
+    postProcessing: {},
   },
-
   'space-tunnel': {
     name: 'Space Tunnel',
-    component: SpaceTunnelEnvironment,
-    postProcessing: PostProcessingPresets.SpaceTunnel,
-    skybox: 'space-tunnel',
-    fog: {
-      enabled: true,
-      color: new THREE.Color(0x000015),
-      near: 20,
-      far: 400,
-    },
-    lighting: {
-      ambient: { color: new THREE.Color(0x1a1a2e), intensity: 0.1 },
-      directional: {
-        color: new THREE.Color(0x4080ff),
-        intensity: 0.3,
-        position: new THREE.Vector3(0, 50, 100),
-      },
-      point: [
-        { color: new THREE.Color(0x00ffff), intensity: 3, position: new THREE.Vector3(0, 0, 0) },
-        { color: new THREE.Color(0xff0080), intensity: 4, position: new THREE.Vector3(0, 0, -20) },
-        { color: new THREE.Color(0x8000ff), intensity: 2, position: new THREE.Vector3(-15, 0, 10) },
-        { color: new THREE.Color(0xff8000), intensity: 2, position: new THREE.Vector3(15, 0, 10) },
-      ],
-    },
+    component: () => <div>Temporär deaktiviert</div>,
+    postProcessing: {},
   },
-
   'retro-arcade': {
     name: 'Retro Arcade',
-    component: RetroArcadeEnvironment,
-    postProcessing: PostProcessingPresets.RetroArcade,
-    skybox: 'retro-arcade',
-    fog: {
-      enabled: true,
-      color: new THREE.Color(0x1a0826),
-      near: 5,
-      far: 80,
-    },
-    lighting: {
-      ambient: { color: new THREE.Color(0xff8040), intensity: 0.4 },
-      directional: {
-        color: new THREE.Color(0xffa040),
-        intensity: 0.8,
-        position: new THREE.Vector3(-10, 10, 5),
-      },
-      point: [
-        { color: new THREE.Color(0xff0080), intensity: 2, position: new THREE.Vector3(-8, 4, -5) },
-        { color: new THREE.Color(0x0080ff), intensity: 1.5, position: new THREE.Vector3(8, 2, 8) },
-        { color: new THREE.Color(0x00ff40), intensity: 1.2, position: new THREE.Vector3(0, 6, 0) },
-      ],
-    },
+    component: () => <div>Temporär deaktiviert</div>,
+    postProcessing: {},
   },
 } as const;
 
-/**
- * R3F Environment Preset Component
- */
-export function EnvironmentPresetComponent({ preset, children }: EnvironmentPresetProps) {
+export function EnvironmentPresetComponent({
+  preset,
+  children,
+}: EnvironmentPresetProps) {
   const presetConfig = ENVIRONMENT_PRESETS[preset];
 
   if (!presetConfig) {
@@ -271,22 +43,16 @@ export function EnvironmentPresetComponent({ preset, children }: EnvironmentPres
   return (
     <>
       <EnvironmentComponent />
-      <PostProcessingPipeline config={presetConfig.postProcessing} />
+      <PostProcessingPipeline />
       {children}
     </>
   );
 }
 
-/**
- * Hook für Environment Preset Management
- */
 export function useEnvironmentPreset(preset: keyof typeof ENVIRONMENT_PRESETS) {
-  return useMemo(() => {
-    const config = ENVIRONMENT_PRESETS[preset];
-    return {
-      config,
-      component: config.component,
-      postProcessing: config.postProcessing,
-    };
-  }, [preset]);
+  return {
+    config: ENVIRONMENT_PRESETS[preset],
+    component: ENVIRONMENT_PRESETS[preset].component,
+    postProcessing: ENVIRONMENT_PRESETS[preset].postProcessing,
+  };
 }

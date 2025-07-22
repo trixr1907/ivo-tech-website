@@ -44,17 +44,19 @@ export const projectsRouter = router({
       };
     }),
 
-  getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input, ctx }) => {
-    const project = await ctx.db.project.findUnique({
-      where: { slug: input.slug },
-    });
+  getBySlug: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const project = await ctx.db.project.findUnique({
+        where: { slug: input.slug },
+      });
 
-    if (!project) {
-      throw new Error('Project not found');
-    }
+      if (!project) {
+        throw new Error('Project not found');
+      }
 
-    return project;
-  }),
+      return project;
+    }),
 
   create: protectedProcedure
     .input(
@@ -106,11 +108,13 @@ export const projectsRouter = router({
       return project;
     }),
 
-  delete: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ input, ctx }) => {
-    await ctx.db.project.delete({
-      where: { id: input.id },
-    });
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.project.delete({
+        where: { id: input.id },
+      });
 
-    return { success: true };
-  }),
+      return { success: true };
+    }),
 });

@@ -38,17 +38,17 @@ function generateBlurDataURL(width: number = 10, height: number = 10): string {
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
-  
+
   if (!ctx) return '';
-  
+
   // Erstelle einen einfachen Farbverlauf als Blur-Placeholder
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, '#f3f4f6');
   gradient.addColorStop(1, '#e5e7eb');
-  
+
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
-  
+
   return canvas.toDataURL();
 }
 
@@ -86,19 +86,19 @@ export function OptimizedImage({
   };
 
   // Auto-generate blur placeholder wenn nicht vorhanden
-  const finalBlurDataURL = blurDataURL || (
-    placeholder === 'blur' && typeof window !== 'undefined' 
+  const finalBlurDataURL =
+    blurDataURL ||
+    (placeholder === 'blur' && typeof window !== 'undefined'
       ? generateBlurDataURL(width || 10, height || 10)
-      : undefined
-  );
+      : undefined);
 
   if (hasError) {
     return (
-      <div 
-        className={`bg-gray-200 flex items-center justify-center ${className}`}
+      <div
+        className={`flex items-center justify-center bg-gray-200 ${className}`}
         style={{ width, height }}
       >
-        <span className="text-gray-400 text-sm">Bild nicht verfügbar</span>
+        <span className="text-sm text-gray-400">Bild nicht verfügbar</span>
       </div>
     );
   }
@@ -125,11 +125,11 @@ export function OptimizedImage({
         onError={handleError}
         {...props}
       />
-      
+
       {/* Loading Spinner */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-500" />
         </div>
       )}
     </div>
@@ -137,18 +137,17 @@ export function OptimizedImage({
 }
 
 // Spezielle Varianten für häufige Use Cases
-export function HeroImage(props: Omit<OptimizedImageProps, 'priority' | 'sizes'>) {
+export function HeroImage(
+  props: Omit<OptimizedImageProps, 'priority' | 'sizes'>
+) {
   return (
-    <OptimizedImage
-      {...props}
-      priority={true}
-      sizes="100vw"
-      quality={90}
-    />
+    <OptimizedImage {...props} priority={true} sizes="100vw" quality={90} />
   );
 }
 
-export function ThumbnailImage(props: Omit<OptimizedImageProps, 'sizes' | 'quality'>) {
+export function ThumbnailImage(
+  props: Omit<OptimizedImageProps, 'sizes' | 'quality'>
+) {
   return (
     <OptimizedImage
       {...props}
@@ -158,7 +157,9 @@ export function ThumbnailImage(props: Omit<OptimizedImageProps, 'sizes' | 'quali
   );
 }
 
-export function AvatarImage(props: Omit<OptimizedImageProps, 'sizes' | 'quality' | 'objectFit'>) {
+export function AvatarImage(
+  props: Omit<OptimizedImageProps, 'sizes' | 'quality' | 'objectFit'>
+) {
   return (
     <OptimizedImage
       {...props}

@@ -1,4 +1,4 @@
-import { 
+import {
   Color,
   Vector3,
   Vector2,
@@ -51,4 +51,5 @@ export const SIDES = {
 };
 
 export const createNeonColor = (hex: string) => new Color(hex);
-export const createPoint = (x: number, y: number, z: number) => new Vector3(x, y, z);
+export const createPoint = (x: number, y: number, z: number) =>
+  new Vector3(x, y, z);

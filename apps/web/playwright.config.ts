@@ -7,7 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
-  
+
   use: {
     baseURL: 'https://ivo-tech.com',
     trace: 'on-first-retry',
@@ -21,16 +21,16 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'Desktop Firefox',  
+      name: 'Desktop Firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    
+
     // Tablet Tests
     {
       name: 'iPad',
       use: { ...devices['iPad Pro'] },
     },
-    
+
     // Mobile Tests
     {
       name: 'Mobile Chrome',

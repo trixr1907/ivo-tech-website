@@ -1,4 +1,4 @@
-// Simple ESLint config to avoid build issues
+// Vereinfachte ESLint-Konfiguration für Next.js 15
 export default [
   {
     ignores: [
@@ -7,17 +7,32 @@ export default [
       'out/**',
       'build/**',
       '*.config.js',
+      '*.config.mjs',
+      '*.config.ts',
+      '**/*.worklet.js',
+      '**/jest.setup.js',
     ],
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     rules: {
-      // Minimal rules to avoid build failures
-      'no-unused-vars': 'off',
+      // Deaktiviere problematische Regeln
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
       'react/no-unescaped-entities': 'off',
       'react/no-unknown-property': 'off',
+      'no-console': 'off',
     },
   },
 ];

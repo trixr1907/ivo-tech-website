@@ -7,7 +7,7 @@ import { useState, useCallback, memo, forwardRef, Ref } from 'react';
 const RESPONSIVE_SIZES = {
   mobile: '(max-width: 768px) 100vw',
   tablet: '(max-width: 1024px) 50vw',
-  desktop: '33vw'
+  desktop: '33vw',
 };
 
 const DEFAULT_SIZES = `${RESPONSIVE_SIZES.mobile}, ${RESPONSIVE_SIZES.tablet}, ${RESPONSIVE_SIZES.desktop}`;
@@ -49,77 +49,88 @@ const toBase64 = (str: string) =>
     : window.btoa(str);
 
 // Optimierte Image-Komponente mit Lazy Loading
-const OptimizedImage = forwardRef<HTMLImageElement, OptimizedImageProps>(({
-  src,
-  alt,
-  width = 800,
-  height = 600,
-  className = '',
-  sizes = DEFAULT_SIZES,
-  priority = false,
-  placeholder = 'blur',
-  blurDataURL,
-  quality = 75,
-  onLoad,
-  onError,
-  fill = false,
-  ...props
-}, ref: Ref<HTMLImageElement>) => {
-  const [isLoading, setLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+const OptimizedImage = forwardRef<HTMLImageElement, OptimizedImageProps>(
+  (
+    {
+      src,
+      alt,
+      width = 800,
+      height = 600,
+      className = '',
+      sizes = DEFAULT_SIZES,
+      priority = false,
+      placeholder = 'blur',
+      blurDataURL,
+      quality = 75,
+      onLoad,
+      onError,
+      fill = false,
+      ...props
+    },
+    ref: Ref<HTMLImageElement>
+  ) => {
+    const [isLoading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
 
-  const handleLoad = useCallback(() => {
-    setLoading(false);
-    onLoad?.();
-  }, [onLoad]);
+    const handleLoad = useCallback(() => {
+      setLoading(false);
+      onLoad?.();
+    }, [onLoad]);
 
-  const handleError = useCallback(() => {
-    setLoading(false);
-    setHasError(true);
-    onError?.();
-  }, [onError]);
+    const handleError = useCallback(() => {
+      setLoading(false);
+      setHasError(true);
+      onError?.();
+    }, [onError]);
 
-  const defaultBlurDataURL = blurDataURL || 
-    `data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`;
+    const defaultBlurDataURL =
+      blurDataURL ||
+      `data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`;
 
-  if (hasError) {
+    if (hasError) {
+      return (
+        <div
+          className={`flex items-center justify-center bg-gray-200 ${className}`}
+          style={{
+            width: fill ? '100%' : width,
+            height: fill ? '100%' : height,
+          }}
+        >
+          <span className="text-sm text-gray-500">
+            Bild konnte nicht geladen werden
+          </span>
+        </div>
+      );
+    }
+
     return (
-      <div 
-        className={`bg-gray-200 flex items-center justify-center ${className}`}
-        style={{ width: fill ? '100%' : width, height: fill ? '100%' : height }}
-      >
-        <span className="text-gray-500 text-sm">Bild konnte nicht geladen werden</span>
+      <div className={`relative overflow-hidden ${className}`}>
+        <Image
+          ref={ref}
+          src={src}
+          alt={alt}
+          width={fill ? undefined : width}
+          height={fill ? undefined : height}
+          fill={fill}
+          sizes={sizes}
+          priority={priority}
+          placeholder={placeholder}
+          blurDataURL={defaultBlurDataURL}
+          quality={quality}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={`transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          } ${fill ? 'object-cover' : ''}`}
+          {...props}
+        />
+        {isLoading && (
+          <div className="absolute inset-0 animate-pulse bg-gray-200" />
+        )}
       </div>
     );
   }
-
-  return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <Image
-        ref={ref}
-        src={src}
-        alt={alt}
-        width={fill ? undefined : width}
-        height={fill ? undefined : height}
-        fill={fill}
-        sizes={sizes}
-        priority={priority}
-        placeholder={placeholder}
-        blurDataURL={defaultBlurDataURL}
-        quality={quality}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={`transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        } ${fill ? 'object-cover' : ''}`}
-        {...props}
-      />
-      {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-      )}
-    </div>
-  );
-});
+);
 
 OptimizedImage.displayName = 'OptimizedImage';
 
@@ -137,80 +148,86 @@ export const useProgressiveImage = (src: string, placeholderSrc?: string) => {
 };
 
 // Avatar-Komponente mit optimierter Performance
-export const OptimizedAvatar = memo(({ 
-  src, 
-  alt, 
-  size = 64,
-  className = '' 
-}: { 
-  src: string; 
-  alt: string; 
-  size?: number;
-  className?: string;
-}) => (
-  <OptimizedImage
-    src={src}
-    alt={alt}
-    width={size}
-    height={size}
-    className={`rounded-full ${className}`}
-    sizes={`${size}px`}
-    quality={80}
-  />
-));
+export const OptimizedAvatar = memo(
+  ({
+    src,
+    alt,
+    size = 64,
+    className = '',
+  }: {
+    src: string;
+    alt: string;
+    size?: number;
+    className?: string;
+  }) => (
+    <OptimizedImage
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      className={`rounded-full ${className}`}
+      sizes={`${size}px`}
+      quality={80}
+    />
+  )
+);
 
 OptimizedAvatar.displayName = 'OptimizedAvatar';
 
 // Hero-Image mit WebP-Unterstützung
-export const OptimizedHeroImage = memo(({
-  src,
-  alt,
-  className = '',
-  priority = true
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  priority?: boolean;
-}) => (
-  <OptimizedImage
-    src={src}
-    alt={alt}
-    fill
-    className={className}
-    sizes="100vw"
-    priority={priority}
-    quality={85}
-    placeholder="blur"
-  />
-));
+export const OptimizedHeroImage = memo(
+  ({
+    src,
+    alt,
+    className = '',
+    priority = true,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+    priority?: boolean;
+  }) => (
+    <OptimizedImage
+      src={src}
+      alt={alt}
+      fill
+      className={className}
+      sizes="100vw"
+      priority={priority}
+      quality={85}
+      placeholder="blur"
+    />
+  )
+);
 
 OptimizedHeroImage.displayName = 'OptimizedHeroImage';
 
 // Galerie-Image mit Lazy Loading
-export const OptimizedGalleryImage = memo(({
-  src,
-  alt,
-  width = 300,
-  height = 200,
-  className = ''
-}: {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  className?: string;
-}) => (
-  <OptimizedImage
-    src={src}
-    alt={alt}
-    width={width}
-    height={height}
-    className={className}
-    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-    quality={75}
-  />
-));
+export const OptimizedGalleryImage = memo(
+  ({
+    src,
+    alt,
+    width = 300,
+    height = 200,
+    className = '',
+  }: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    className?: string;
+  }) => (
+    <OptimizedImage
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      quality={75}
+    />
+  )
+);
 
 OptimizedGalleryImage.displayName = 'OptimizedGalleryImage';
 

@@ -67,7 +67,11 @@ export function VisualEffectsPipeline() {
         bloom: {
           enabled: true,
           intensity: 2.0,
-          parameters: { luminanceThreshold: 0.1, luminanceSmoothing: 0.9, kernelSize: KernelSize.LARGE },
+          parameters: {
+            luminanceThreshold: 0.1,
+            luminanceSmoothing: 0.9,
+            kernelSize: KernelSize.LARGE,
+          },
         },
         chromaticAberration: {
           enabled: true,
@@ -77,7 +81,11 @@ export function VisualEffectsPipeline() {
         glitch: {
           enabled: true,
           intensity: 0.3,
-          parameters: { delay: [1.5, 3.5], duration: [0.6, 1.0], strength: [0.3, 1.0] },
+          parameters: {
+            delay: [1.5, 3.5],
+            duration: [0.6, 1.0],
+            strength: [0.3, 1.0],
+          },
         },
         scanline: {
           enabled: true,
@@ -98,7 +106,11 @@ export function VisualEffectsPipeline() {
         bloom: {
           enabled: true,
           intensity: 1.5,
-          parameters: { luminanceThreshold: 0.3, luminanceSmoothing: 0.95, kernelSize: KernelSize.MEDIUM },
+          parameters: {
+            luminanceThreshold: 0.3,
+            luminanceSmoothing: 0.95,
+            kernelSize: KernelSize.MEDIUM,
+          },
         },
         chromaticAberration: {
           enabled: false,
@@ -150,7 +162,11 @@ export function VisualEffectsPipeline() {
         bloom: {
           enabled: true,
           intensity: 0.8,
-          parameters: { luminanceThreshold: 0.8, luminanceSmoothing: 0.9, kernelSize: KernelSize.SMALL },
+          parameters: {
+            luminanceThreshold: 0.8,
+            luminanceSmoothing: 0.9,
+            kernelSize: KernelSize.SMALL,
+          },
         },
         fxaa: {
           enabled: true,
@@ -261,7 +277,8 @@ export function VisualEffectsPipeline() {
 
       let audioIntensity = 1.0;
       if (audioData && audioReactive) {
-        const avgAudio = audioData.reduce((sum, val) => sum + val, 0) / audioData.length;
+        const avgAudio =
+          audioData.reduce((sum, val) => sum + val, 0) / audioData.length;
         audioIntensity = 1.0 + (avgAudio / 255) * 2.0;
       }
 
@@ -304,7 +321,10 @@ export function VisualEffectsPipeline() {
       for (let i = 0; i < count; i++) {
         opacities[i] = lifetimes[i] / maxLifetime;
       }
-      system.geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1));
+      system.geometry.setAttribute(
+        'opacity',
+        new THREE.BufferAttribute(opacities, 1)
+      );
     });
   };
 
@@ -323,7 +343,8 @@ export function VisualEffectsPipeline() {
 
     // Update shader uniforms with audio data
     if (shaderAPI && audioData) {
-      const avgAudio = audioData.reduce((sum, val) => sum + val, 0) / audioData.length;
+      const avgAudio =
+        audioData.reduce((sum, val) => sum + val, 0) / audioData.length;
       const normalizedAudio = avgAudio / 255;
 
       // Update all registered shaders
@@ -408,7 +429,7 @@ export function VisualEffectsPipeline() {
   if (currentEffects.bloom?.enabled) {
     effects.push(
       <Bloom
-        key='bloom'
+        key="bloom"
         intensity={currentEffects.bloom.intensity}
         luminanceThreshold={currentEffects.bloom.parameters.luminanceThreshold}
         luminanceSmoothing={currentEffects.bloom.parameters.luminanceSmoothing}
@@ -420,9 +441,17 @@ export function VisualEffectsPipeline() {
   if (currentEffects.chromaticAberration?.enabled) {
     effects.push(
       <ChromaticAberration
-        key='chromatic-aberration'
-        offset={new THREE.Vector2(...(currentEffects.chromaticAberration.parameters.offset || [0.001, 0.001]))}
-        radialModulation={currentEffects.chromaticAberration.parameters.radialModulation}
+        key="chromatic-aberration"
+        offset={
+          new THREE.Vector2(
+            ...(currentEffects.chromaticAberration.parameters.offset || [
+              0.001, 0.001,
+            ])
+          )
+        }
+        radialModulation={
+          currentEffects.chromaticAberration.parameters.radialModulation
+        }
         blendFunction={BlendFunction.NORMAL}
       />
     );
@@ -432,7 +461,7 @@ export function VisualEffectsPipeline() {
   if (currentEffects.glitch?.enabled) {
     effects.push(
       <Glitch
-        key='glitch'
+        key="glitch"
         delay={currentEffects.glitch.parameters.delay}
         duration={currentEffects.glitch.parameters.duration}
         strength={currentEffects.glitch.parameters.strength}
@@ -447,7 +476,7 @@ export function VisualEffectsPipeline() {
   if (currentEffects.scanline?.enabled) {
     effects.push(
       <Scanline
-        key='scanline'
+        key="scanline"
         density={currentEffects.scanline.parameters.density}
         blendFunction={BlendFunction.OVERLAY}
       />
@@ -458,7 +487,7 @@ export function VisualEffectsPipeline() {
   if (currentEffects.vignette?.enabled) {
     effects.push(
       <Vignette
-        key='vignette'
+        key="vignette"
         eskil={currentEffects.vignette.parameters.eskil}
         offset={0.1}
         darkness={currentEffects.vignette.parameters.darkness}
@@ -469,14 +498,19 @@ export function VisualEffectsPipeline() {
 
   // Pixelation
   if (currentEffects.pixelation?.enabled) {
-    effects.push(<Pixelation key='pixelation' granularity={currentEffects.pixelation.parameters.granularity} />);
+    effects.push(
+      <Pixelation
+        key="pixelation"
+        granularity={currentEffects.pixelation.parameters.granularity}
+      />
+    );
   }
 
   // Noise
   if (currentEffects.noise?.enabled) {
     effects.push(
       <Noise
-        key='noise'
+        key="noise"
         premultiply={currentEffects.noise.parameters.premultiply}
         blendFunction={BlendFunction.SCREEN}
       />
@@ -486,25 +520,28 @@ export function VisualEffectsPipeline() {
   // Color Average
   if (currentEffects.colorAverage?.enabled) {
     effects.push(
-      <ColorAverage key='color-average' blendFunction={currentEffects.colorAverage.parameters.blendFunction} />
+      <ColorAverage
+        key="color-average"
+        blendFunction={currentEffects.colorAverage.parameters.blendFunction}
+      />
     );
   }
 
   // FXAA
   if (currentEffects.fxaa?.enabled) {
-    effects.push(<FXAA key='fxaa' />);
+    effects.push(<FXAA key="fxaa" />);
   }
 
   // SMAA
   if (currentEffects.smaa?.enabled) {
-    effects.push(<SMAA key='smaa' />);
+    effects.push(<SMAA key="smaa" />);
   }
 
   // Tone Mapping
   if (currentEffects.toneMapping?.enabled) {
     effects.push(
       <ToneMapping
-        key='tone-mapping'
+        key="tone-mapping"
         mode={currentEffects.toneMapping.parameters.mode}
         resolution={256}
         maxLuminance={16.0}

@@ -71,7 +71,13 @@ import { PageTransition } from '@/components/motion/PageTransition';
 ```tsx
 import { OrchestatedSection } from '@/components/motion/MotionOrchestrator';
 
-<OrchestatedSection id='hero' enableParallax={true} parallaxSpeed={0.3} enable3D={true} delayAnimation={0}>
+<OrchestatedSection
+  id="hero"
+  enableParallax={true}
+  parallaxSpeed={0.3}
+  enable3D={true}
+  delayAnimation={0}
+>
   <YourContent />
 </OrchestatedSection>;
 ```
@@ -81,7 +87,7 @@ import { OrchestatedSection } from '@/components/motion/MotionOrchestrator';
 ```tsx
 import { NeonLink } from '@/components/motion/NeonCurtainSweep';
 
-<NeonLink href='/about' curtainColor={[0, 1, 0.8]}>
+<NeonLink href="/about" curtainColor={[0, 1, 0.8]}>
   Navigate with Curtain
 </NeonLink>;
 ```
@@ -91,7 +97,11 @@ import { NeonLink } from '@/components/motion/NeonCurtainSweep';
 ```tsx
 import { ScrollOrchestrator } from '@/components/motion/ScrollOrchestrator';
 
-<ScrollOrchestrator sections={scrollSections} debugMode={false} enableSmoothing={true} />;
+<ScrollOrchestrator
+  sections={scrollSections}
+  debugMode={false}
+  enableSmoothing={true}
+/>;
 ```
 
 ### 🎮 Motion Control Panel

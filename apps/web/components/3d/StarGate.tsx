@@ -97,13 +97,21 @@ export function StarGate({ position = [0, 0, -5], scale = 1 }: StarGateProps) {
     <group position={position} scale={scale}>
       {/* Outer Ring */}
       <Torus ref={portalRef} args={[2, 0.1, 16, 100]} rotation={[0, 0, 0]}>
-        <PortalMaterialImpl ref={materialRef} transparent={true} side={THREE.DoubleSide} />
+        <PortalMaterialImpl
+          ref={materialRef}
+          transparent={true}
+          side={THREE.DoubleSide}
+        />
       </Torus>
 
       {/* Inner Portal Effect */}
       <mesh rotation={[0, 0, 0]}>
         <planeGeometry args={[3.5, 3.5, 32, 32]} />
-        <PortalMaterialImpl ref={innerMaterialRef} transparent={true} side={THREE.DoubleSide} />
+        <PortalMaterialImpl
+          ref={innerMaterialRef}
+          transparent={true}
+          side={THREE.DoubleSide}
+        />
       </mesh>
 
       {/* Additional Rings for Depth */}

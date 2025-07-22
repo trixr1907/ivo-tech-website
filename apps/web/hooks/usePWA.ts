@@ -21,9 +21,12 @@ export function usePWA() {
     const registerServiceWorker = async () => {
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register('/sw.js', {
-            scope: '/',
-          });
+          const registration = await navigator.serviceWorker.register(
+            '/sw.js',
+            {
+              scope: '/',
+            }
+          );
 
           console.log('[PWA] Service Worker registriert:', registration);
 
@@ -59,7 +62,10 @@ export function usePWA() {
             });
           }
         } catch (error) {
-          console.error('[PWA] Service Worker Registrierung fehlgeschlagen:', error);
+          console.error(
+            '[PWA] Service Worker Registrierung fehlgeschlagen:',
+            error
+          );
         }
       }
     };
@@ -84,8 +90,12 @@ export function usePWA() {
 
     // Display Mode Change Handler
     const handleDisplayModeChange = () => {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches;
+      const isStandalone = window.matchMedia(
+        '(display-mode: standalone)'
+      ).matches;
+      const isFullscreen = window.matchMedia(
+        '(display-mode: fullscreen)'
+      ).matches;
       setIsInstalled(isStandalone || isFullscreen);
     };
 
@@ -95,10 +105,15 @@ export function usePWA() {
 
     // Display Mode bei Load prüfen
     handleDisplayModeChange();
-    window.matchMedia('(display-mode: standalone)').addEventListener('change', handleDisplayModeChange);
+    window
+      .matchMedia('(display-mode: standalone)')
+      .addEventListener('change', handleDisplayModeChange);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt
+      );
       window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
@@ -137,9 +152,13 @@ export function usePWA() {
       window.location.reload();
     };
 
-    navigator.serviceWorker.addEventListener('controllerchange', handleUpdateReady, {
-      once: true,
-    });
+    navigator.serviceWorker.addEventListener(
+      'controllerchange',
+      handleUpdateReady,
+      {
+        once: true,
+      }
+    );
   };
 
   // Cache preloaden für bessere Performance
@@ -153,7 +172,11 @@ export function usePWA() {
   };
 
   // Share API verwenden (falls verfügbar)
-  const shareContent = async (shareData: { title?: string; text?: string; url?: string }) => {
+  const shareContent = async (shareData: {
+    title?: string;
+    text?: string;
+    url?: string;
+  }) => {
     if (navigator.share) {
       try {
         await navigator.share(shareData);

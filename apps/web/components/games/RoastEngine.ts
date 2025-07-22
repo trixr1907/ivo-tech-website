@@ -50,7 +50,8 @@ export class RoastEngine {
       },
       {
         id: '2',
-        content: 'Your portfolio is **flatter** than the Earth you think it is 🌍💸',
+        content:
+          'Your portfolio is **flatter** than the Earth you think it is 🌍💸',
         level: 'medium',
         category: 'investment',
         tags: ['portfolio', 'flat-earth', 'investing'],
@@ -152,7 +153,8 @@ export class RoastEngine {
 
   private matchesHumorLevel(roastLevel: string): boolean {
     const levels = { mild: 1, medium: 2, savage: 3 };
-    const currentLevel = levels[this.settings.humorLevel as keyof typeof levels];
+    const currentLevel =
+      levels[this.settings.humorLevel as keyof typeof levels];
     const roastLevelValue = levels[roastLevel as keyof typeof levels];
 
     return roastLevelValue <= currentLevel;
@@ -282,7 +284,10 @@ export const createRoastEngine = (settings?: Partial<RoastSettings>) => {
   return new RoastEngine(settings);
 };
 
-export const formatRoastForDisplay = (roast: RoastEntry, enableMarkdown: boolean = true): string => {
+export const formatRoastForDisplay = (
+  roast: RoastEntry,
+  enableMarkdown: boolean = true
+): string => {
   if (enableMarkdown && roast.markdown) {
     return roast.content;
   }

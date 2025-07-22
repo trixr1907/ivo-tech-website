@@ -44,7 +44,10 @@ export function AnimatedGradient({
   const getHoudiniStyle = () => {
     if (!supportsHoudini) return {};
 
-    const audioData = audioReactive && is4DMode && frequencyData ? JSON.stringify(Array.from(frequencyData)) : '';
+    const audioData =
+      audioReactive && is4DMode && frequencyData
+        ? JSON.stringify(Array.from(frequencyData))
+        : '';
 
     return {
       background: 'paint(neon-gradient)',
@@ -62,10 +65,15 @@ export function AnimatedGradient({
     // Fallback für Browser ohne Houdini Support
     const audioIntensity =
       audioReactive && is4DMode && frequencyData
-        ? 1 + (Array.from(frequencyData).reduce((a, b) => a + b, 0) / frequencyData.length / 255) * 0.5
+        ? 1 +
+          (Array.from(frequencyData).reduce((a, b) => a + b, 0) /
+            frequencyData.length /
+            255) *
+            0.5
         : 1;
 
-    const animatedAngle = ((direction * 180) / Math.PI + time * speed * 10 * audioIntensity) % 360;
+    const animatedAngle =
+      ((direction * 180) / Math.PI + time * speed * 10 * audioIntensity) % 360;
 
     return {
       background: `linear-gradient(${animatedAngle}deg, ${colors.join(', ')})`,

@@ -42,7 +42,9 @@ export function usePerformance(): PerformanceMetrics {
       try {
         frameCount++;
         if (currentTime - lastTime >= 1000) {
-          const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+          const fps = Math.round(
+            (frameCount * 1000) / (currentTime - lastTime)
+          );
           setMetrics(prev => ({ ...prev, fps }));
           frameCount = 0;
           lastTime = currentTime;
@@ -53,12 +55,14 @@ export function usePerformance(): PerformanceMetrics {
       } catch (error) {
         // Log the error for further investigation
         console.error('Error tracking FPS:', error);
-        
+
         // Report the error using a monitoring tool
         if (typeof reportError === 'function') {
-          reportError(new Error('Error tracking FPS'), { component: 'usePerformance' });
+          reportError(new Error('Error tracking FPS'), {
+            component: 'usePerformance',
+          });
         }
-        
+
         // Set fallback values
         setMetrics(prev => ({ ...prev, fps: 30 }));
       }
@@ -68,15 +72,19 @@ export function usePerformance(): PerformanceMetrics {
     const trackMemory = () => {
       try {
         if (typeof performance !== 'undefined' && 'memory' in performance) {
-          const memory = Math.round((performance as any).memory.usedJSHeapSize / 1048576);
+          const memory = Math.round(
+            (performance as any).memory.usedJSHeapSize / 1048576
+          );
           setMetrics(prev => ({ ...prev, memory }));
         }
       } catch (error) {
         console.error('Error tracking memory usage:', error);
         if (typeof reportError === 'function') {
-          reportError(new Error('Error tracking memory usage'), { component: 'usePerformance' });
+          reportError(new Error('Error tracking memory usage'), {
+            component: 'usePerformance',
+          });
         }
-        
+
         // Set fallback value
         setMetrics(prev => ({ ...prev, memory: 0 }));
       }
@@ -85,19 +93,29 @@ export function usePerformance(): PerformanceMetrics {
     // Page Load Time
     const trackLoadTime = () => {
       try {
-        if (typeof document !== 'undefined' && typeof performance !== 'undefined' && document.readyState === 'complete') {
-          const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        if (
+          typeof document !== 'undefined' &&
+          typeof performance !== 'undefined' &&
+          document.readyState === 'complete'
+        ) {
+          const navigationEntry = performance.getEntriesByType(
+            'navigation'
+          )[0] as PerformanceNavigationTiming;
           if (navigationEntry) {
-            const loadTime = Math.round(navigationEntry.loadEventEnd - navigationEntry.fetchStart);
+            const loadTime = Math.round(
+              navigationEntry.loadEventEnd - navigationEntry.fetchStart
+            );
             setMetrics(prev => ({ ...prev, loadTime }));
           }
         }
       } catch (error) {
         console.error('Error tracking page load time:', error);
         if (typeof reportError === 'function') {
-          reportError(new Error('Error tracking page load time'), { component: 'usePerformance' });
+          reportError(new Error('Error tracking page load time'), {
+            component: 'usePerformance',
+          });
         }
-        
+
         // Set fallback value
         setMetrics(prev => ({ ...prev, loadTime: 0 }));
       }

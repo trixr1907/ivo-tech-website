@@ -1,11 +1,22 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { PageTransition, AnimatedSection } from './PageTransition';
 import { NeonCurtainSweep, useNeonRouteTransition } from './NeonCurtainSweep';
-import { ScrollOrchestrator, ScrollLinked3D, ParallaxSection3D, ScrollProgressIndicator } from './ScrollOrchestrator';
+import {
+  ScrollOrchestrator,
+  ScrollLinked3D,
+  ParallaxSection3D,
+  ScrollProgressIndicator,
+} from './ScrollOrchestrator';
 
 // Motion Orchestrator Context
 interface MotionOrchestratorContext {
@@ -55,7 +66,9 @@ export const MotionOrchestratorProvider: React.FC<{
 }> = ({ children, initialSettings = {} }) => {
   const pathname = usePathname();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionType, setTransitionType] = useState<'page' | 'curtain' | 'scroll'>('page');
+  const [transitionType, setTransitionType] = useState<
+    'page' | 'curtain' | 'scroll'
+  >('page');
   const [motionSettings, setMotionSettings] = useState<MotionSettings>({
     ...defaultMotionSettings,
     ...initialSettings,
@@ -80,9 +93,12 @@ export const MotionOrchestratorProvider: React.FC<{
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const updateMotionSettings = useCallback((settings: Partial<MotionSettings>) => {
-    setMotionSettings(prev => ({ ...prev, ...settings }));
-  }, []);
+  const updateMotionSettings = useCallback(
+    (settings: Partial<MotionSettings>) => {
+      setMotionSettings(prev => ({ ...prev, ...settings }));
+    },
+    []
+  );
 
   const triggerPageTransition = useCallback(
     (route: string, type: 'page' | 'curtain' = 'page') => {
@@ -96,7 +112,11 @@ export const MotionOrchestratorProvider: React.FC<{
         setIsTransitioning(false);
       }, duration);
     },
-    [isTransitioning, motionSettings.reducedMotion, motionSettings.transitionDuration]
+    [
+      isTransitioning,
+      motionSettings.reducedMotion,
+      motionSettings.transitionDuration,
+    ]
   );
 
   const contextValue: MotionOrchestratorContext = {
@@ -107,6 +127,14 @@ export const MotionOrchestratorProvider: React.FC<{
     updateMotionSettings,
     triggerPageTransition,
   };
+
+  // Global verfügbar machen für Performance-Integration
+  useEffect(() => {
+    (window as any).motionOrchestrator = {
+      ...contextValue,
+      getSettings: () => motionSettings,
+    };
+  }, [contextValue, motionSettings]);
 
   // 3D Section Configurations for ScrollTrigger
   const scrollSections = [
@@ -190,25 +218,37 @@ export const MotionOrchestratorProvider: React.FC<{
     <MotionContext.Provider value={contextValue}>
       {/* Reduced Motion Fallback */}
       {motionSettings.reducedMotion ? (
-        <div className='motion-reduced'>{children}</div>
+        <div className="motion-reduced">{children}</div>
       ) : (
         <>
           {/* Global Scroll Orchestrator */}
           {motionSettings.enableScrollAnimations && (
-            <ScrollOrchestrator sections={scrollSections} debugMode={motionSettings.debugMode} enableSmoothing={true} />
+            <ScrollOrchestrator
+              sections={scrollSections}
+              debugMode={motionSettings.debugMode}
+              enableSmoothing={true}
+            />
           )}
 
           {/* Scroll Progress Indicator */}
-          <ScrollProgressIndicator color='#00ffcc' thickness={2} position='top' />
+          <ScrollProgressIndicator
+            color="#00ffcc"
+            thickness={2}
+            position="top"
+          />
 
           {/* Page Transitions */}
-          {motionSettings.enablePageTransitions ? <PageTransition>{children}</PageTransition> : children}
+          {motionSettings.enablePageTransitions ? (
+            <PageTransition>{children}</PageTransition>
+          ) : (
+            children
+          )}
 
           {/* Neon Curtain Sweep */}
           {motionSettings.enableCurtainSweep && (
             <NeonCurtainSweep
               isActive={isTransitioning && transitionType === 'curtain'}
-              direction='left-to-right'
+              direction="left-to-right"
               color={motionSettings.curtainColor}
               duration={motionSettings.transitionDuration}
               intensity={1.5}
@@ -224,7 +264,9 @@ export const MotionOrchestratorProvider: React.FC<{
 export const useMotionOrchestrator = () => {
   const context = useContext(MotionContext);
   if (!context) {
-    throw new Error('useMotionOrchestrator must be used within a MotionOrchestratorProvider');
+    throw new Error(
+      'useMotionOrchestrator must be used within a MotionOrchestratorProvider'
+    );
   }
   return context;
 };
@@ -260,7 +302,11 @@ export const OrchestatedSection: React.FC<{
   return (
     <AnimatedSection id={id} className={className} delay={delayAnimation}>
       {enableParallax && motionSettings.enableParallax ? (
-        <ParallaxSection3D speed={parallaxSpeed} enable3D={enable3D} className='h-full'>
+        <ParallaxSection3D
+          speed={parallaxSpeed}
+          enable3D={enable3D}
+          className="h-full"
+        >
           {children}
         </ParallaxSection3D>
       ) : (
@@ -282,91 +328,111 @@ export const MotionControlPanel: React.FC<{
   return (
     <AnimatePresence>
       <motion.div
-        className='fixed inset-0 z-[10000] flex items-center justify-center bg-black/80 p-4'
+        className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/80 p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
         <motion.div
-          className='w-full max-w-md rounded-xl border border-cyan-500/30 bg-gray-900 p-6'
+          className="w-full max-w-md rounded-xl border border-cyan-500/30 bg-gray-900 p-6"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           onClick={e => e.stopPropagation()}
         >
-          <h3 className='mb-4 text-xl font-bold text-cyan-400'>🎭 Motion Control Panel</h3>
+          <h3 className="mb-4 text-xl font-bold text-cyan-400">
+            🎭 Motion Control Panel
+          </h3>
 
-          <div className='space-y-4'>
-            <label className='flex items-center justify-between'>
-              <span className='text-gray-300'>Page Transitions</span>
+          <div className="space-y-4">
+            <label className="flex items-center justify-between">
+              <span className="text-gray-300">Page Transitions</span>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={motionSettings.enablePageTransitions}
-                onChange={e => updateMotionSettings({ enablePageTransitions: e.target.checked })}
-                className='h-4 w-4 text-cyan-600'
+                onChange={e =>
+                  updateMotionSettings({
+                    enablePageTransitions: e.target.checked,
+                  })
+                }
+                className="h-4 w-4 text-cyan-600"
               />
             </label>
 
-            <label className='flex items-center justify-between'>
-              <span className='text-gray-300'>Curtain Sweep</span>
+            <label className="flex items-center justify-between">
+              <span className="text-gray-300">Curtain Sweep</span>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={motionSettings.enableCurtainSweep}
-                onChange={e => updateMotionSettings({ enableCurtainSweep: e.target.checked })}
-                className='h-4 w-4 text-cyan-600'
+                onChange={e =>
+                  updateMotionSettings({ enableCurtainSweep: e.target.checked })
+                }
+                className="h-4 w-4 text-cyan-600"
               />
             </label>
 
-            <label className='flex items-center justify-between'>
-              <span className='text-gray-300'>Scroll Animations</span>
+            <label className="flex items-center justify-between">
+              <span className="text-gray-300">Scroll Animations</span>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={motionSettings.enableScrollAnimations}
-                onChange={e => updateMotionSettings({ enableScrollAnimations: e.target.checked })}
-                className='h-4 w-4 text-cyan-600'
+                onChange={e =>
+                  updateMotionSettings({
+                    enableScrollAnimations: e.target.checked,
+                  })
+                }
+                className="h-4 w-4 text-cyan-600"
               />
             </label>
 
-            <label className='flex items-center justify-between'>
-              <span className='text-gray-300'>Parallax Effects</span>
+            <label className="flex items-center justify-between">
+              <span className="text-gray-300">Parallax Effects</span>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={motionSettings.enableParallax}
-                onChange={e => updateMotionSettings({ enableParallax: e.target.checked })}
-                className='h-4 w-4 text-cyan-600'
+                onChange={e =>
+                  updateMotionSettings({ enableParallax: e.target.checked })
+                }
+                className="h-4 w-4 text-cyan-600"
               />
             </label>
 
-            <label className='flex items-center justify-between'>
-              <span className='text-gray-300'>Debug Mode</span>
+            <label className="flex items-center justify-between">
+              <span className="text-gray-300">Debug Mode</span>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={motionSettings.debugMode}
-                onChange={e => updateMotionSettings({ debugMode: e.target.checked })}
-                className='h-4 w-4 text-cyan-600'
+                onChange={e =>
+                  updateMotionSettings({ debugMode: e.target.checked })
+                }
+                className="h-4 w-4 text-cyan-600"
               />
             </label>
 
             <div>
-              <label className='mb-2 block text-gray-300'>
+              <label className="mb-2 block text-gray-300">
                 Transition Duration: {motionSettings.transitionDuration}s
               </label>
               <input
-                type='range'
-                min='0.5'
-                max='3'
-                step='0.1'
+                type="range"
+                min="0.5"
+                max="3"
+                step="0.1"
                 value={motionSettings.transitionDuration}
-                onChange={e => updateMotionSettings({ transitionDuration: parseFloat(e.target.value) })}
-                className='h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-700'
+                onChange={e =>
+                  updateMotionSettings({
+                    transitionDuration: parseFloat(e.target.value),
+                  })
+                }
+                className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-700"
               />
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className='mt-6 w-full rounded bg-cyan-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-cyan-700'
+            className="mt-6 w-full rounded bg-cyan-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-cyan-700"
           >
             Close Panel
           </button>

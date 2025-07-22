@@ -2,7 +2,15 @@
 
 import React, { useRef, useState, useCallback, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Stars, Float, Html, Instance, Instances } from '@react-three/drei';
+import {
+  OrbitControls,
+  Text,
+  Stars,
+  Float,
+  Html,
+  Instance,
+  Instances,
+} from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -10,42 +18,60 @@ import * as THREE from 'three';
 function SceneLoadingFallback() {
   return (
     <div className="flex h-full w-full items-center justify-center bg-black/20 backdrop-blur">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400" />
-      <span className="ml-4 text-cyan-400 font-mono">Loading 3D Scene...</span>
+      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-cyan-400" />
+      <span className="ml-4 font-mono text-cyan-400">Loading 3D Scene...</span>
     </div>
   );
 }
 
 // Optimierte Tech Orbs mit InstancedMesh
-function OptimizedTechOrbs({ technologies, onTechClick }: { technologies: any[], onTechClick?: (tech: string) => void }) {
+function OptimizedTechOrbs({
+  technologies,
+  onTechClick,
+}: {
+  technologies: any[];
+  onTechClick?: (tech: string) => void;
+}) {
   const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  // Shared geometry und material für bessere Performance
-  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(0.5, 16, 16), []); // Reduzierte Segmente
-  const materials = useMemo(() => 
-    technologies.map(tech => new THREE.MeshStandardMaterial({
-      color: tech.color,
-      emissive: tech.color,
-      emissiveIntensity: 0.1,
-      transparent: true,
-      opacity: 0.8,
-    }))
-  , [technologies]);
 
-  useFrame((state) => {
+  // Shared geometry und material für bessere Performance
+  const sphereGeometry = useMemo(
+    () => new THREE.SphereGeometry(0.5, 16, 16),
+    []
+  ); // Reduzierte Segmente
+  const materials = useMemo(
+    () =>
+      technologies.map(
+        tech =>
+          new THREE.MeshStandardMaterial({
+            color: tech.color,
+            emissive: tech.color,
+            emissiveIntensity: 0.1,
+            transparent: true,
+            opacity: 0.8,
+          })
+      ),
+    [technologies]
+  );
+
+  useFrame(state => {
     if (!instancedMeshRef.current) return;
-    
+
     technologies.forEach((tech, index) => {
       const matrix = new THREE.Matrix4();
       const position = new THREE.Vector3(...tech.position);
       position.y += Math.sin(state.clock.elapsedTime + index) * 0.2;
-      
+
       const scale = hoveredIndex === index ? 1.2 : 1;
-      matrix.compose(position, new THREE.Quaternion(), new THREE.Vector3(scale, scale, scale));
+      matrix.compose(
+        position,
+        new THREE.Quaternion(),
+        new THREE.Vector3(scale, scale, scale)
+      );
       instancedMeshRef.current!.setMatrixAt(index, matrix);
     });
-    
+
     instancedMeshRef.current.instanceMatrix.needsUpdate = true;
   });
 
@@ -59,15 +85,18 @@ function OptimizedTechOrbs({ technologies, onTechClick }: { technologies: any[],
     setHoveredIndex(null);
   }, []);
 
-  const handleClick = useCallback((event: any) => {
-    if (event.instanceId !== undefined) {
-      const tech = technologies[event.instanceId];
-      onTechClick?.(tech.name);
-    }
-  }, [technologies, onTechClick]);
+  const handleClick = useCallback(
+    (event: any) => {
+      if (event.instanceId !== undefined) {
+        const tech = technologies[event.instanceId];
+        onTechClick?.(tech.name);
+      }
+    },
+    [technologies, onTechClick]
+  );
 
   return (
-    <instancedMesh 
+    <instancedMesh
       ref={instancedMeshRef}
       args={[sphereGeometry, materials[0], technologies.length]}
       onPointerMove={handlePointerMove}
@@ -83,25 +112,31 @@ function OptimizedTechOrbs({ technologies, onTechClick }: { technologies: any[],
 function OptimizedAnimatedGrid() {
   const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
   const count = 10; // Reduziert von 20 auf 10
-  
+
   const boxGeometry = useMemo(() => new THREE.BoxGeometry(0.1, 0.1, 0.1), []);
-  const material = useMemo(() => new THREE.MeshBasicMaterial({
-    color: '#0099ff',
-    transparent: true,
-    opacity: 0.6,
-  }), []);
+  const material = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: '#0099ff',
+        transparent: true,
+        opacity: 0.6,
+      }),
+    []
+  );
 
-  const positions = useMemo(() => 
-    Array.from({ length: count }, () => [
-      (Math.random() - 0.5) * 20,
-      (Math.random() - 0.5) * 20,
-      (Math.random() - 0.5) * 20
-    ])
-  , [count]);
+  const positions = useMemo(
+    () =>
+      Array.from({ length: count }, () => [
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 20,
+      ]),
+    [count]
+  );
 
-  useFrame((state) => {
+  useFrame(state => {
     if (!instancedMeshRef.current) return;
-    
+
     positions.forEach((pos, index) => {
       const matrix = new THREE.Matrix4();
       const position = new THREE.Vector3(
@@ -112,12 +147,12 @@ function OptimizedAnimatedGrid() {
       matrix.setPosition(position);
       instancedMeshRef.current!.setMatrixAt(index, matrix);
     });
-    
+
     instancedMeshRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
-    <instancedMesh 
+    <instancedMesh
       ref={instancedMeshRef}
       args={[boxGeometry, material, count]}
     />
@@ -128,9 +163,12 @@ function OptimizedAnimatedGrid() {
 function OptimizedDNAHelix() {
   const helixRef = useRef<THREE.Group>(null);
   const sphereCount = 50; // Reduziert von 100 auf 50
-  
-  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(0.05, 8, 8), []); // Weniger Segmente
-  
+
+  const sphereGeometry = useMemo(
+    () => new THREE.SphereGeometry(0.05, 8, 8),
+    []
+  ); // Weniger Segmente
+
   const points = useMemo(() => {
     const pts: THREE.Vector3[] = [];
     for (let i = 0; i < sphereCount; i++) {
@@ -143,7 +181,7 @@ function OptimizedDNAHelix() {
     return pts;
   }, [sphereCount]);
 
-  useFrame((state) => {
+  useFrame(state => {
     if (helixRef.current) {
       helixRef.current.rotation.y = state.clock.elapsedTime * 0.3; // Langsamere Rotation
     }
@@ -154,8 +192,8 @@ function OptimizedDNAHelix() {
       <Instances geometry={sphereGeometry}>
         <meshStandardMaterial />
         {points.map((point, index) => (
-          <Instance 
-            key={index} 
+          <Instance
+            key={index}
             position={[point.x, point.y, point.z]}
             color={`hsl(${index * (360 / sphereCount)}, 70%, 60%)`}
           />
@@ -172,7 +210,7 @@ const LazyAnimatedLogo4D = React.lazy(() => import('../AnimatedLogo4D'));
 function usePerformanceMonitor() {
   const { gl, scene } = useThree();
   const [performance, setPerformance] = useState({ fps: 60, drawCalls: 0 });
-  
+
   useFrame(() => {
     const info = gl.info;
     setPerformance({
@@ -180,28 +218,35 @@ function usePerformanceMonitor() {
       drawCalls: info.render.calls,
     });
   });
-  
+
   return performance;
 }
 
 // Hauptkomponente mit Performance-Optimierungen
-function OptimizedEpicScene3D({ onTechClick }: { onTechClick?: (tech: string) => void }) {
-  const technologies = useMemo(() => [
-    { name: 'React', position: [-4, 2, 0], color: '#61DAFB' },
-    { name: 'TypeScript', position: [4, -2, 2], color: '#3178C6' },
-    { name: 'Three.js', position: [-2, -3, -2], color: '#000000' },
-    { name: 'Next.js', position: [6, 1, -3], color: '#000000' },
-    { name: 'Node.js', position: [-6, -1, 3], color: '#339933' },
-    { name: 'Python', position: [2, 4, 1], color: '#3776AB' },
-  ], []);
+function OptimizedEpicScene3D({
+  onTechClick,
+}: {
+  onTechClick?: (tech: string) => void;
+}) {
+  const technologies = useMemo(
+    () => [
+      { name: 'React', position: [-4, 2, 0], color: '#61DAFB' },
+      { name: 'TypeScript', position: [4, -2, 2], color: '#3178C6' },
+      { name: 'Three.js', position: [-2, -3, -2], color: '#000000' },
+      { name: 'Next.js', position: [6, 1, -3], color: '#000000' },
+      { name: 'Node.js', position: [-6, -1, 3], color: '#339933' },
+      { name: 'Python', position: [2, 4, 1], color: '#3776AB' },
+    ],
+    []
+  );
 
   const [showAdvancedEffects, setShowAdvancedEffects] = useState(false);
 
   return (
-    <div className="h-full w-full relative">
+    <div className="relative h-full w-full">
       <Canvas
         camera={{ position: [0, 0, 10], fov: 60 }}
-        gl={{ 
+        gl={{
           antialias: false, // Deaktiviert für bessere Performance
           alpha: true,
           powerPreference: 'high-performance',
@@ -216,13 +261,28 @@ function OptimizedEpicScene3D({ onTechClick }: { onTechClick?: (tech: string) =>
           {/* Optimierte Beleuchtung */}
           <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} intensity={0.8} />
-          <pointLight position={[-10, -10, -10]} intensity={0.3} color="#ff0040" />
+          <pointLight
+            position={[-10, -10, -10]}
+            intensity={0.3}
+            color="#ff0040"
+          />
 
           {/* Reduzierte Sterne */}
-          <Stars radius={200} depth={40} count={500} factor={5} saturation={0} fade speed={0.3} />
+          <Stars
+            radius={200}
+            depth={40}
+            count={500}
+            factor={5}
+            saturation={0}
+            fade
+            speed={0.3}
+          />
 
           {/* Optimierte Komponenten */}
-          <OptimizedTechOrbs technologies={technologies} onTechClick={onTechClick} />
+          <OptimizedTechOrbs
+            technologies={technologies}
+            onTechClick={onTechClick}
+          />
           <OptimizedAnimatedGrid />
           <OptimizedDNAHelix />
 
@@ -230,11 +290,11 @@ function OptimizedEpicScene3D({ onTechClick }: { onTechClick?: (tech: string) =>
           <Float speed={0.5} rotationIntensity={1}>
             <mesh position={[0, 0, 0]}>
               <torusGeometry args={[2, 0.5, 8, 16]} /> {/* Weniger Segmente */}
-              <meshStandardMaterial 
-                color="#ff6b6b" 
-                emissive="#ff6b6b" 
-                emissiveIntensity={0.2} 
-                wireframe 
+              <meshStandardMaterial
+                color="#ff6b6b"
+                emissive="#ff6b6b"
+                emissiveIntensity={0.2}
+                wireframe
               />
             </mesh>
           </Float>
@@ -267,10 +327,10 @@ function OptimizedEpicScene3D({ onTechClick }: { onTechClick?: (tech: string) =>
       </Canvas>
 
       {/* Performance Toggle */}
-      <div className="absolute top-4 right-4 bg-black/80 text-white p-2 rounded font-mono text-xs">
-        <button 
+      <div className="absolute right-4 top-4 rounded bg-black/80 p-2 font-mono text-xs text-white">
+        <button
           onClick={() => setShowAdvancedEffects(!showAdvancedEffects)}
-          className="bg-cyan-600 hover:bg-cyan-700 px-2 py-1 rounded"
+          className="rounded bg-cyan-600 px-2 py-1 hover:bg-cyan-700"
         >
           {showAdvancedEffects ? 'High Quality' : 'Performance Mode'}
         </button>

@@ -26,8 +26,11 @@ function ModalLayer({
 
   useFrame(state => {
     if (meshRef.current) {
-      meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.02;
-      meshRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2) * 0.01);
+      meshRef.current.rotation.z =
+        Math.sin(state.clock.elapsedTime * 0.5) * 0.02;
+      meshRef.current.scale.setScalar(
+        1 + Math.sin(state.clock.elapsedTime * 2) * 0.01
+      );
     }
   });
 
@@ -45,7 +48,9 @@ function ModalLayer({
           height: '400px',
         }}
       >
-        <div className='flex h-full w-full items-center justify-center'>{children}</div>
+        <div className="flex h-full w-full items-center justify-center">
+          {children}
+        </div>
       </Html>
     </mesh>
   );
@@ -134,14 +139,17 @@ export function NeonModal({
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center' style={{ perspective: '1000px' }}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ perspective: '1000px' }}
+    >
       {/* Backdrop */}
       <motion.div
         className={`fixed inset-0 bg-black bg-opacity-60 backdrop-filter ${backdropBlur ? 'backdrop-blur-md' : ''}`}
         variants={backdropVariants}
-        initial='hidden'
-        animate='visible'
-        exit='exit'
+        initial="hidden"
+        animate="visible"
+        exit="exit"
         transition={{ duration: 0.3 }}
         onClick={handleClose}
       />
@@ -150,7 +158,7 @@ export function NeonModal({
       <motion.div
         className={`relative ${className}`}
         variants={modalVariants}
-        initial='hidden'
+        initial="hidden"
         animate={isClosing ? 'exit' : 'visible'}
         style={{
           transformStyle: 'preserve-3d',
@@ -158,34 +166,70 @@ export function NeonModal({
       >
         {/* 3D Layered Planes im 4D Modus */}
         {isActive4D && (
-          <div className='absolute inset-0' style={{ width: '600px', height: '400px', left: '-50px', top: '-50px' }}>
-            <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ alpha: true, antialias: true }}>
+          <div
+            className="absolute inset-0"
+            style={{
+              width: '600px',
+              height: '400px',
+              left: '-50px',
+              top: '-50px',
+            }}
+          >
+            <Canvas
+              camera={{ position: [0, 0, 10], fov: 45 }}
+              gl={{ alpha: true, antialias: true }}
+            >
               <ambientLight intensity={0.3} />
-              <pointLight position={[10, 10, 15]} intensity={1.2} color={glowColor} />
-              <pointLight position={[-10, -10, 15]} intensity={0.6} color='#0080ff' />
+              <pointLight
+                position={[10, 10, 15]}
+                intensity={1.2}
+                color={glowColor}
+              />
+              <pointLight
+                position={[-10, -10, 15]}
+                intensity={0.6}
+                color="#0080ff"
+              />
 
               {/* Mehrere Modalebenen für Tiefeneffekt */}
-              <ModalLayer depth={1.0} opacity={0.15} glowColor={glowColor} isVisible={!isClosing}>
-                <div className='rounded-2xl border border-white border-opacity-10 bg-black bg-opacity-30 p-8 backdrop-blur-lg'>
+              <ModalLayer
+                depth={1.0}
+                opacity={0.15}
+                glowColor={glowColor}
+                isVisible={!isClosing}
+              >
+                <div className="rounded-2xl border border-white border-opacity-10 bg-black bg-opacity-30 p-8 backdrop-blur-lg">
                   <AnimatedGradient
                     colors={getVariantColors()}
                     speed={2}
                     audioReactive={true}
-                    className='absolute inset-0 rounded-2xl opacity-20'
+                    className="absolute inset-0 rounded-2xl opacity-20"
                   />
                 </div>
               </ModalLayer>
 
-              <ModalLayer depth={0.6} opacity={0.1} glowColor={glowColor} isVisible={!isClosing}>
-                <div className='rounded-2xl bg-black bg-opacity-20 p-8'>
-                  <div className='text-center text-white opacity-30'>
-                    {title && <h3 className='mb-4 text-2xl font-bold'>{title}</h3>}
+              <ModalLayer
+                depth={0.6}
+                opacity={0.1}
+                glowColor={glowColor}
+                isVisible={!isClosing}
+              >
+                <div className="rounded-2xl bg-black bg-opacity-20 p-8">
+                  <div className="text-center text-white opacity-30">
+                    {title && (
+                      <h3 className="mb-4 text-2xl font-bold">{title}</h3>
+                    )}
                   </div>
                 </div>
               </ModalLayer>
 
-              <ModalLayer depth={0.3} opacity={0.05} glowColor={glowColor} isVisible={!isClosing}>
-                <div className='from-opacity-10 rounded-2xl bg-gradient-to-br from-black to-transparent p-8' />
+              <ModalLayer
+                depth={0.3}
+                opacity={0.05}
+                glowColor={glowColor}
+                isVisible={!isClosing}
+              >
+                <div className="from-opacity-10 rounded-2xl bg-gradient-to-br from-black to-transparent p-8" />
               </ModalLayer>
             </Canvas>
           </div>
@@ -193,7 +237,7 @@ export function NeonModal({
 
         {/* Hauptmodal */}
         <div
-          className='relative max-h-[80vh] w-[500px] overflow-hidden overflow-y-auto rounded-2xl border border-opacity-30 bg-black bg-opacity-90 p-8 shadow-2xl backdrop-blur-xl'
+          className="relative max-h-[80vh] w-[500px] overflow-hidden overflow-y-auto rounded-2xl border border-opacity-30 bg-black bg-opacity-90 p-8 shadow-2xl backdrop-blur-xl"
           style={{
             borderColor: glowColor,
             boxShadow: isActive4D
@@ -210,23 +254,23 @@ export function NeonModal({
             speed={1}
             direction={Math.PI / 3}
             audioReactive={isActive4D}
-            className='absolute inset-0 rounded-2xl opacity-5'
+            className="absolute inset-0 rounded-2xl opacity-5"
           />
 
           {/* Animated Border */}
           <div
-            className='absolute inset-0 rounded-2xl opacity-40'
+            className="absolute inset-0 rounded-2xl opacity-40"
             style={{
               background: `conic-gradient(from 0deg, transparent, ${glowColor}60, transparent)`,
               animation: 'spin 8s linear infinite',
             }}
           />
-          <div className='absolute inset-[1px] rounded-2xl bg-black bg-opacity-80' />
+          <div className="absolute inset-[1px] rounded-2xl bg-black bg-opacity-80" />
 
           {/* Close Button */}
           {showCloseButton && (
             <motion.button
-              className='absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black bg-opacity-50 text-white transition-all duration-200 hover:bg-opacity-80'
+              className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black bg-opacity-50 text-white transition-all duration-200 hover:bg-opacity-80"
               onClick={handleClose}
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
@@ -234,15 +278,15 @@ export function NeonModal({
                 boxShadow: `0 0 10px ${glowColor}60`,
               }}
             >
-              <span className='text-lg font-light'>×</span>
+              <span className="text-lg font-light">×</span>
             </motion.button>
           )}
 
           {/* Content */}
-          <div className='relative z-10'>
+          <div className="relative z-10">
             {title && (
               <motion.h3
-                className='mb-6 text-center text-2xl font-bold text-white'
+                className="mb-6 text-center text-2xl font-bold text-white"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
@@ -255,7 +299,7 @@ export function NeonModal({
             )}
 
             <motion.div
-              className='text-white'
+              className="text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -266,10 +310,12 @@ export function NeonModal({
 
           {/* Glow Effect */}
           <div
-            className='pointer-events-none absolute inset-0 rounded-2xl'
+            className="pointer-events-none absolute inset-0 rounded-2xl"
             style={{
               background: `radial-gradient(ellipse at center, ${glowColor}08, transparent 70%)`,
-              animation: isActive4D ? 'modalPulse 3s ease-in-out infinite' : 'none',
+              animation: isActive4D
+                ? 'modalPulse 3s ease-in-out infinite'
+                : 'none',
             }}
           />
         </div>

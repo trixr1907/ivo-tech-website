@@ -17,23 +17,23 @@ export function ParallaxAsteroidField({ count = 200 }: AsteroidFieldProps) {
     const temp = [];
     for (let i = 0; i < count; i++) {
       temp.push({
-        position: [(Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100, -Math.random() * 50 - 10] as [
-          number,
-          number,
-          number,
-        ],
-        rotation: [Math.random() * Math.PI * 2, Math.random() * Math.PI * 2, Math.random() * Math.PI * 2] as [
-          number,
-          number,
-          number,
-        ],
+        position: [
+          (Math.random() - 0.5) * 100,
+          (Math.random() - 0.5) * 100,
+          -Math.random() * 50 - 10,
+        ] as [number, number, number],
+        rotation: [
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2,
+        ] as [number, number, number],
         scale: Math.random() * 0.5 + 0.2,
         speed: Math.random() * 0.01 + 0.005,
-        rotationSpeed: [(Math.random() - 0.5) * 0.02, (Math.random() - 0.5) * 0.02, (Math.random() - 0.5) * 0.02] as [
-          number,
-          number,
-          number,
-        ],
+        rotationSpeed: [
+          (Math.random() - 0.5) * 0.02,
+          (Math.random() - 0.5) * 0.02,
+          (Math.random() - 0.5) * 0.02,
+        ] as [number, number, number],
       });
     }
     return temp;
@@ -69,14 +69,24 @@ export function ParallaxAsteroidField({ count = 200 }: AsteroidFieldProps) {
         <meshLambertMaterial color={0x666666} />
 
         {asteroids.map((asteroid, index) => (
-          <Instance key={index} position={asteroid.position} rotation={asteroid.rotation} scale={asteroid.scale} />
+          <Instance
+            key={index}
+            position={asteroid.position}
+            rotation={asteroid.rotation}
+            scale={asteroid.scale}
+          />
         ))}
       </Instances>
 
       {/* Volumetric Fog Effect */}
       <mesh position={[0, 0, -25]} scale={[100, 100, 50]}>
         <boxGeometry args={[1, 1, 1]} />
-        <meshBasicMaterial color={0x111122} transparent opacity={0.1} fog={false} />
+        <meshBasicMaterial
+          color={0x111122}
+          transparent
+          opacity={0.1}
+          fog={false}
+        />
       </mesh>
     </group>
   );

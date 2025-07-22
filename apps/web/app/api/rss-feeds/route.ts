@@ -75,7 +75,8 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
     const mockData: FeedItem[] = [
       {
         title: 'Revolutionary AI Breakthrough Promises Better Healthcare',
-        description: 'New AI system shows 95% accuracy in early disease detection',
+        description:
+          'New AI system shows 95% accuracy in early disease detection',
         link: 'https://example.com/ai-healthcare',
         pubDate: new Date().toISOString(),
         source,
@@ -91,7 +92,8 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
       },
       {
         title: 'Quantum Computing Makes Major Leap Forward',
-        description: 'Breakthrough in quantum error correction brings practical applications closer',
+        description:
+          'Breakthrough in quantum error correction brings practical applications closer',
         link: 'https://example.com/quantum-leap',
         pubDate: new Date().toISOString(),
         source,
@@ -99,7 +101,8 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
       },
       {
         title: 'Blockchain Technology Enhances Supply Chain Transparency',
-        description: 'New blockchain implementation reduces fraud by 78% in global supply chains',
+        description:
+          'New blockchain implementation reduces fraud by 78% in global supply chains',
         link: 'https://example.com/blockchain-supply',
         pubDate: new Date().toISOString(),
         source,
@@ -107,7 +110,8 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
       },
       {
         title: 'Neural Interfaces Show Promise for Paralyzed Patients',
-        description: 'Clinical trials demonstrate successful brain-computer interface control',
+        description:
+          'Clinical trials demonstrate successful brain-computer interface control',
         link: 'https://example.com/neural-interface',
         pubDate: new Date().toISOString(),
         source,
@@ -115,7 +119,8 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
       },
       {
         title: 'Clean Water Technology Deployed in Remote Areas',
-        description: 'Innovative filtration system brings clean water to 10,000 people',
+        description:
+          'Innovative filtration system brings clean water to 10,000 people',
         link: 'https://example.com/clean-water',
         pubDate: new Date().toISOString(),
         source,
@@ -133,9 +138,13 @@ async function parseRSSFeed(url: string, source: string): Promise<FeedItem[]> {
 function isPositiveNews(title: string, description: string = ''): boolean {
   const content = (title + ' ' + description).toLowerCase();
 
-  const hasPositive = POSITIVE_KEYWORDS.some(keyword => content.includes(keyword.toLowerCase()));
+  const hasPositive = POSITIVE_KEYWORDS.some(keyword =>
+    content.includes(keyword.toLowerCase())
+  );
 
-  const hasNegative = NEGATIVE_KEYWORDS.some(keyword => content.includes(keyword.toLowerCase()));
+  const hasNegative = NEGATIVE_KEYWORDS.some(keyword =>
+    content.includes(keyword.toLowerCase())
+  );
 
   return hasPositive && !hasNegative;
 }
@@ -147,14 +156,18 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
     const positiveOnly = searchParams.get('positive') === 'true';
 
     // Fetch from multiple RSS sources
-    const feedPromises = Object.entries(RSS_FEEDS).map(([source, url]) => parseRSSFeed(url, source));
+    const feedPromises = Object.entries(RSS_FEEDS).map(([source, url]) =>
+      parseRSSFeed(url, source)
+    );
 
     const feedResults = await Promise.all(feedPromises);
     let allItems = feedResults.flat();
 
     // Filter for positive news if requested
     if (positiveOnly) {
-      allItems = allItems.filter(item => isPositiveNews(item.title, item.description || ''));
+      allItems = allItems.filter(item =>
+        isPositiveNews(item.title, item.description || '')
+      );
     }
 
     // Sort by publication date (newest first)

@@ -56,14 +56,16 @@ function ButtonLayer({
           userSelect: 'none',
         }}
       >
-        <div className='relative'>
+        <div className="relative">
           <AnimatedGradient
             colors={getVariantColors()}
             speed={isHovered ? 2 : 1}
             audioReactive={true}
-            className='absolute inset-0 rounded-lg blur-sm'
+            className="absolute inset-0 rounded-lg blur-sm"
           />
-          <div className='relative z-10 px-6 py-3 text-lg font-bold text-white'>{children}</div>
+          <div className="relative z-10 px-6 py-3 text-lg font-bold text-white">
+            {children}
+          </div>
         </div>
       </Html>
     </mesh>
@@ -119,8 +121,12 @@ export function NeonButton({
     },
     hover: {
       scale: 1.05,
-      rotateX: isHovered ? Math.random() * tiltIntensity - tiltIntensity / 2 : 0,
-      rotateY: isHovered ? Math.random() * tiltIntensity - tiltIntensity / 2 : 0,
+      rotateX: isHovered
+        ? Math.random() * tiltIntensity - tiltIntensity / 2
+        : 0,
+      rotateY: isHovered
+        ? Math.random() * tiltIntensity - tiltIntensity / 2
+        : 0,
       z: 20,
       transition: {
         duration: 0.3,
@@ -152,7 +158,7 @@ export function NeonButton({
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         variants={hoverVariants}
-        initial='rest'
+        initial="rest"
         animate={isClicked ? 'click' : isHovered ? 'hover' : 'rest'}
         className={`
           relative overflow-hidden rounded-lg border border-opacity-30
@@ -172,10 +178,17 @@ export function NeonButton({
       >
         {/* 3D Layered Planes nur im 4D Modus */}
         {isActive4D && (
-          <div className='absolute inset-0' style={{ height: '100px' }}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true, antialias: true }}>
+          <div className="absolute inset-0" style={{ height: '100px' }}>
+            <Canvas
+              camera={{ position: [0, 0, 5], fov: 45 }}
+              gl={{ alpha: true, antialias: true }}
+            >
               <ambientLight intensity={0.3} />
-              <pointLight position={[0, 0, 10]} intensity={0.8} color={glowColor} />
+              <pointLight
+                position={[0, 0, 10]}
+                intensity={0.8}
+                color={glowColor}
+              />
 
               {/* Mehrere Schichten für Tiefeneffekt */}
               <ButtonLayer
@@ -213,7 +226,7 @@ export function NeonButton({
         )}
 
         {/* Standard 2D Content */}
-        <div className='relative z-20'>
+        <div className="relative z-20">
           <AnimatedGradient
             colors={
               variant === 'primary'
@@ -226,10 +239,12 @@ export function NeonButton({
             }
             speed={isHovered ? 2 : 1}
             audioReactive={isActive4D}
-            className='absolute inset-0 rounded-lg opacity-20'
+            className="absolute inset-0 rounded-lg opacity-20"
           />
 
-          <span className='relative z-30 font-bold text-white drop-shadow-lg'>{children}</span>
+          <span className="relative z-30 font-bold text-white drop-shadow-lg">
+            {children}
+          </span>
         </div>
 
         {/* Sparkles Effekt */}
@@ -249,7 +264,12 @@ export function NeonButton({
           content: '';
           position: absolute;
           inset: -2px;
-          background: linear-gradient(45deg, ${glowColor}40, transparent, ${glowColor}40);
+          background: linear-gradient(
+            45deg,
+            ${glowColor}40,
+            transparent,
+            ${glowColor}40
+          );
           border-radius: inherit;
           z-index: -1;
           animation: rotate 2s linear infinite;

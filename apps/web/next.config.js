@@ -11,7 +11,7 @@ const nextConfig = {
   // Removed 'output: export' to enable middleware
   basePath: prefix,
   trailingSlash: true,
-  
+
   // Enhanced image optimization
   images: {
     unoptimized: false,
@@ -20,16 +20,16 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
   },
-  
+
   // Performance optimizations
   experimental: {
     optimizeCss: true,
     esmExternals: true,
   },
-  
+
   // Don't externalize Three.js - it's a browser library
   serverExternalPackages: ['nodemailer'],
-  
+
   // Webpack optimizations
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     // Aggressive Bundle Splitting
@@ -87,7 +87,7 @@ const nextConfig = {
         },
       },
     };
-    
+
     // Tree-shaking Optimierungen
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -95,14 +95,14 @@ const nextConfig = {
       'three/examples/jsm/loaders/GLTFLoader': 'three/examples/jsm/loaders/GLTFLoader.js',
       'three/examples/jsm/controls/OrbitControls': 'three/examples/jsm/controls/OrbitControls.js',
       // Lodash tree-shaking
-      'lodash': 'lodash-es',
+      lodash: 'lodash-es',
     };
-    
+
     // Minimize JS in production
     if (!dev) {
       config.optimization.minimize = true;
     }
-    
+
     // Exclude development dependencies from bundle
     if (!dev && !isServer) {
       config.externals = [
@@ -110,7 +110,7 @@ const nextConfig = {
         // Development-only packages ausschließen
       ];
     }
-    
+
     // Prevent browser-only code from running on server
     if (isServer) {
       config.externals = [
@@ -120,7 +120,7 @@ const nextConfig = {
         'gl',
       ];
     }
-    
+
     // Simple fix for browser globals on server
     if (isServer) {
       config.resolve.fallback = {
@@ -131,48 +131,42 @@ const nextConfig = {
         canvas: false,
       };
     }
-    
-  // Fix for browser globals and Three.js polyfills
+
+    // Fix for browser globals and Three.js polyfills
     if (isServer) {
       // Import our polyfills at the entry point
       const originalEntry = config.entry;
       config.entry = async () => {
         const entries = await originalEntry();
-        const polyfillPaths = [
-          './src/lib/polyfills.js',
-          './src/lib/three-polyfills.js'
-        ];
-        
+        const polyfillPaths = ['./src/lib/polyfills.js', './src/lib/three-polyfills.js'];
+
         const allEntries = Object.keys(entries);
         allEntries.forEach(entry => {
           if (Array.isArray(entries[entry])) {
-            entries[entry] = [
-              ...polyfillPaths,
-              ...entries[entry]
-            ];
+            entries[entry] = [...polyfillPaths, ...entries[entry]];
           }
         });
-        
+
         return entries;
       };
 
       // Handle Three.js and related modules on server
       config.module.rules.unshift({
         test: /three|@react-three\/fiber|\.glsl$/,
-        loader: 'null-loader'
+        loader: 'null-loader',
       });
     }
-    
+
     return config;
   },
-  
+
   // Compression and caching
   compress: true,
   generateEtags: true,
-  
+
   // Production source maps disabled for smaller bundles
   productionBrowserSourceMaps: false,
-  
+
   // Disable ESLint during build to avoid config issues
   eslint: {
     ignoreDuringBuilds: true,

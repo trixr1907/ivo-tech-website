@@ -49,7 +49,7 @@ Die `turbo.json` ist so konfiguriert, dass sie folgende Variable-Pattern überwa
 
 ## 🔒 Sicherheitsrichtlinien
 
-### Öffentliche Variablen (NEXT_PUBLIC_*)
+### Öffentliche Variablen (NEXT*PUBLIC*\*)
 
 Diese Variablen werden **im Browser-Bundle eingebettet** und sind für jeden sichtbar:
 
@@ -81,7 +81,7 @@ Sensible Variablen sollten über das **Vercel Dashboard** gesetzt werden:
 1. **Projekt Settings** → **Environment Variables**
 2. Variablen für unterschiedliche Environments setzen:
    - **Production**: `VERCEL_ENV=production`
-   - **Preview**: `VERCEL_ENV=preview`  
+   - **Preview**: `VERCEL_ENV=preview`
    - **Development**: `VERCEL_ENV=development`
 
 ### Empfohlene Vercel-Variablen
@@ -107,7 +107,7 @@ echo "🔍 Running pre-commit checks..."
 # 1. Linting
 pnpm lint
 
-# 2. Type checking  
+# 2. Type checking
 pnpm check-types
 
 # 3. Unit tests
@@ -119,6 +119,7 @@ echo "✅ All checks passed!"
 ## 📋 Variable-Kategorien
 
 ### 1. **Analytics & Tracking**
+
 ```bash
 NEXT_PUBLIC_ANALYTICS_ID=GA-XXXXXXXXX
 NEXT_PUBLIC_GTAG_ID=GT-XXXXXXXXX
@@ -126,6 +127,7 @@ ANALYTICS_ID=server_analytics_id
 ```
 
 ### 2. **API Konfiguration**
+
 ```bash
 API_URL=https://api.ivo-tech.com
 NEXT_PUBLIC_API_URL=https://api.ivo-tech.com
@@ -134,18 +136,21 @@ API_TIMEOUT=5000
 ```
 
 ### 3. **Database & Services**
+
 ```bash
 DATABASE_URL=postgresql://...
 REDIS_URL=redis://localhost:6379
 ```
 
 ### 4. **Authentication**
+
 ```bash
 JWT_SECRET=your_secret_here
 JWT_EXPIRES_IN=7d
 ```
 
 ### 5. **Third-party Services**
+
 ```bash
 STRIPE_SECRET_KEY=sk_...
 OPENAI_API_KEY=sk-...
@@ -165,6 +170,7 @@ COVERAGE_THRESHOLD=80
 ## ❌ Häufige Fehler
 
 ### 1. **Öffentliche Variablen verwechseln**
+
 ```bash
 # ❌ FALSCH - sensible Daten öffentlich
 NEXT_PUBLIC_API_SECRET=secret123
@@ -174,6 +180,7 @@ API_SECRET=secret123
 ```
 
 ### 2. **Vercel Variablen nicht setzen**
+
 ```bash
 # ❌ FALSCH - nur in .env.local
 DATABASE_URL=postgresql://...
@@ -182,6 +189,7 @@ DATABASE_URL=postgresql://...
 ```
 
 ### 3. **Turbo Cache-Invalidierung**
+
 ```bash
 # ❌ FALSCH - Variable nicht in turbo.json
 MY_SECRET_VAR=value
@@ -195,15 +203,17 @@ MY_SECRET_VAR=value
 ### Variable wird nicht geladen
 
 1. **Überprüfen Sie den Variablennamen**:
+
    ```bash
    # ❌ Typo
    NEXT_PUBIC_API_URL=...
-   
+
    # ✅ Korrekt
    NEXT_PUBLIC_API_URL=...
    ```
 
 2. **Turbo.json aktualisieren**:
+
    ```json
    {
      "tasks": {

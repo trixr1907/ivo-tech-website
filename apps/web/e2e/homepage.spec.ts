@@ -62,7 +62,10 @@ test.describe('Homepage', () => {
     await page.addInitScript(() => {
       // Override WebGL context to simulate WebGL not available
       const originalGetContext = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, ...args: any[]) {
+      HTMLCanvasElement.prototype.getContext = function (
+        this: HTMLCanvasElement,
+        ...args: any[]
+      ) {
         if (args[0]?.includes('webgl')) {
           return null;
         }

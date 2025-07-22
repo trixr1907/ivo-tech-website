@@ -7,7 +7,10 @@ interface ClientOnly3DProps {
   fallback?: React.ReactNode;
 }
 
-export default function ClientOnly3D({ children, fallback = null }: ClientOnly3DProps) {
+export default function ClientOnly3D({
+  children,
+  fallback = null,
+}: ClientOnly3DProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

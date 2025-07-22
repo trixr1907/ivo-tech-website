@@ -109,7 +109,8 @@ export const seoConfig: SEOConfig = {
       'Responsive Design',
     ],
     category: 'technology',
-    robots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    robots:
+      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     author: 'IVO-TECH Team',
     publisher: 'IVO-TECH GmbH',
     themeColor: '#00ffff',
@@ -143,9 +144,9 @@ export function generateMetadata(pageConfig?: {
   const title = pageConfig?.title
     ? `${pageConfig.title} | ${seoConfig.site.name}`
     : seoConfig.site.title;
-  
+
   const description = pageConfig?.description || seoConfig.site.description;
-  
+
   const keywords = pageConfig?.keywords
     ? [...seoConfig.seo.keywords, ...pageConfig.keywords]
     : seoConfig.seo.keywords;
@@ -153,7 +154,9 @@ export function generateMetadata(pageConfig?: {
   const ogImage = pageConfig?.ogImage || seoConfig.images.ogImage;
   const fullOgImageUrl = `${seoConfig.site.url}${ogImage}`;
 
-  const robots = pageConfig?.noIndex ? 'noindex, nofollow' : seoConfig.seo.robots;
+  const robots = pageConfig?.noIndex
+    ? 'noindex, nofollow'
+    : seoConfig.seo.robots;
 
   return {
     title,
@@ -164,10 +167,10 @@ export function generateMetadata(pageConfig?: {
     publisher: seoConfig.seo.publisher,
     robots,
     category: seoConfig.seo.category,
-    
+
     // PWA Manifest
     manifest: '/manifest.json',
-    
+
     // App Icons für verschiedene Plattformen
     icons: {
       icon: [
@@ -177,15 +180,23 @@ export function generateMetadata(pageConfig?: {
         { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
       ],
       apple: [
-        { url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+        {
+          url: '/icons/apple-touch-icon.png',
+          sizes: '180x180',
+          type: 'image/png',
+        },
         { url: '/icons/icon-152x152.png', sizes: '152x152', type: 'image/png' },
       ],
       other: [
-        { rel: 'mask-icon', url: '/icons/safari-pinned-tab.svg', color: seoConfig.seo.themeColor },
+        {
+          rel: 'mask-icon',
+          url: '/icons/safari-pinned-tab.svg',
+          color: seoConfig.seo.themeColor,
+        },
         { rel: 'shortcut icon', url: '/favicon.ico' },
       ],
     },
-    
+
     // Mobile & PWA Optimierungen
     other: {
       'application-name': seoConfig.site.name,
@@ -198,7 +209,7 @@ export function generateMetadata(pageConfig?: {
       'format-detection': 'telephone=no',
       'theme-color': seoConfig.seo.themeColor,
     },
-    
+
     // OpenGraph Metadaten
     openGraph: {
       type: 'website',
@@ -218,7 +229,7 @@ export function generateMetadata(pageConfig?: {
         },
       ],
     },
-    
+
     // Twitter Card Metadaten
     twitter: {
       card: 'summary_large_image',
@@ -228,7 +239,7 @@ export function generateMetadata(pageConfig?: {
       description,
       images: [fullOgImageUrl],
     },
-    
+
     // Canonical URLs und Alternativ-Sprachen
     alternates: {
       canonical: pageConfig?.canonical || seoConfig.site.url,
@@ -237,7 +248,7 @@ export function generateMetadata(pageConfig?: {
         'en-US': `${seoConfig.site.url}/en`,
       },
     },
-    
+
     // Suchmaschinen-Verifizierung
     verification: {
       google: seoConfig.verification.google,
@@ -354,7 +365,10 @@ export const viewportConfig = {
   maximumScale: 5,
   userScalable: true,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: seoConfig.seo.backgroundColor },
+    {
+      media: '(prefers-color-scheme: light)',
+      color: seoConfig.seo.backgroundColor,
+    },
     { media: '(prefers-color-scheme: dark)', color: seoConfig.seo.themeColor },
   ],
   colorScheme: 'dark' as const,

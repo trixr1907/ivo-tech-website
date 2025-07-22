@@ -40,7 +40,9 @@ const defaultOptimizationState: OptimizationState = {
 
 export function AdaptivePerformanceEngine() {
   const { metrics } = useAdvanced3DPerformance();
-  const [optimizationState, setOptimizationState] = useState<OptimizationState>(defaultOptimizationState);
+  const [optimizationState, setOptimizationState] = useState<OptimizationState>(
+    defaultOptimizationState
+  );
   const [isEnabled, setIsEnabled] = useState(true);
   const [performanceHistory, setPerformanceHistory] = useState<number[]>([]);
 
@@ -64,7 +66,12 @@ export function AdaptivePerformanceEngine() {
       ...prev,
       lodLevel: Math.min(3, prev.lodLevel + 1),
       renderScale: Math.max(0.7, prev.renderScale - 0.1),
-      shadowQuality: prev.shadowQuality === 'high' ? 'medium' : prev.shadowQuality === 'medium' ? 'low' : 'off',
+      shadowQuality:
+        prev.shadowQuality === 'high'
+          ? 'medium'
+          : prev.shadowQuality === 'medium'
+            ? 'low'
+            : 'off',
       particleCount: Math.max(0.5, prev.particleCount - 0.2),
     }));
     console.log('⚡ FPS optimizations applied');
@@ -114,7 +121,11 @@ export function AdaptivePerformanceEngine() {
         lodLevel: Math.max(0, prev.lodLevel - 1),
         renderScale: Math.min(1.0, prev.renderScale + 0.05),
         shadowQuality:
-          prev.shadowQuality === 'off' ? 'low' : prev.shadowQuality === 'low' ? 'medium' : prev.shadowQuality,
+          prev.shadowQuality === 'off'
+            ? 'low'
+            : prev.shadowQuality === 'low'
+              ? 'medium'
+              : prev.shadowQuality,
         postProcessingEnabled: prev.lodLevel <= 1,
         particleCount: Math.min(1.0, prev.particleCount + 0.1),
         antiAliasing: prev.lodLevel <= 1,
@@ -222,9 +233,12 @@ export function AdaptivePerformanceEngine() {
   }, [metrics, isEnabled, createPerformanceRules]);
 
   // Optimierungen anwenden (extern verfügbar)
-  const applyOptimizations = useCallback((newState: Partial<OptimizationState>) => {
-    setOptimizationState(prev => ({ ...prev, ...newState }));
-  }, []);
+  const applyOptimizations = useCallback(
+    (newState: Partial<OptimizationState>) => {
+      setOptimizationState(prev => ({ ...prev, ...newState }));
+    },
+    []
+  );
 
   // Reset zu Defaults
   const resetOptimizations = useCallback(() => {
@@ -259,7 +273,8 @@ export function AdaptivePerformanceEngine() {
 
   // Adaptives Profiling
   const getAdaptiveProfile = useCallback(() => {
-    const avgFPS = performanceHistory.reduce((a, b) => a + b, 0) / performanceHistory.length;
+    const avgFPS =
+      performanceHistory.reduce((a, b) => a + b, 0) / performanceHistory.length;
 
     if (avgFPS >= 55) return 'ultra';
     if (avgFPS >= 45) return 'high';
@@ -267,6 +282,49 @@ export function AdaptivePerformanceEngine() {
     if (avgFPS >= 20) return 'low';
     return 'potato';
   }, [performanceHistory]);
+
+  // Motion Orchestrator Integration
+  useEffect(() => {
+    const updateMotionOrchestrator = (e: CustomEvent) => {
+      const { rule, description } = e.detail;
+
+      // Performance-basierte Anpassung des Motion-Modus
+      if (
+        rule === 'critical_fps_drop' ||
+        (rule === 'low_fps' && optimizationState.lodLevel >= 2) ||
+        (rule === 'gpu_bottleneck' && metrics.fps < 30)
+      ) {
+        // Reduzierte Animation aktivieren
+        const motionOrchestrator = (window as any).motionOrchestrator;
+        if (motionOrchestrator?.updateMotionSettings) {
+          motionOrchestrator.updateMotionSettings({ reducedMotion: true });
+          console.log('🎭 Reduzierter Motion-Modus aktiviert');
+        }
+      }
+
+      // Performance-Recovery für Motion
+      if (
+        rule === 'good_performance_recovery' &&
+        performanceHistory.slice(-10).every(fps => fps > 45)
+      ) {
+        const motionOrchestrator = (window as any).motionOrchestrator;
+        if (motionOrchestrator?.updateMotionSettings) {
+          motionOrchestrator.updateMotionSettings({ reducedMotion: false });
+          console.log('🎭 Voller Motion-Modus wiederhergestellt');
+        }
+      }
+    };
+
+    window.addEventListener(
+      'performance-optimization',
+      updateMotionOrchestrator as EventListener
+    );
+    return () =>
+      window.removeEventListener(
+        'performance-optimization',
+        updateMotionOrchestrator as EventListener
+      );
+  }, [optimizationState.lodLevel, metrics.fps, performanceHistory]);
 
   // Public API für externe Komponenten
   const api = {

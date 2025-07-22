@@ -36,12 +36,15 @@ export class ImgurMemeProvider {
 
   async getDevMemes(limit: number = 10): Promise<ApiResponse<ContentItem[]>> {
     try {
-      const response = await fetch(`${this.baseUrl}/gallery/search/viral/week/1?q=programming+developer+code+meme`, {
-        headers: {
-          Authorization: `Client-ID ${this.apiKey}`,
-          'User-Agent': 'IvoTech-Website/1.0',
-        },
-      });
+      const response = await fetch(
+        `${this.baseUrl}/gallery/search/viral/week/1?q=programming+developer+code+meme`,
+        {
+          headers: {
+            Authorization: `Client-ID ${this.apiKey}`,
+            'User-Agent': 'IvoTech-Website/1.0',
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Imgur API Error: ${response.status}`);
@@ -67,14 +70,21 @@ export class ImgurMemeProvider {
         success: true,
         data: memes,
         rateLimit: {
-          remaining: parseInt(response.headers.get('x-ratelimit-userremaining') || '0'),
-          resetTime: parseInt(response.headers.get('x-ratelimit-userreset') || '0'),
+          remaining: parseInt(
+            response.headers.get('x-ratelimit-userremaining') || '0'
+          ),
+          resetTime: parseInt(
+            response.headers.get('x-ratelimit-userreset') || '0'
+          ),
         },
       };
     } catch (error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error fetching memes',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Unknown error fetching memes',
       };
     }
   }
@@ -86,12 +96,15 @@ export class CoinTelegraphProvider {
 
   async getCryptoNews(limit: number = 10): Promise<ApiResponse<ContentItem[]>> {
     try {
-      const response = await fetch(`${this.baseUrl}/content?limit=${limit}&offset=0&category=latest-news`, {
-        headers: {
-          'User-Agent': 'IvoTech-Website/1.0',
-          Accept: 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${this.baseUrl}/content?limit=${limit}&offset=0&category=latest-news`,
+        {
+          headers: {
+            'User-Agent': 'IvoTech-Website/1.0',
+            Accept: 'application/json',
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`CoinTelegraph API Error: ${response.status}`);
@@ -103,11 +116,16 @@ export class CoinTelegraphProvider {
         title: item.title,
         description: item.lead || item.excerpt,
         url: `https://cointelegraph.com${item.url}`,
-        imageUrl: item.image?.url ? `https://cointelegraph.com${item.image.url}` : undefined,
+        imageUrl: item.image?.url
+          ? `https://cointelegraph.com${item.image.url}`
+          : undefined,
         publishedAt: new Date(item.published),
         source: 'CoinTelegraph',
         category: 'crypto' as const,
-        tags: item.tags?.map((tag: any) => tag.name) || ['cryptocurrency', 'blockchain'],
+        tags: item.tags?.map((tag: any) => tag.name) || [
+          'cryptocurrency',
+          'blockchain',
+        ],
       }));
 
       return {
@@ -117,7 +135,10 @@ export class CoinTelegraphProvider {
     } catch (error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error fetching crypto news',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Unknown error fetching crypto news',
       };
     }
   }
@@ -160,7 +181,10 @@ export class IGNProvider {
     } catch (error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error fetching gaming news',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Unknown error fetching gaming news',
       };
     }
   }
@@ -180,28 +204,42 @@ export class ContentAggregator {
     this.gamingProvider = new IGNProvider();
   }
 
-  async getAllContent(limits: { memes?: number; crypto?: number; gaming?: number } = {}): Promise<{
+  async getAllContent(
+    limits: { memes?: number; crypto?: number; gaming?: number } = {}
+  ): Promise<{
     memes: ApiResponse<ContentItem[]>;
     crypto: ApiResponse<ContentItem[]>;
     gaming: ApiResponse<ContentItem[]>;
   }> {
     const results = await Promise.allSettled([
       this.imgurProvider?.getDevMemes(limits.memes || 5) ||
-        Promise.resolve({ success: false, error: 'Imgur API key not configured' }),
+        Promise.resolve({
+          success: false,
+          error: 'Imgur API key not configured',
+        }),
       this.cryptoProvider.getCryptoNews(limits.crypto || 5),
       this.gamingProvider.getGamingNews(limits.gaming || 5),
     ]);
 
     return {
-      memes: results[0].status === 'fulfilled' ? results[0].value : { success: false, error: 'Failed to fetch memes' },
+      memes:
+        results[0].status === 'fulfilled'
+          ? results[0].value
+          : { success: false, error: 'Failed to fetch memes' },
       crypto:
-        results[1].status === 'fulfilled' ? results[1].value : { success: false, error: 'Failed to fetch crypto news' },
+        results[1].status === 'fulfilled'
+          ? results[1].value
+          : { success: false, error: 'Failed to fetch crypto news' },
       gaming:
-        results[2].status === 'fulfilled' ? results[2].value : { success: false, error: 'Failed to fetch gaming news' },
+        results[2].status === 'fulfilled'
+          ? results[2].value
+          : { success: false, error: 'Failed to fetch gaming news' },
     };
   }
 
-  async getMixedFeed(totalLimit: number = 15): Promise<ApiResponse<ContentItem[]>> {
+  async getMixedFeed(
+    totalLimit: number = 15
+  ): Promise<ApiResponse<ContentItem[]>> {
     try {
       const perCategory = Math.ceil(totalLimit / 3);
       const allContent = await this.getAllContent({
@@ -235,7 +273,10 @@ export class ContentAggregator {
     } catch (error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error creating mixed feed',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Unknown error creating mixed feed',
       };
     }
   }
@@ -256,7 +297,11 @@ export function getCachedData<T>(key: string): T | null {
   return cached.data as T;
 }
 
-export function setCachedData<T>(key: string, data: T, ttlMinutes: number = 15): void {
+export function setCachedData<T>(
+  key: string,
+  data: T,
+  ttlMinutes: number = 15
+): void {
   cache.set(key, {
     data,
     timestamp: Date.now(),

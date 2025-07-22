@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ContentAggregator, getCachedData, setCachedData, RateLimiter } from '../../../../lib/contentProviders';
+import {
+  ContentAggregator,
+  getCachedData,
+  setCachedData,
+  RateLimiter,
+} from '../../../../lib/contentProviders';
 
 // Edge Runtime für low-latency
 export const runtime = 'edge';
@@ -17,7 +22,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     // Rate Limiting - 200 requests per hour per IP für Feed
-    const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'anonymous';
+    const clientIP =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'anonymous';
     if (!rateLimiter.canMakeRequest(clientIP, 200, 60 * 60 * 1000)) {
       return NextResponse.json(
         {
@@ -33,7 +41,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     // Query parameters
     const { searchParams } = new URL(request.url);
-    const totalLimit = Math.min(parseInt(searchParams.get('limit') || '15'), 50); // Max 50 items
+    const totalLimit = Math.min(
+      parseInt(searchParams.get('limit') || '15'),
+      50
+    ); // Max 50 items
     const includeMemesParam = searchParams.get('memes');
     const includeCryptoParam = searchParams.get('crypto');
     const includeGamingParam = searchParams.get('gaming');
@@ -52,7 +63,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     }
 
     // Berechne Limits pro Kategorie basierend auf aktivierten Kategorien
-    const activeCategories = [includeMemes, includeCrypto, includeGaming].filter(Boolean).length;
+    const activeCategories = [
+      includeMemes,
+      includeCrypto,
+      includeGaming,
+    ].filter(Boolean).length;
     if (activeCategories === 0) {
       return NextResponse.json(
         {
@@ -108,8 +123,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         totalItems: filteredData.length,
         categories: {
           memes: filteredData.filter(item => item.category === 'meme').length,
-          crypto: filteredData.filter(item => item.category === 'crypto').length,
-          gaming: filteredData.filter(item => item.category === 'gaming').length,
+          crypto: filteredData.filter(item => item.category === 'crypto')
+            .length,
+          gaming: filteredData.filter(item => item.category === 'gaming')
+            .length,
         },
         requestedLimit: totalLimit,
         includedCategories: {

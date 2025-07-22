@@ -6,7 +6,11 @@
  */
 
 // Core Context & Types
-export { SceneProvider, useSceneContext, useShaderUniforms } from './contexts/SceneContext';
+export {
+  SceneProvider,
+  useSceneContext,
+  useShaderUniforms,
+} from './contexts/SceneContext';
 export type {
   AudioReactiveData,
   CyberpunkShaderUniforms,
@@ -18,17 +22,31 @@ export type {
 } from './types';
 
 // Shader Materials & Effects
-export { CyberpunkMaterial, useCyberpunkMaterial, CyberpunkPresets } from './effects/CyberpunkMaterial';
+export {
+  CyberpunkMaterial,
+  useCyberpunkMaterial,
+  CyberpunkPresets,
+} from './effects/CyberpunkMaterial';
 
-export { PostProcessingPipeline, PostProcessingPresets } from './effects/PostProcessingPipeline';
+export { PostProcessingPipeline } from './effects/PostProcessingPipeline';
 
 // Environment Presets
-export { EnvironmentPresetComponent, useEnvironmentPreset, ENVIRONMENT_PRESETS } from './presets/EnvironmentPresets';
+export {
+  EnvironmentPresetComponent,
+  useEnvironmentPreset,
+  ENVIRONMENT_PRESETS,
+} from './presets/EnvironmentPresets';
 
 // Individual Shaders (für erweiterte Nutzung)
-export { neonWireframeVertexShader, neonWireframeFragmentShader } from './shaders/neonWireframe.glsl';
+export {
+  neonWireframeVertexShader,
+  neonWireframeFragmentShader,
+} from './shaders/neonWireframe.glsl';
 
-export { hologramGridVertexShader, hologramGridFragmentShader } from './shaders/hologramGrid.glsl';
+export {
+  hologramGridVertexShader,
+  hologramGridFragmentShader,
+} from './shaders/hologramGrid.glsl';
 
 export {
   liquidMetalVertexShader,

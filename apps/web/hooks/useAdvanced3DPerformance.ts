@@ -69,7 +69,9 @@ export function useAdvanced3DPerformance() {
   const performanceObserverRef = useRef<PerformanceObserver | null>(null);
 
   // WebGL-Kontext für GPU-Metriken
-  const [glContext, setGlContext] = useState<WebGLRenderingContext | null>(null);
+  const [glContext, setGlContext] = useState<WebGLRenderingContext | null>(
+    null
+  );
 
   useEffect(() => {
     // WebGL-Kontext erfassen
@@ -116,7 +118,9 @@ export function useAdvanced3DPerformance() {
         const fps = Math.round((frameCountRef.current * 1000) / deltaTime);
 
         // Frame-Zeit-Durchschnitt
-        const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length || 0;
+        const avgFrameTime =
+          frameTimesRef.current.reduce((a, b) => a + b, 0) /
+            frameTimesRef.current.length || 0;
 
         // GPU-Metriken (wenn WebGL verfügbar)
         let drawCalls = 0;
@@ -130,7 +134,9 @@ export function useAdvanced3DPerformance() {
 
         // Speicher-Metriken
         const memInfo = (performance as any).memory;
-        const memoryUsage = memInfo ? Math.round(memInfo.usedJSHeapSize / 1048576) : 0;
+        const memoryUsage = memInfo
+          ? Math.round(memInfo.usedJSHeapSize / 1048576)
+          : 0;
 
         // 3D-Szenen-Metriken
         const sceneMetrics = extractSceneMetrics(state);
@@ -138,7 +144,11 @@ export function useAdvanced3DPerformance() {
         // Performance-Bewertung
         const grade = calculatePerformanceGrade(fps, avgFrameTime, memoryUsage);
         const bottleneck = detectBottleneck(fps, avgFrameTime, memoryUsage);
-        const suggestions = generateOptimizationSuggestions(fps, memoryUsage, bottleneck);
+        const suggestions = generateOptimizationSuggestions(
+          fps,
+          memoryUsage,
+          bottleneck
+        );
 
         setMetrics(prev => ({
           ...prev,
@@ -171,30 +181,34 @@ export function useAdvanced3DPerformance() {
   );
 
   // Audio-Performance-Updates
-  const updateAudioMetrics = useCallback((audioContext?: AudioContext, analyserNode?: AnalyserNode) => {
-    if (!audioContext || !analyserNode) return;
+  const updateAudioMetrics = useCallback(
+    (audioContext?: AudioContext, analyserNode?: AnalyserNode) => {
+      if (!audioContext || !analyserNode) return;
 
-    const bufferHealth = (audioContext.currentTime / audioContext.baseLatency) * 100;
-    const latency = audioContext.baseLatency * 1000; // in ms
+      const bufferHealth =
+        (audioContext.currentTime / audioContext.baseLatency) * 100;
+      const latency = audioContext.baseLatency * 1000; // in ms
 
-    // Frequenz-Peaks analysieren
-    const frequencyData = new Uint8Array(analyserNode.frequencyBinCount);
-    analyserNode.getByteFrequencyData(frequencyData);
+      // Frequenz-Peaks analysieren
+      const frequencyData = new Uint8Array(analyserNode.frequencyBinCount);
+      analyserNode.getByteFrequencyData(frequencyData);
 
-    const peaks: number[] = [];
-    for (let i = 0; i < frequencyData.length; i += 10) {
-      if (frequencyData[i] > 128) {
-        peaks.push(i);
+      const peaks: number[] = [];
+      for (let i = 0; i < frequencyData.length; i += 10) {
+        if (frequencyData[i] > 128) {
+          peaks.push(i);
+        }
       }
-    }
 
-    setMetrics(prev => ({
-      ...prev,
-      audioLatency: latency,
-      audioBufferHealth: Math.min(100, bufferHealth),
-      frequencyPeaks: peaks,
-    }));
-  }, []);
+      setMetrics(prev => ({
+        ...prev,
+        audioLatency: latency,
+        audioBufferHealth: Math.min(100, bufferHealth),
+        frequencyPeaks: peaks,
+      }));
+    },
+    []
+  );
 
   // 3D-Szenen-Metriken extrahieren
   const extractSceneMetrics = (state: any) => {
@@ -252,10 +266,28 @@ export function useAdvanced3DPerformance() {
     frameTime: number,
     memory: number
   ): Performance3DMetrics['performanceGrade'] => {
-    const fpsScore = fps >= 60 ? 4 : fps >= 45 ? 3 : fps >= 30 ? 2 : fps >= 15 ? 1 : 0;
+    const fpsScore =
+      fps >= 60 ? 4 : fps >= 45 ? 3 : fps >= 30 ? 2 : fps >= 15 ? 1 : 0;
     const frameScore =
-      frameTime <= 16.67 ? 4 : frameTime <= 22.22 ? 3 : frameTime <= 33.33 ? 2 : frameTime <= 66.67 ? 1 : 0;
-    const memoryScore = memory <= 100 ? 4 : memory <= 250 ? 3 : memory <= 500 ? 2 : memory <= 1000 ? 1 : 0;
+      frameTime <= 16.67
+        ? 4
+        : frameTime <= 22.22
+          ? 3
+          : frameTime <= 33.33
+            ? 2
+            : frameTime <= 66.67
+              ? 1
+              : 0;
+    const memoryScore =
+      memory <= 100
+        ? 4
+        : memory <= 250
+          ? 3
+          : memory <= 500
+            ? 2
+            : memory <= 1000
+              ? 1
+              : 0;
 
     const avgScore = (fpsScore + frameScore + memoryScore) / 3;
 
@@ -267,7 +299,11 @@ export function useAdvanced3DPerformance() {
   };
 
   // Engpass-Erkennung
-  const detectBottleneck = (fps: number, frameTime: number, memory: number): Performance3DMetrics['bottleneckType'] => {
+  const detectBottleneck = (
+    fps: number,
+    frameTime: number,
+    memory: number
+  ): Performance3DMetrics['bottleneckType'] => {
     if (memory > 500) return 'memory';
     if (frameTime > 33.33) return 'cpu';
     if (fps < 30) return 'gpu';
@@ -275,7 +311,11 @@ export function useAdvanced3DPerformance() {
   };
 
   // Optimierungs-Vorschläge
-  const generateOptimizationSuggestions = (fps: number, memory: number, bottleneck: string): string[] => {
+  const generateOptimizationSuggestions = (
+    fps: number,
+    memory: number,
+    bottleneck: string
+  ): string[] => {
     const suggestions: string[] = [];
 
     if (bottleneck === 'memory') {

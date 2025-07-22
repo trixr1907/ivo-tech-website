@@ -7,9 +7,15 @@ import { useSceneContext } from '../contexts/SceneContext';
 import { CyberpunkMaterialProps, ShaderType } from '../types';
 
 // Shader Imports
-import { neonWireframeVertexShader, neonWireframeFragmentShader } from '../shaders/neonWireframe.glsl';
+import {
+  neonWireframeVertexShader,
+  neonWireframeFragmentShader,
+} from '../shaders/neonWireframe.glsl';
 
-import { hologramGridVertexShader, hologramGridFragmentShader } from '../shaders/hologramGrid.glsl';
+import {
+  hologramGridVertexShader,
+  hologramGridFragmentShader,
+} from '../shaders/hologramGrid.glsl';
 
 import {
   liquidMetalVertexShader,
@@ -28,44 +34,51 @@ import {
 /**
  * Shader-Definitionsmapping
  */
-const SHADER_DEFINITIONS: Record<ShaderType, { vertex: string; fragment: string }> = {
-  neonWireframe: {
-    vertex: neonWireframeVertexShader,
-    fragment: neonWireframeFragmentShader,
-  },
-  hologramGrid: {
-    vertex: hologramGridVertexShader,
-    fragment: hologramGridFragmentShader,
-  },
-  liquidMetal: {
-    vertex: liquidMetalVertexShader,
-    fragment: liquidMetalFragmentShader,
-  },
-  datastreamFlow: {
-    vertex: datastreamFlowVertexShader,
-    fragment: datastreamFlowFragmentShader,
-  },
-  timeWarpNoise: {
-    vertex: timeWarpNoiseVertexShader,
-    fragment: timeWarpNoiseFragmentShader,
-  },
-  audioColorShift: {
-    vertex: audioColorShiftVertexShader,
-    fragment: audioColorShiftFragmentShader,
-  },
-};
+const SHADER_DEFINITIONS: Record<string, { vertex: string; fragment: string }> =
+  {
+    neonWireframe: {
+      vertex: neonWireframeVertexShader,
+      fragment: neonWireframeFragmentShader,
+    },
+    hologramGrid: {
+      vertex: hologramGridVertexShader,
+      fragment: hologramGridFragmentShader,
+    },
+    liquidMetal: {
+      vertex: liquidMetalVertexShader,
+      fragment: liquidMetalFragmentShader,
+    },
+    datastreamFlow: {
+      vertex: datastreamFlowVertexShader,
+      fragment: datastreamFlowFragmentShader,
+    },
+    timeWarpNoise: {
+      vertex: timeWarpNoiseVertexShader,
+      fragment: timeWarpNoiseFragmentShader,
+    },
+    audioColorShift: {
+      vertex: audioColorShiftVertexShader,
+      fragment: audioColorShiftFragmentShader,
+    },
+  };
 
 interface CyberpunkMaterialInstance extends THREE.ShaderMaterial {
   userData: {
     type: ShaderType;
     audioReactive: boolean;
   };
+  side: number;
+  blending: number;
+  depthWrite: boolean;
 }
 
 /**
  * CyberpunkMaterial Component
  */
-export const CyberpunkMaterial = forwardRef<THREE.ShaderMaterial, CyberpunkMaterialProps>(
+export const CyberpunkMaterial = forwardRef<
+  THREE.ShaderMaterial,
+  CyberpunkMaterialProps
+>(
   (
     {
       type,
@@ -110,20 +123,17 @@ export const CyberpunkMaterial = forwardRef<THREE.ShaderMaterial, CyberpunkMater
         }),
       };
 
-      const material = Object.assign(
-        new THREE.ShaderMaterial({
-          uniforms,
-          vertexShader: shaderDef.vertex,
-          fragmentShader: shaderDef.fragment,
-          ...props,
-        }),
-        {
-          transparent: true,
-          side: THREE.DoubleSide,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false,
-        }
-      ) as CyberpunkMaterialInstance;
+      const material = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader: shaderDef.vertex,
+        fragmentShader: shaderDef.fragment,
+        transparent: true,
+        ...props,
+      }) as CyberpunkMaterialInstance;
+
+      material.side = THREE.DoubleSide;
+      material.blending = THREE.AdditiveBlending;
+      material.depthWrite = false;
 
       // Metadata für spätere Referenz
       material.userData = {
@@ -132,14 +142,22 @@ export const CyberpunkMaterial = forwardRef<THREE.ShaderMaterial, CyberpunkMater
       };
 
       return material;
-    }, [type, audioReactive, neonIntensity, colorShift, glitchIntensity, flowSpeed]);
+    }, [
+      type,
+      audioReactive,
+      neonIntensity,
+      colorShift,
+      glitchIntensity,
+      flowSpeed,
+    ]);
 
     // Frame-Update für Uniforms
     useFrame(state => {
       if (!shaderMaterial || !materialRef.current) return;
 
       const material = materialRef.current;
-      const { shaderUniforms, audioData, time, mouse, resolution } = sceneContext;
+      const { shaderUniforms, audioData, time, mouse, resolution } =
+        sceneContext;
 
       // Basis-Uniforms aktualisieren
       material.uniforms.uTime.value = time;
@@ -147,13 +165,17 @@ export const CyberpunkMaterial = forwardRef<THREE.ShaderMaterial, CyberpunkMater
       material.uniforms.uMouse.value.copy(mouse);
 
       // Dynamische Parameter aus SceneContext
-      material.uniforms.uNeonIntensity.value = neonIntensity * shaderUniforms.uNeonIntensity.value;
-      material.uniforms.uColorShift.value = colorShift + shaderUniforms.uColorShift.value;
-      material.uniforms.uGlitchIntensity.value = glitchIntensity * shaderUniforms.uGlitchIntensity.value;
-      material.uniforms.uFlowSpeed.value = flowSpeed * shaderUniforms.uFlowSpeed.value;
+      material.uniforms.uNeonIntensity.value =
+        neonIntensity * shaderUniforms.uNeonIntensity.value;
+      material.uniforms.uColorShift.value =
+        colorShift + shaderUniforms.uColorShift.value;
+      material.uniforms.uGlitchIntensity.value =
+        glitchIntensity * shaderUniforms.uGlitchIntensity.value;
+      material.uniforms.uFlowSpeed.value =
+        flowSpeed * shaderUniforms.uFlowSpeed.value;
 
       // Audio-Reactive Updates
-      if (audioReactive && material.uniforms.uAudioAmplitude) {
+      if (audioReactive && material.uniforms.uAudioAmplitude && audioData) {
         material.uniforms.uAudioAmplitude.value = audioData.amplitude;
         material.uniforms.uAudioBass.value = audioData.bass;
         material.uniforms.uAudioMid.value = audioData.mid;
@@ -190,24 +212,48 @@ export function useCyberpunkMaterial(props: CyberpunkMaterialProps) {
  */
 export const CyberpunkPresets = {
   NeonWireframe: (props?: Partial<CyberpunkMaterialProps>) => (
-    <CyberpunkMaterial type='neonWireframe' audioReactive={true} neonIntensity={1.2} glitchIntensity={0.3} {...props} />
+    <CyberpunkMaterial
+      type="neonWireframe"
+      audioReactive={true}
+      neonIntensity={1.2}
+      glitchIntensity={0.3}
+      {...props}
+    />
   ),
 
   HologramGrid: (props?: Partial<CyberpunkMaterialProps>) => (
-    <CyberpunkMaterial type='hologramGrid' audioReactive={true} neonIntensity={0.8} flowSpeed={1.5} {...props} />
+    <CyberpunkMaterial
+      type="hologramGrid"
+      audioReactive={true}
+      neonIntensity={0.8}
+      flowSpeed={1.5}
+      {...props}
+    />
   ),
 
   LiquidMetal: (props?: Partial<CyberpunkMaterialProps>) => (
-    <CyberpunkMaterial type='liquidMetal' audioReactive={false} neonIntensity={1.0} flowSpeed={0.7} {...props} />
+    <CyberpunkMaterial
+      type="liquidMetal"
+      audioReactive={false}
+      neonIntensity={1.0}
+      flowSpeed={0.7}
+      {...props}
+    />
   ),
 
   DatastreamFlow: (props?: Partial<CyberpunkMaterialProps>) => (
-    <CyberpunkMaterial type='datastreamFlow' audioReactive={true} neonIntensity={1.5} flowSpeed={2.0} {...props} />
+    <CyberpunkMaterial
+      type="datastreamFlow"
+      audioReactive={true}
+      neonIntensity={1.5}
+      flowSpeed={2.0}
+      {...props}
+    />
   ),
 
   TimeWarpNoise: (props?: Partial<CyberpunkMaterialProps>) => (
     <CyberpunkMaterial
-      type='timeWarpNoise'
+      type="timeWarpNoise"
       audioReactive={true}
       neonIntensity={1.0}
       glitchIntensity={0.8}
@@ -217,6 +263,12 @@ export const CyberpunkPresets = {
   ),
 
   AudioColorShift: (props?: Partial<CyberpunkMaterialProps>) => (
-    <CyberpunkMaterial type='audioColorShift' audioReactive={true} neonIntensity={1.3} colorShift={0.2} {...props} />
+    <CyberpunkMaterial
+      type="audioColorShift"
+      audioReactive={true}
+      neonIntensity={1.3}
+      colorShift={0.2}
+      {...props}
+    />
   ),
 };

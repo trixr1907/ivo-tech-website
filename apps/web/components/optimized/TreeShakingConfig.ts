@@ -1,7 +1,7 @@
 // Tree-shaking Optimierungen für Three.js und React Three Fiber
 
 // Spezifische Three.js Imports statt full import
-export { 
+export {
   WebGLRenderer,
   PerspectiveCamera,
   Scene,
@@ -18,16 +18,11 @@ export {
   Quaternion,
   AdditiveBlending,
   DoubleSide,
-  Color
+  Color,
 } from 'three';
 
 // Minimale R3F Imports
-export {
-  Canvas,
-  useFrame,
-  useThree,
-  useLoader
-} from '@react-three/fiber';
+export { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 
 export {
   OrbitControls,
@@ -35,14 +30,15 @@ export {
   Float,
   Text,
   Instances,
-  Instance
+  Instance,
 } from '@react-three/drei';
 
 // Conditional imports für Development vs Production
 export const getThreeExtensions = () => {
   if (process.env.NODE_ENV === 'development') {
-    return import(/* webpackChunkName: "three-dev-tools" */ 'three')
-      .then(() => null); // Vereinfacht für Build-Kompatibilität
+    return import(/* webpackChunkName: "three-dev-tools" */ 'three').then(
+      () => null
+    ); // Vereinfacht für Build-Kompatibilität
   }
   return Promise.resolve(null);
 };
@@ -53,6 +49,9 @@ export const getAdvanced3D = () => {
 };
 
 export const getPostProcessing = () => {
-  return import(/* webpackChunkName: "post-processing" */ '@react-three/postprocessing')
-    .catch(() => ({ default: () => null })); // Graceful fallback
+  return import(
+    /* webpackChunkName: "post-processing" */ '@react-three/postprocessing'
+  ).catch(() => ({
+    default: () => null,
+  })); // Graceful fallback
 };

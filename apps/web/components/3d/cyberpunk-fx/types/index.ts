@@ -1,3 +1,4 @@
+import { Vector2, Vector3, Color } from 'three';
 import * as THREE from 'three';
 
 /**
@@ -18,8 +19,8 @@ export interface AudioReactiveData {
 export interface CyberpunkShaderUniforms {
   uTime: { value: number };
   uAudioData: { value: AudioReactiveData };
-  uResolution: { value: THREE.Vector2 };
-  uMouse: { value: THREE.Vector2 };
+  uResolution: { value: Vector2 };
+  uMouse: { value: Vector2 };
   uColorShift: { value: number };
   uGlitchIntensity: { value: number };
   uNeonIntensity: { value: number };
@@ -45,7 +46,7 @@ export interface PostProcessingConfig {
   };
   chromaticAberration: {
     enabled: boolean;
-    offset: THREE.Vector2;
+    offset: Vector2;
     radialModulation: boolean;
   };
   volumetricLight: {
@@ -64,14 +65,14 @@ export interface EnvironmentPreset {
   skybox: string | THREE.CubeTexture;
   fog: {
     enabled: boolean;
-    color: THREE.Color;
+    color: Color;
     near: number;
     far: number;
   };
   lighting: {
-    ambient: { color: THREE.Color; intensity: number };
-    directional: { color: THREE.Color; intensity: number; position: THREE.Vector3 };
-    point: Array<{ color: THREE.Color; intensity: number; position: THREE.Vector3 }>;
+    ambient: { color: Color; intensity: number };
+    directional: { color: Color; intensity: number; position: Vector3 };
+    point: Array<{ color: Color; intensity: number; position: Vector3 }>;
   };
   postProcessing: PostProcessingConfig;
 }
@@ -82,8 +83,8 @@ export interface EnvironmentPreset {
 export interface SceneContextState {
   audioData: AudioReactiveData;
   time: number;
-  mouse: THREE.Vector2;
-  resolution: THREE.Vector2;
+  mouse: Vector2;
+  resolution: Vector2;
   currentPreset: string;
   shaderUniforms: CyberpunkShaderUniforms;
   postProcessing: PostProcessingConfig;

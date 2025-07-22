@@ -17,9 +17,11 @@ if (typeof global !== 'undefined' && !global.document) {
       return {
         style: {},
         setAttribute() {},
-        getElementsByTagName() { return []; }
+        getElementsByTagName() {
+          return [];
+        },
       };
-    }
+    },
   };
 }
 

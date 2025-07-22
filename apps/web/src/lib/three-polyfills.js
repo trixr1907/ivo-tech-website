@@ -21,7 +21,7 @@ if (typeof window === 'undefined') {
 
   global.document = {
     ...global.document,
-    createElement: (tag) => {
+    createElement: tag => {
       if (tag === 'canvas') {
         return {
           getContext: () => null,

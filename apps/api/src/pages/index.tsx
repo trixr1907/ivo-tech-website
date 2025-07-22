@@ -19,7 +19,13 @@ export default function ApiStatus() {
       </p>
       <p>Version: 1.0.0</p>
       <p>Environment: {process.env.NODE_ENV}</p>
-      <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #00ff00' }}>
+      <div
+        style={{
+          marginTop: '2rem',
+          padding: '1rem',
+          border: '1px solid #00ff00',
+        }}
+      >
         <h3>Available Endpoints:</h3>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           <li>📡 /api/trpc/health - Health check</li>

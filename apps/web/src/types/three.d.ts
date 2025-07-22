@@ -18,7 +18,11 @@ declare module 'three' {
   }
 
   export class BufferAttribute {
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean);
+    constructor(
+      array: ArrayLike<number>,
+      itemSize: number,
+      normalized?: boolean
+    );
     array: ArrayLike<number>;
     needsUpdate: boolean;
   }
@@ -61,10 +65,24 @@ declare module 'three' {
 
   export class Matrix4 {
     elements: number[];
-    set(n11: number, n12: number, n13: number, n14: number,
-        n21: number, n22: number, n23: number, n24: number,
-        n31: number, n32: number, n33: number, n34: number,
-        n41: number, n42: number, n43: number, n44: number): Matrix4;
+    set(
+      n11: number,
+      n12: number,
+      n13: number,
+      n14: number,
+      n21: number,
+      n22: number,
+      n23: number,
+      n24: number,
+      n31: number,
+      n32: number,
+      n33: number,
+      n34: number,
+      n41: number,
+      n42: number,
+      n43: number,
+      n44: number
+    ): Matrix4;
     compose(position: Vector3, quaternion: Quaternion, scale: Vector3): Matrix4;
   }
 

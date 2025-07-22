@@ -2,9 +2,22 @@
 
 import React, { useState, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Box, Sphere, Torus, Plane, Float, Text3D } from '@react-three/drei';
+import {
+  OrbitControls,
+  Box,
+  Sphere,
+  Torus,
+  Plane,
+  Float,
+  Text3D,
+} from '@react-three/drei';
 import * as THREE from 'three';
-import { SceneProvider, EnvironmentPresetComponent, CyberpunkPresets, ENVIRONMENT_PRESETS_KEYS } from './cyberpunk-fx';
+import {
+  SceneProvider,
+  EnvironmentPresetComponent,
+  CyberpunkPresets,
+  ENVIRONMENT_PRESETS_KEYS,
+} from './cyberpunk-fx';
 
 /**
  * Interactive Cyberpunk Objects mit verschiedenen Shader-Effekten
@@ -65,10 +78,15 @@ function CyberpunkObjects() {
  */
 interface ControlPanelProps {
   currentEnvironment: 'city-night' | 'space-tunnel' | 'retro-arcade';
-  onEnvironmentChange: (env: 'city-night' | 'space-tunnel' | 'retro-arcade') => void;
+  onEnvironmentChange: (
+    env: 'city-night' | 'space-tunnel' | 'retro-arcade'
+  ) => void;
 }
 
-function ControlPanel({ currentEnvironment, onEnvironmentChange }: ControlPanelProps) {
+function ControlPanel({
+  currentEnvironment,
+  onEnvironmentChange,
+}: ControlPanelProps) {
   const environmentNames = {
     [ENVIRONMENT_PRESETS_KEYS.CITY_NIGHT]: 'Cyberpunk City',
     [ENVIRONMENT_PRESETS_KEYS.SPACE_TUNNEL]: 'Space Tunnel',
@@ -76,16 +94,24 @@ function ControlPanel({ currentEnvironment, onEnvironmentChange }: ControlPanelP
   };
 
   return (
-    <div className='absolute left-4 top-4 z-10 rounded-lg bg-black/80 p-4 text-white backdrop-blur-md'>
-      <h3 className='mb-4 text-lg font-bold text-cyan-400'>🎮 Cyberpunk FX Demo</h3>
+    <div className="absolute left-4 top-4 z-10 rounded-lg bg-black/80 p-4 text-white backdrop-blur-md">
+      <h3 className="mb-4 text-lg font-bold text-cyan-400">
+        🎮 Cyberpunk FX Demo
+      </h3>
 
-      <div className='mb-4'>
-        <h4 className='mb-2 text-sm font-semibold text-purple-300'>Environment:</h4>
-        <div className='space-y-2'>
+      <div className="mb-4">
+        <h4 className="mb-2 text-sm font-semibold text-purple-300">
+          Environment:
+        </h4>
+        <div className="space-y-2">
           {Object.entries(ENVIRONMENT_PRESETS_KEYS).map(([key, value]) => (
             <button
               key={key}
-              onClick={() => onEnvironmentChange(value as 'city-night' | 'space-tunnel' | 'retro-arcade')}
+              onClick={() =>
+                onEnvironmentChange(
+                  value as 'city-night' | 'space-tunnel' | 'retro-arcade'
+                )
+              }
               className={`block w-full rounded px-3 py-1 text-left text-sm transition-colors ${
                 currentEnvironment === value
                   ? 'bg-cyan-500 font-semibold text-black'
@@ -98,11 +124,11 @@ function ControlPanel({ currentEnvironment, onEnvironmentChange }: ControlPanelP
         </div>
       </div>
 
-      <div className='text-xs text-gray-400'>
+      <div className="text-xs text-gray-400">
         <p>
           <strong>🎨 Features:</strong>
         </p>
-        <ul className='mt-1 space-y-1 text-xs'>
+        <ul className="mt-1 space-y-1 text-xs">
           <li>• 4D Audio-Reactive Shaders</li>
           <li>• Volumetric Light & God Rays</li>
           <li>• Post-Processing Pipeline</li>
@@ -111,9 +137,10 @@ function ControlPanel({ currentEnvironment, onEnvironmentChange }: ControlPanelP
         </ul>
       </div>
 
-      <div className='mt-4 text-xs text-yellow-300'>
+      <div className="mt-4 text-xs text-yellow-300">
         <p>
-          🎧 <strong>Tipp:</strong> Aktiviere das Mikrofon für Audio-Reaktivität!
+          🎧 <strong>Tipp:</strong> Aktiviere das Mikrofon für
+          Audio-Reaktivität!
         </p>
       </div>
     </div>
@@ -133,12 +160,14 @@ function PerformanceStats() {
   });
 
   return (
-    <div className='absolute right-4 top-4 z-10 rounded-lg bg-black/80 p-3 text-sm text-white backdrop-blur-md'>
-      <div className='space-y-1'>
-        <div className={`${fps > 45 ? 'text-green-400' : fps > 30 ? 'text-yellow-400' : 'text-red-400'}`}>
+    <div className="absolute right-4 top-4 z-10 rounded-lg bg-black/80 p-3 text-sm text-white backdrop-blur-md">
+      <div className="space-y-1">
+        <div
+          className={`${fps > 45 ? 'text-green-400' : fps > 30 ? 'text-yellow-400' : 'text-red-400'}`}
+        >
           FPS: {fps}
         </div>
-        <div className='text-gray-300'>Draw Calls: {drawCalls}</div>
+        <div className="text-gray-300">Draw Calls: {drawCalls}</div>
       </div>
     </div>
   );
@@ -148,13 +177,16 @@ function PerformanceStats() {
  * Cyberpunk FX Demo Scene
  */
 export function CyberpunkFXDemo() {
-  const [environment, setEnvironment] = useState<'city-night' | 'space-tunnel' | 'retro-arcade'>(
-    ENVIRONMENT_PRESETS_KEYS.CITY_NIGHT
-  );
+  const [environment, setEnvironment] = useState<
+    'city-night' | 'space-tunnel' | 'retro-arcade'
+  >(ENVIRONMENT_PRESETS_KEYS.CITY_NIGHT);
 
   return (
-    <div className='relative h-screen w-full bg-black'>
-      <ControlPanel currentEnvironment={environment} onEnvironmentChange={setEnvironment} />
+    <div className="relative h-screen w-full bg-black">
+      <ControlPanel
+        currentEnvironment={environment}
+        onEnvironmentChange={setEnvironment}
+      />
       <PerformanceStats />
 
       <Canvas
@@ -185,7 +217,7 @@ export function CyberpunkFXDemo() {
                 bevelSize={0.02}
                 bevelOffset={0}
                 bevelSegments={5}
-                font='/fonts/helvetiker_regular.typeface.json'
+                font="/fonts/helvetiker_regular.typeface.json"
               >
                 CYBERPUNK FX 2.0
                 <CyberpunkPresets.AudioColorShift />
@@ -210,10 +242,11 @@ export function CyberpunkFXDemo() {
       </Canvas>
 
       {/* Instructions Overlay */}
-      <div className='absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transform rounded-lg bg-black/80 px-4 py-2 text-sm text-white backdrop-blur-md'>
-        <p className='text-center'>
-          <span className='text-cyan-400'>🖱️ Drag</span> to rotate •<span className='text-purple-300'> 🖱️ Scroll</span>{' '}
-          to zoom •<span className='text-yellow-300'> ⌨️ Switch</span> environments
+      <div className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transform rounded-lg bg-black/80 px-4 py-2 text-sm text-white backdrop-blur-md">
+        <p className="text-center">
+          <span className="text-cyan-400">🖱️ Drag</span> to rotate •
+          <span className="text-purple-300"> 🖱️ Scroll</span> to zoom •
+          <span className="text-yellow-300"> ⌨️ Switch</span> environments
         </p>
       </div>
     </div>

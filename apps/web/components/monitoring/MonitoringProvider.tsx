@@ -9,7 +9,7 @@ interface MonitoringProviderProps {
 // Enhanced error reporting function (console-based for now)
 export const reportError = (error: Error, context?: Record<string, any>) => {
   console.error('Error reported:', error, context);
-  
+
   // In a production environment, you could send this to your preferred monitoring service
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
     // Example: fetch('/api/log-error', { method: 'POST', body: JSON.stringify({ error: error.message, context }) })
@@ -17,16 +17,22 @@ export const reportError = (error: Error, context?: Record<string, any>) => {
 };
 
 // Performance monitoring hook (console-based for now)
-export const trackPerformance = (name: string, duration: number, context?: Record<string, any>) => {
+export const trackPerformance = (
+  name: string,
+  duration: number,
+  context?: Record<string, any>
+) => {
   console.log(`Performance: ${name} - ${duration}ms`, context);
-  
+
   // In a production environment, you could send this to your analytics service
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
     // Example: analytics.track(name, { duration, ...context })
   }
 };
 
-export const MonitoringProvider: React.FC<MonitoringProviderProps> = ({ children }) => {
+export const MonitoringProvider: React.FC<MonitoringProviderProps> = ({
+  children,
+}) => {
   useEffect(() => {
     console.log('MonitoringProvider initialized');
 
@@ -54,7 +60,10 @@ export const MonitoringProvider: React.FC<MonitoringProviderProps> = ({ children
     window.addEventListener('error', handleError);
 
     return () => {
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener(
+        'unhandledrejection',
+        handleUnhandledRejection
+      );
       window.removeEventListener('error', handleError);
     };
   }, []);

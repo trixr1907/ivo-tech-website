@@ -85,24 +85,33 @@ const sectionVariants: Variants = {
   },
 };
 
-export const PageTransition: React.FC<PageTransitionProps> = ({ children, className = '' }) => {
+export const PageTransition: React.FC<PageTransitionProps> = ({
+  children,
+  className = '',
+}) => {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode='wait' initial={false}>
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
         className={`min-h-screen ${className}`}
         variants={pageVariants}
-        initial='initial'
-        animate='in'
-        exit='out'
+        initial="initial"
+        animate="in"
+        exit="out"
         style={{
           perspective: '1000px',
           transformStyle: 'preserve-3d',
         }}
       >
-        <motion.div variants={layoutVariants} initial='hidden' animate='visible' exit='exit' className='relative z-10'>
+        <motion.div
+          variants={layoutVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="relative z-10"
+        >
           {children}
         </motion.div>
       </motion.div>
@@ -122,8 +131,8 @@ export const AnimatedSection: React.FC<{
       id={id}
       className={className}
       variants={sectionVariants}
-      initial='hidden'
-      whileInView='visible'
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       transition={{ delay }}
     >

@@ -37,7 +37,7 @@ import { AnimatedLogo4D } from './components/3d/AnimatedLogo4D';
 
 function App() {
   return (
-    <div className='h-96 w-full'>
+    <div className="h-96 w-full">
       <AnimatedLogo4D />
     </div>
   );
@@ -66,7 +66,7 @@ function App() {
   // Interaktion
   onClick={() => console.log('Logo clicked!')}
   // Responsive Container
-  className='h-screen w-full'
+  className="h-screen w-full"
 />
 ```
 
@@ -110,13 +110,25 @@ const corporateTheme = {
 ### Mobile/Low-End Devices
 
 ```tsx
-<AnimatedLogo4D size={0.6} fpsLimit={30} enableParticles={false} enableScanLines={false} enableTimeMorphing={false} />
+<AnimatedLogo4D
+  size={0.6}
+  fpsLimit={30}
+  enableParticles={false}
+  enableScanLines={false}
+  enableTimeMorphing={false}
+/>
 ```
 
 ### High-Performance Setup
 
 ```tsx
-<AnimatedLogo4D size={1.5} fpsLimit={60} enableParticles={true} enableScanLines={true} enableTimeMorphing={true} />
+<AnimatedLogo4D
+  size={1.5}
+  fpsLimit={60}
+  enableParticles={true}
+  enableScanLines={true}
+  enableTimeMorphing={true}
+/>
 ```
 
 ## Props API
