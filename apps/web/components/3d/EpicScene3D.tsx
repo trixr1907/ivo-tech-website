@@ -14,7 +14,7 @@ import {
 } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
-import { ThreeElements, MaterialNode } from '@react-three/fiber';
+import { ThreeElements } from '@react-three/fiber';
 
 // Floating Tech Orbs Component
 interface TechOrbProps {
@@ -82,17 +82,15 @@ function AnimatedGrid() {
       {Array.from({ length: 20 }, (_, i) => (
         <Box
           key={i}
-          position={
-            new THREE.Vector3(
-              (Math.random() - 0.5) * 20,
-              (Math.random() - 0.5) * 20,
-              (Math.random() - 0.5) * 20
-            )
-          }
+          position={[
+            (Math.random() - 0.5) * 20,
+            (Math.random() - 0.5) * 20,
+            (Math.random() - 0.5) * 20
+          ]}
           args={[0.1, 0.1, 0.1]}
         >
           <meshBasicMaterial
-            color={new THREE.Color('#0099ff')}
+            color="#0099ff"
             transparent
             opacity={0.6}
           />

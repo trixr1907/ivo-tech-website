@@ -15,7 +15,7 @@ export const projectsRouter = router({
       const { page, limit, technology, featured } = input;
       const skip = (page - 1) * limit;
 
-      const where: any = {};
+      const where: Record<string, unknown> = {};
       if (technology) {
         where.technologies = { contains: technology };
       }

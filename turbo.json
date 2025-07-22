@@ -1,26 +1,23 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
-  "globalDependencies": [".env*"],
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_*", "ANALYTICS_ID", "API_KEY", "API_URL", "AUTH_SECRET", "DATABASE_URL", "NODE_ENV"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": ["NEXT_PUBLIC_*", "ANALYTICS_ID", "API_KEY", "API_URL", "AUTH_SECRET", "DATABASE_URL", "NODE_ENV", "JWT_SECRET"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "test": {
-      "dependsOn": ["^test"]
+      "dependsOn": ["^lint"],
+      "outputs": []
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "env": ["NEXT_PUBLIC_*", "ANALYTICS_ID", "API_URL"]
+      "persistent": true
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"],
+      "outputs": []
     }
   }
 }

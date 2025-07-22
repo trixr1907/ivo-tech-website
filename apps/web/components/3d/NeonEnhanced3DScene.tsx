@@ -21,7 +21,7 @@ import {
   Glitch,
 } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 import { motion } from 'framer-motion';
 import { NeonButton, NeonCard, useNeonContext } from '../ui/neon-ui';
 

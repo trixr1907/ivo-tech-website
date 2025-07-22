@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@react-three/drei':
         specifier: ^9.102.6
-        version: 9.122.0(@react-three/fiber@8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(@types/react@19.1.0)(@types/three@0.162.0)(immer@10.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.2.0))
+        version: 9.122.0(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(@types/react@19.1.8)(@types/three@0.162.0)(immer@10.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.2.0))
       '@react-three/fiber':
         specifier: ^8.15.19
-        version: 8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
+        version: 8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
       '@types/three':
         specifier: ^0.162.0
         version: 0.162.0
@@ -89,7 +89,7 @@ importers:
         version: 2.0.1
       next:
         specifier: ^15.3.0
-        version: 15.3.0(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       prisma:
         specifier: ^5.19.0
         version: 5.22.0
@@ -119,11 +119,11 @@ importers:
         specifier: ^22.15.3
         version: 22.15.3
       '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
+        specifier: 19.1.8
+        version: 19.1.8
       '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
+        specifier: 19.1.6
+        version: 19.1.6(@types/react@19.1.8)
       eslint:
         specifier: ^9.30.0
         version: 9.30.0(jiti@1.21.7)
@@ -138,7 +138,7 @@ importers:
         version: link:../../packages/ui
       next:
         specifier: ^15.3.0
-        version: 15.3.0(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -156,11 +156,11 @@ importers:
         specifier: ^22.15.3
         version: 22.15.3
       '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
+        specifier: 19.1.8
+        version: 19.1.8
       '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
+        specifier: 19.1.6
+        version: 19.1.6(@types/react@19.1.8)
       eslint:
         specifier: ^9.30.0
         version: 9.30.0(jiti@1.21.7)
@@ -172,16 +172,16 @@ importers:
     dependencies:
       '@react-three/cannon':
         specifier: ^6.6.0
-        version: 6.6.0(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(react@18.3.1)(three@0.162.0)(typescript@5.8.3)
+        version: 6.6.0(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(react@19.1.0)(three@0.178.0)(typescript@5.8.3)
       '@react-three/postprocessing':
         specifier: ^2.19.1
-        version: 2.19.1(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(@types/three@0.178.1)(react@18.3.1)(three@0.162.0)
+        version: 2.19.1(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(@types/three@0.178.1)(react@19.1.0)(three@0.178.0)
       '@vercel/analytics':
         specifier: ^1.5.0
-        version: 1.5.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 1.5.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@vercel/speed-insights':
         specifier: ^1.2.0
-        version: 1.2.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 1.2.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -193,31 +193,31 @@ importers:
         version: 0.0.23
       framer-motion:
         specifier: ^12.23.6
-        version: 12.23.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       gsap:
         specifier: ^3.13.0
         version: 3.13.0
       next:
         specifier: ^15.3.0
-        version: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       nodemailer:
         specifier: ^7.0.5
         version: 7.0.5
       postprocessing:
         specifier: ^6.37.6
-        version: 6.37.6(three@0.162.0)
+        version: 6.37.6(three@0.178.0)
       react:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^19.1.0
+        version: 19.1.0
       react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
       recharts:
         specifier: ^3.1.0
-        version: 3.1.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(redux@5.0.1)
+        version: 3.1.0(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(redux@5.0.1)
       use-sound:
         specifier: ^5.0.0
-        version: 5.0.0(react@18.3.1)
+        version: 5.0.0(react@19.1.0)
     devDependencies:
       '@next/bundle-analyzer':
         specifier: ^15.4.2
@@ -229,32 +229,32 @@ importers:
         specifier: ^1.47.2
         version: 1.54.1
       '@react-three/drei':
-        specifier: ^9.122.0
-        version: 9.122.0(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(@types/react@18.3.23)(@types/three@0.178.1)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.3.1))
+        specifier: ^10.5.2
+        version: 10.5.2(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(@types/react@19.1.8)(@types/three@0.178.1)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)
       '@react-three/fiber':
-        specifier: ^8.18.0
-        version: 8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)
+        specifier: ^9.2.0
+        version: 9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)
       '@storybook/addon-essentials':
         specifier: ^8.4.7
-        version: 8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@3.6.2))
+        version: 8.6.14(@types/react@19.1.8)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-interactions':
         specifier: ^8.4.7
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-links':
         specifier: ^8.4.7
-        version: 8.6.14(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))
+        version: 8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-onboarding':
         specifier: ^8.4.7
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/blocks':
         specifier: ^8.4.7
-        version: 8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))
+        version: 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/nextjs':
         specifier: ^8.4.7
-        version: 8.6.14(esbuild@0.25.8)(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(type-fest@2.19.0)(typescript@5.8.3)(webpack-hot-middleware@2.26.1)(webpack@5.100.2(esbuild@0.25.8))
+        version: 8.6.14(esbuild@0.25.8)(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(type-fest@2.19.0)(typescript@5.8.3)(webpack-hot-middleware@2.26.1)(webpack@5.100.2(esbuild@0.25.8))
       '@storybook/react':
         specifier: ^8.4.7
-        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
+        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
       '@storybook/test':
         specifier: ^8.4.7
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
@@ -263,7 +263,7 @@ importers:
         version: 6.6.3
       '@testing-library/react':
         specifier: ^14.3.1
-        version: 14.3.1(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.3.1(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
@@ -277,11 +277,11 @@ importers:
         specifier: ^6.4.17
         version: 6.4.17
       '@types/react':
-        specifier: ^18.3.23
-        version: 18.3.23
+        specifier: ^19.1.8
+        version: 19.1.8
       '@types/react-dom':
-        specifier: 18.3.7
-        version: 18.3.7(@types/react@18.3.23)
+        specifier: 19.1.6
+        version: 19.1.6(@types/react@19.1.8)
       '@types/three':
         specifier: ^0.178.1
         version: 0.178.1
@@ -343,8 +343,8 @@ importers:
         specifier: ^3.4.17
         version: 3.4.17
       three:
-        specifier: ^0.162.0
-        version: 0.162.0
+        specifier: ^0.178.0
+        version: 0.178.0
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -1902,6 +1902,17 @@ packages:
       react: '>=18'
       three: '>=0.139'
 
+  '@react-three/drei@10.5.2':
+    resolution: {integrity: sha512-s6MpLahua5q59ZVTeJ9EQ52wNLOLNB5mIA9NeLWwKEIymg7owqnkfQock9u5IAFgFzCX7AB1b7U8eaLy4M+YgA==}
+    peerDependencies:
+      '@react-three/fiber': ^9.0.0
+      react: ^19
+      react-dom: ^19
+      three: '>=0.159'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+
   '@react-three/drei@9.122.0':
     resolution: {integrity: sha512-SEO/F/rBCTjlLez7WAlpys+iGe9hty4rNgjZvgkQeXFSiwqD4Hbk/wNHMAbdd8vprO2Aj81mihv4dF5bC7D0CA==}
     peerDependencies:
@@ -1924,6 +1935,31 @@ packages:
       react-dom: '>=18 <19'
       react-native: '>=0.64'
       three: '>=0.133'
+    peerDependenciesMeta:
+      expo:
+        optional: true
+      expo-asset:
+        optional: true
+      expo-file-system:
+        optional: true
+      expo-gl:
+        optional: true
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+
+  '@react-three/fiber@9.2.0':
+    resolution: {integrity: sha512-esZe+E9T/aYEM4HlBkirr/yRE8qWTp9WUsLISyHHMCHKlJv85uc5N4wwKw+Ay0QeTSITw6T9Q3Svpu383Q+CSQ==}
+    peerDependencies:
+      expo: '>=43.0'
+      expo-asset: '>=8.4'
+      expo-file-system: '>=11.0'
+      expo-gl: '>=11.0'
+      react: ^19.0.0
+      react-dom: ^19.0.0
+      react-native: '>=0.78'
+      three: '>=0.156'
     peerDependenciesMeta:
       expo:
         optional: true
@@ -2441,9 +2477,6 @@ packages:
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
 
-  '@types/prop-types@15.7.15':
-    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
-
   '@types/qs@6.14.0':
     resolution: {integrity: sha512-eOunJqu0K1923aExK6y8p6fsihYEn/BYuQ4g0CxAAgFc4b/ZLN4CrsRZ55srTdqoiLzU2B2evC+apEIxprEzkQ==}
 
@@ -2460,6 +2493,11 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
+  '@types/react-dom@19.1.6':
+    resolution: {integrity: sha512-4hOiT/dwO8Ko0gV1m/TJZYk3y0KBnY9vzDh7W+DH17b2HFSOGgdj33dhihPeuy3l0q23+4e+hoXHV6hCC4dCXw==}
+    peerDependencies:
+      '@types/react': ^19.0.0
+
   '@types/react-reconciler@0.26.7':
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
 
@@ -2468,11 +2506,11 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/react@18.3.23':
-    resolution: {integrity: sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==}
-
   '@types/react@19.1.0':
     resolution: {integrity: sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w==}
+
+  '@types/react@19.1.8':
+    resolution: {integrity: sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==}
 
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
@@ -3327,6 +3365,12 @@ packages:
 
   camera-controls@2.10.1:
     resolution: {integrity: sha512-KnaKdcvkBJ1Irbrzl8XD6WtZltkRjp869Jx8c0ujs9K+9WD+1D7ryBsCiVqJYUqt6i/HR5FxT7RLASieUD+Q5w==}
+    peerDependencies:
+      three: '>=0.126.1'
+
+  camera-controls@3.1.0:
+    resolution: {integrity: sha512-w5oULNpijgTRH0ARFJJ0R5ct1nUM3R3WP7/b8A6j9uTGpRfnsypc/RBMPQV8JQDPayUe37p/TZZY1PcUr4czOQ==}
+    engines: {node: '>=20.11.0', npm: '>=10.8.2'}
     peerDependencies:
       three: '>=0.126.1'
 
@@ -5031,6 +5075,11 @@ packages:
     peerDependencies:
       react: '>=18.0'
 
+  its-fine@2.0.0:
+    resolution: {integrity: sha512-KLViCmWx94zOvpLwSlsx6yOCeMhZYaxrJV87Po5k/FoZzcPSahvK5qJ7fYhS61sZi5ikmh2S3Hz55A2l3U69ng==}
+    peerDependencies:
+      react: ^19.0.0
+
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
@@ -6278,11 +6327,6 @@ packages:
     peerDependencies:
       react: ^18.2.0
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
-    peerDependencies:
-      react: ^18.3.1
-
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
@@ -6302,6 +6346,12 @@ packages:
     engines: {node: '>=0.10.0'}
     peerDependencies:
       react: ^18.0.0
+
+  react-reconciler@0.31.0:
+    resolution: {integrity: sha512-7Ob7Z+URmesIsIVRjnLoDGwBEG/tVitidU0nMsqX/eeJaLY89RISO/10ERe0MqmzuKUUB1rmY+h1itMbUHg9BQ==}
+    engines: {node: '>=0.10.0'}
+    peerDependencies:
+      react: ^19.0.0
 
   react-redux@9.2.0:
     resolution: {integrity: sha512-ROY9fvHhwOD9ySfrF0wmvu//bKCQ6AeZZq1nJNtbDC+kk5DuSuNX/n6YWYF/SYy7bSba4D4FSz8DJeKY/S/r+g==}
@@ -6330,10 +6380,6 @@ packages:
 
   react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
-
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
 
   react@19.1.0:
@@ -6568,6 +6614,9 @@ packages:
 
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+
+  scheduler@0.25.0:
+    resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
 
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
@@ -6991,6 +7040,11 @@ packages:
     peerDependencies:
       three: '>= 0.151.0'
 
+  three-mesh-bvh@0.8.3:
+    resolution: {integrity: sha512-4G5lBaF+g2auKX3P0yqx+MJC6oVt6sB5k+CchS6Ob0qvH0YIhuUk1eYr7ktsIpY+albCqE80/FVQGV190PmiAg==}
+    peerDependencies:
+      three: '>= 0.159.0'
+
   three-stdlib@2.36.0:
     resolution: {integrity: sha512-kv0Byb++AXztEGsULgMAs8U2jgUdz6HPpAB/wDJnLiLlaWQX2APHhiTJIN7rqW+Of0eRgcp7jn05U1BsCP3xBA==}
     peerDependencies:
@@ -6998,6 +7052,9 @@ packages:
 
   three@0.162.0:
     resolution: {integrity: sha512-xfCYj4RnlozReCmUd+XQzj6/5OjDNHBy5nT6rVwrOKGENAvpXe2z1jL+DZYaMu4/9pNsjH/4Os/VvS9IrH7IOQ==}
+
+  three@0.178.0:
+    resolution: {integrity: sha512-ybFIB0+x8mz0wnZgSGy2MO/WCO6xZhQSZnmfytSPyNpM0sBafGRVhdaj+erYh5U+RhQOAg/eXqw5uVDiM2BjhQ==}
 
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
@@ -9041,10 +9098,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mdx-js/react@3.1.0(@types/react@18.3.23)(react@19.1.0)':
+  '@mdx-js/react@3.1.0(@types/react@19.1.8)(react@19.1.0)':
     dependencies:
       '@types/mdx': 2.0.13
-      '@types/react': 18.3.23
+      '@types/react': 19.1.8
       react: 19.1.0
 
   '@mediapipe/tasks-vision@0.10.17': {}
@@ -9053,6 +9110,11 @@ snapshots:
     dependencies:
       promise-worker-transferable: 1.0.4
       three: 0.162.0
+
+  '@monogrid/gainmap-js@3.1.0(three@0.178.0)':
+    dependencies:
+      promise-worker-transferable: 1.0.4
+      three: 0.178.0
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
@@ -9143,9 +9205,9 @@ snapshots:
       type-fest: 2.19.0
       webpack-hot-middleware: 2.26.1
 
-  '@pmndrs/cannon-worker-api@2.4.0(three@0.162.0)':
+  '@pmndrs/cannon-worker-api@2.4.0(three@0.178.0)':
     dependencies:
-      three: 0.162.0
+      three: 0.178.0
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -9193,25 +9255,12 @@ snapshots:
       '@react-spring/types': 9.7.5
       react: 18.2.0
 
-  '@react-spring/animated@9.7.5(react@18.3.1)':
-    dependencies:
-      '@react-spring/shared': 9.7.5(react@18.3.1)
-      '@react-spring/types': 9.7.5
-      react: 18.3.1
-
   '@react-spring/core@9.7.5(react@18.2.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@18.2.0)
       '@react-spring/shared': 9.7.5(react@18.2.0)
       '@react-spring/types': 9.7.5
       react: 18.2.0
-
-  '@react-spring/core@9.7.5(react@18.3.1)':
-    dependencies:
-      '@react-spring/animated': 9.7.5(react@18.3.1)
-      '@react-spring/shared': 9.7.5(react@18.3.1)
-      '@react-spring/types': 9.7.5
-      react: 18.3.1
 
   '@react-spring/rafz@9.7.5': {}
 
@@ -9221,87 +9270,69 @@ snapshots:
       '@react-spring/types': 9.7.5
       react: 18.2.0
 
-  '@react-spring/shared@9.7.5(react@18.3.1)':
-    dependencies:
-      '@react-spring/rafz': 9.7.5
-      '@react-spring/types': 9.7.5
-      react: 18.3.1
-
-  '@react-spring/three@9.7.5(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(react@18.3.1)(three@0.162.0)':
-    dependencies:
-      '@react-spring/animated': 9.7.5(react@18.3.1)
-      '@react-spring/core': 9.7.5(react@18.3.1)
-      '@react-spring/shared': 9.7.5(react@18.3.1)
-      '@react-spring/types': 9.7.5
-      '@react-three/fiber': 8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)
-      react: 18.3.1
-      three: 0.162.0
-
-  '@react-spring/three@9.7.5(@react-three/fiber@8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(react@18.2.0)(three@0.162.0)':
+  '@react-spring/three@9.7.5(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(react@18.2.0)(three@0.162.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@18.2.0)
       '@react-spring/core': 9.7.5(react@18.2.0)
       '@react-spring/shared': 9.7.5(react@18.2.0)
       '@react-spring/types': 9.7.5
-      '@react-three/fiber': 8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
+      '@react-three/fiber': 8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
       react: 18.2.0
       three: 0.162.0
 
   '@react-spring/types@9.7.5': {}
 
-  '@react-three/cannon@6.6.0(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(react@18.3.1)(three@0.162.0)(typescript@5.8.3)':
+  '@react-three/cannon@6.6.0(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(react@19.1.0)(three@0.178.0)(typescript@5.8.3)':
     dependencies:
-      '@pmndrs/cannon-worker-api': 2.4.0(three@0.162.0)
-      '@react-three/fiber': 8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)
+      '@pmndrs/cannon-worker-api': 2.4.0(three@0.178.0)
+      '@react-three/fiber': 9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)
       cannon-es: 0.20.0
-      cannon-es-debugger: 1.0.0(cannon-es@0.20.0)(three@0.162.0)(typescript@5.8.3)
-      react: 18.3.1
-      three: 0.162.0
+      cannon-es-debugger: 1.0.0(cannon-es@0.20.0)(three@0.178.0)(typescript@5.8.3)
+      react: 19.1.0
+      three: 0.178.0
     transitivePeerDependencies:
       - typescript
 
-  '@react-three/drei@9.122.0(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(@types/react@18.3.23)(@types/three@0.178.1)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.3.1))':
+  '@react-three/drei@10.5.2(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(@types/react@19.1.8)(@types/three@0.178.1)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)':
     dependencies:
       '@babel/runtime': 7.27.6
       '@mediapipe/tasks-vision': 0.10.17
-      '@monogrid/gainmap-js': 3.1.0(three@0.162.0)
-      '@react-spring/three': 9.7.5(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(react@18.3.1)(three@0.162.0)
-      '@react-three/fiber': 8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)
-      '@use-gesture/react': 10.3.1(react@18.3.1)
-      camera-controls: 2.10.1(three@0.162.0)
+      '@monogrid/gainmap-js': 3.1.0(three@0.178.0)
+      '@react-three/fiber': 9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)
+      '@use-gesture/react': 10.3.1(react@19.1.0)
+      camera-controls: 3.1.0(three@0.178.0)
       cross-env: 7.0.3
       detect-gpu: 5.0.70
       glsl-noise: 0.0.0
       hls.js: 1.6.7
-      maath: 0.10.8(@types/three@0.178.1)(three@0.162.0)
-      meshline: 3.3.1(three@0.162.0)
-      react: 18.3.1
-      react-composer: 5.0.3(react@18.3.1)
-      stats-gl: 2.4.2(@types/three@0.178.1)(three@0.162.0)
+      maath: 0.10.8(@types/three@0.178.1)(three@0.178.0)
+      meshline: 3.3.1(three@0.178.0)
+      react: 19.1.0
+      stats-gl: 2.4.2(@types/three@0.178.1)(three@0.178.0)
       stats.js: 0.17.0
-      suspend-react: 0.1.3(react@18.3.1)
-      three: 0.162.0
-      three-mesh-bvh: 0.7.8(three@0.162.0)
-      three-stdlib: 2.36.0(three@0.162.0)
-      troika-three-text: 0.52.4(three@0.162.0)
-      tunnel-rat: 0.1.2(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1)
+      suspend-react: 0.1.3(react@19.1.0)
+      three: 0.178.0
+      three-mesh-bvh: 0.8.3(three@0.178.0)
+      three-stdlib: 2.36.0(three@0.178.0)
+      troika-three-text: 0.52.4(three@0.178.0)
+      tunnel-rat: 0.1.2(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)
+      use-sync-external-store: 1.5.0(react@19.1.0)
       utility-types: 3.11.0
-      zustand: 5.0.6(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
+      zustand: 5.0.6(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.1.0(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/three'
       - immer
-      - use-sync-external-store
 
-  '@react-three/drei@9.122.0(@react-three/fiber@8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(@types/react@19.1.0)(@types/three@0.162.0)(immer@10.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.2.0))':
+  '@react-three/drei@9.122.0(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(@types/react@19.1.8)(@types/three@0.162.0)(immer@10.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.2.0))':
     dependencies:
       '@babel/runtime': 7.27.6
       '@mediapipe/tasks-vision': 0.10.17
       '@monogrid/gainmap-js': 3.1.0(three@0.162.0)
-      '@react-spring/three': 9.7.5(@react-three/fiber@8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(react@18.2.0)(three@0.162.0)
-      '@react-three/fiber': 8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
+      '@react-spring/three': 9.7.5(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(react@18.2.0)(three@0.162.0)
+      '@react-three/fiber': 8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)
       '@use-gesture/react': 10.3.1(react@18.2.0)
       camera-controls: 2.10.1(three@0.162.0)
       cross-env: 7.0.3
@@ -9319,9 +9350,9 @@ snapshots:
       three-mesh-bvh: 0.7.8(three@0.162.0)
       three-stdlib: 2.36.0(three@0.162.0)
       troika-three-text: 0.52.4(three@0.162.0)
-      tunnel-rat: 0.1.2(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0)
+      tunnel-rat: 0.1.2(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0)
       utility-types: 3.11.0
-      zustand: 5.0.6(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0)(use-sync-external-store@1.5.0(react@18.2.0))
+      zustand: 5.0.6(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0)(use-sync-external-store@1.5.0(react@18.2.0))
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
@@ -9330,34 +9361,14 @@ snapshots:
       - immer
       - use-sync-external-store
 
-  '@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)':
+  '@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)':
     dependencies:
       '@babel/runtime': 7.27.6
       '@types/react-reconciler': 0.26.7
       '@types/webxr': 0.5.22
       base64-js: 1.5.1
       buffer: 6.0.3
-      its-fine: 1.2.5(@types/react@18.3.23)(react@18.3.1)
-      react: 18.3.1
-      react-reconciler: 0.27.0(react@18.3.1)
-      react-use-measure: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      scheduler: 0.21.0
-      suspend-react: 0.1.3(react@18.3.1)
-      three: 0.162.0
-      zustand: 3.7.2(react@18.3.1)
-    optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-
-  '@react-three/fiber@8.18.0(@types/react@19.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)':
-    dependencies:
-      '@babel/runtime': 7.27.6
-      '@types/react-reconciler': 0.26.7
-      '@types/webxr': 0.5.22
-      base64-js: 1.5.1
-      buffer: 6.0.3
-      its-fine: 1.2.5(@types/react@19.1.0)(react@18.2.0)
+      its-fine: 1.2.5(@types/react@19.1.8)(react@18.2.0)
       react: 18.2.0
       react-reconciler: 0.27.0(react@18.2.0)
       react-use-measure: 2.1.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -9370,20 +9381,42 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@react-three/postprocessing@2.19.1(@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0))(@types/three@0.178.1)(react@18.3.1)(three@0.162.0)':
+  '@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)':
     dependencies:
-      '@react-three/fiber': 8.18.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.162.0)
+      '@babel/runtime': 7.27.6
+      '@types/react-reconciler': 0.28.9(@types/react@19.1.8)
+      '@types/webxr': 0.5.22
+      base64-js: 1.5.1
       buffer: 6.0.3
-      maath: 0.6.0(@types/three@0.178.1)(three@0.162.0)
-      n8ao: 1.10.1(postprocessing@6.37.6(three@0.162.0))(three@0.162.0)
-      postprocessing: 6.37.6(three@0.162.0)
-      react: 18.3.1
-      three: 0.162.0
-      three-stdlib: 2.36.0(three@0.162.0)
+      its-fine: 2.0.0(@types/react@19.1.8)(react@19.1.0)
+      react: 19.1.0
+      react-reconciler: 0.31.0(react@19.1.0)
+      react-use-measure: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      scheduler: 0.25.0
+      suspend-react: 0.1.3(react@19.1.0)
+      three: 0.178.0
+      use-sync-external-store: 1.5.0(react@19.1.0)
+      zustand: 5.0.6(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
+    optionalDependencies:
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+
+  '@react-three/postprocessing@2.19.1(@react-three/fiber@9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0))(@types/three@0.178.1)(react@19.1.0)(three@0.178.0)':
+    dependencies:
+      '@react-three/fiber': 9.2.0(@types/react@19.1.8)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.178.0)
+      buffer: 6.0.3
+      maath: 0.6.0(@types/three@0.178.1)(three@0.178.0)
+      n8ao: 1.10.1(postprocessing@6.37.6(three@0.178.0))(three@0.178.0)
+      postprocessing: 6.37.6(three@0.178.0)
+      react: 19.1.0
+      three: 0.178.0
+      three-stdlib: 2.36.0(three@0.178.0)
     transitivePeerDependencies:
       - '@types/three'
 
-  '@reduxjs/toolkit@2.8.2(react-redux@9.2.0(@types/react@18.3.23)(react@18.3.1)(redux@5.0.1))(react@18.3.1)':
+  '@reduxjs/toolkit@2.8.2(react-redux@9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1))(react@19.1.0)':
     dependencies:
       '@standard-schema/spec': 1.0.0
       '@standard-schema/utils': 0.3.0
@@ -9392,8 +9425,8 @@ snapshots:
       redux-thunk: 3.1.0(redux@5.0.1)
       reselect: 5.1.1
     optionalDependencies:
-      react: 18.3.1
-      react-redux: 9.2.0(@types/react@18.3.23)(react@18.3.1)(redux@5.0.1)
+      react: 19.1.0
+      react-redux: 9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1)
 
   '@rtsao/scc@1.1.0': {}
 
@@ -9470,9 +9503,9 @@ snapshots:
       storybook: 8.6.14(prettier@3.6.2)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-docs@8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@3.6.2))':
+  '@storybook/addon-docs@8.6.14(@types/react@19.1.8)(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
-      '@mdx-js/react': 3.1.0(@types/react@18.3.23)(react@19.1.0)
+      '@mdx-js/react': 3.1.0(@types/react@19.1.8)(react@19.1.0)
       '@storybook/blocks': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/csf-plugin': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
@@ -9483,12 +9516,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-essentials@8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@3.6.2))':
+  '@storybook/addon-essentials@8.6.14(@types/react@19.1.8)(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
       '@storybook/addon-actions': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-backgrounds': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-controls': 8.6.14(storybook@8.6.14(prettier@3.6.2))
-      '@storybook/addon-docs': 8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@3.6.2))
+      '@storybook/addon-docs': 8.6.14(@types/react@19.1.8)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-highlight': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-measure': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-outline': 8.6.14(storybook@8.6.14(prettier@3.6.2))
@@ -9513,13 +9546,13 @@ snapshots:
       storybook: 8.6.14(prettier@3.6.2)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-links@8.6.14(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))':
+  '@storybook/addon-links@8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.6.14(prettier@3.6.2)
       ts-dedent: 2.2.0
     optionalDependencies:
-      react: 18.3.1
+      react: 19.1.0
 
   '@storybook/addon-measure@8.6.14(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
@@ -9545,15 +9578,6 @@ snapshots:
     dependencies:
       memoizerific: 1.11.3
       storybook: 8.6.14(prettier@3.6.2)
-
-  '@storybook/blocks@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))':
-    dependencies:
-      '@storybook/icons': 1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      storybook: 8.6.14(prettier@3.6.2)
-      ts-dedent: 2.2.0
-    optionalDependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   '@storybook/blocks@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
@@ -9637,11 +9661,6 @@ snapshots:
 
   '@storybook/global@5.0.0': {}
 
-  '@storybook/icons@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@storybook/icons@1.4.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
@@ -9657,7 +9676,7 @@ snapshots:
     dependencies:
       storybook: 8.6.14(prettier@3.6.2)
 
-  '@storybook/nextjs@8.6.14(esbuild@0.25.8)(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(type-fest@2.19.0)(typescript@5.8.3)(webpack-hot-middleware@2.26.1)(webpack@5.100.2(esbuild@0.25.8))':
+  '@storybook/nextjs@8.6.14(esbuild@0.25.8)(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(type-fest@2.19.0)(typescript@5.8.3)(webpack-hot-middleware@2.26.1)(webpack@5.100.2(esbuild@0.25.8))':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.28.0)
@@ -9674,8 +9693,8 @@ snapshots:
       '@babel/runtime': 7.27.6
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.17(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)(webpack@5.100.2(esbuild@0.25.8))
       '@storybook/builder-webpack5': 8.6.14(esbuild@0.25.8)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
-      '@storybook/preset-react-webpack': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(esbuild@0.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
-      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
+      '@storybook/preset-react-webpack': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(esbuild@0.25.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
+      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
       '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@types/semver': 7.7.0
       babel-loader: 9.2.1(@babel/core@7.28.0)(webpack@5.100.2(esbuild@0.25.8))
@@ -9683,20 +9702,20 @@ snapshots:
       find-up: 5.0.0
       image-size: 1.2.1
       loader-utils: 3.3.1
-      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.100.2(esbuild@0.25.8))
       pnp-webpack-plugin: 1.7.0(typescript@5.8.3)
       postcss: 8.5.6
       postcss-loader: 8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.100.2(esbuild@0.25.8))
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       react-refresh: 0.14.2
       resolve-url-loader: 5.0.0
       sass-loader: 14.2.1(webpack@5.100.2(esbuild@0.25.8))
       semver: 7.7.2
       storybook: 8.6.14(prettier@3.6.2)
       style-loader: 3.3.4(webpack@5.100.2(esbuild@0.25.8))
-      styled-jsx: 5.1.6(@babel/core@7.28.0)(react@18.3.1)
+      styled-jsx: 5.1.6(@babel/core@7.28.0)(react@19.1.0)
       ts-dedent: 2.2.0
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.2.0
@@ -9722,17 +9741,17 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@storybook/preset-react-webpack@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(esbuild@0.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)':
+  '@storybook/preset-react-webpack@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(esbuild@0.25.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)':
     dependencies:
       '@storybook/core-webpack': 8.6.14(storybook@8.6.14(prettier@3.6.2))
-      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
+      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)
       '@storybook/react-docgen-typescript-plugin': 1.0.6--canary.9.0c3f3b7.0(typescript@5.8.3)(webpack@5.100.2(esbuild@0.25.8))
       '@types/semver': 7.7.0
       find-up: 5.0.0
       magic-string: 0.30.17
-      react: 18.3.1
+      react: 19.1.0
       react-docgen: 7.1.1
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.1.0(react@19.1.0)
       resolve: 1.22.10
       semver: 7.7.2
       storybook: 8.6.14(prettier@3.6.2)
@@ -9766,28 +9785,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/react-dom-shim@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))':
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      storybook: 8.6.14(prettier@3.6.2)
-
   '@storybook/react-dom-shim@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       storybook: 8.6.14(prettier@3.6.2)
 
-  '@storybook/react@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)':
+  '@storybook/react@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)':
     dependencies:
       '@storybook/components': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/preview-api': 8.6.14(storybook@8.6.14(prettier@3.6.2))
-      '@storybook/react-dom-shim': 8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))
+      '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.6.2))
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       storybook: 8.6.14(prettier@3.6.2)
     optionalDependencies:
       '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.6.2))
@@ -9863,13 +9876,13 @@ snapshots:
       lodash: 4.17.21
       redent: 3.0.0
 
-  '@testing-library/react@14.3.1(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@testing-library/react@14.3.1(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.27.6
       '@testing-library/dom': 9.3.4
-      '@types/react-dom': 18.3.7(@types/react@18.3.23)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      '@types/react-dom': 18.3.7(@types/react@19.1.8)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -9894,7 +9907,7 @@ snapshots:
     dependencies:
       '@trpc/client': 11.4.3(@trpc/server@11.4.3(typescript@5.8.2))(typescript@5.8.2)
       '@trpc/server': 11.4.3(typescript@5.8.2)
-      next: 15.3.0(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       typescript: 5.8.2
@@ -10075,38 +10088,35 @@ snapshots:
 
   '@types/parse-json@4.0.2': {}
 
-  '@types/prop-types@15.7.15': {}
-
   '@types/qs@6.14.0': {}
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@18.3.7(@types/react@18.3.23)':
+  '@types/react-dom@18.3.7(@types/react@19.1.8)':
     dependencies:
-      '@types/react': 18.3.23
+      '@types/react': 19.1.8
 
   '@types/react-dom@19.1.1(@types/react@19.1.0)':
     dependencies:
       '@types/react': 19.1.0
 
+  '@types/react-dom@19.1.6(@types/react@19.1.8)':
+    dependencies:
+      '@types/react': 19.1.8
+
   '@types/react-reconciler@0.26.7':
     dependencies:
-      '@types/react': 18.3.23
+      '@types/react': 19.1.8
 
-  '@types/react-reconciler@0.28.9(@types/react@18.3.23)':
+  '@types/react-reconciler@0.28.9(@types/react@19.1.8)':
     dependencies:
-      '@types/react': 18.3.23
-
-  '@types/react-reconciler@0.28.9(@types/react@19.1.0)':
-    dependencies:
-      '@types/react': 19.1.0
-
-  '@types/react@18.3.23':
-    dependencies:
-      '@types/prop-types': 15.7.15
-      csstype: 3.1.3
+      '@types/react': 19.1.8
 
   '@types/react@19.1.0':
+    dependencies:
+      csstype: 3.1.3
+
+  '@types/react@19.1.8':
     dependencies:
       csstype: 3.1.3
 
@@ -10417,20 +10427,20 @@ snapshots:
       '@use-gesture/core': 10.3.1
       react: 18.2.0
 
-  '@use-gesture/react@10.3.1(react@18.3.1)':
+  '@use-gesture/react@10.3.1(react@19.1.0)':
     dependencies:
       '@use-gesture/core': 10.3.1
-      react: 18.3.1
+      react: 19.1.0
 
-  '@vercel/analytics@1.5.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+  '@vercel/analytics@1.5.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)':
     optionalDependencies:
-      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
+      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
 
-  '@vercel/speed-insights@1.2.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+  '@vercel/speed-insights@1.2.0(next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)':
     optionalDependencies:
-      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
+      next: 15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
 
   '@vitest/expect@2.0.5':
     dependencies:
@@ -11088,14 +11098,18 @@ snapshots:
     dependencies:
       three: 0.162.0
 
+  camera-controls@3.1.0(three@0.178.0):
+    dependencies:
+      three: 0.178.0
+
   caniuse-lite@1.0.30001713: {}
 
   caniuse-lite@1.0.30001727: {}
 
-  cannon-es-debugger@1.0.0(cannon-es@0.20.0)(three@0.162.0)(typescript@5.8.3):
+  cannon-es-debugger@1.0.0(cannon-es@0.20.0)(three@0.178.0)(typescript@5.8.3):
     dependencies:
       cannon-es: 0.20.0
-      three: 0.162.0
+      three: 0.178.0
     optionalDependencies:
       typescript: 5.8.3
 
@@ -12531,14 +12545,14 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.23.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       motion-dom: 12.23.6
       motion-utils: 12.23.6
       tslib: 2.8.1
     optionalDependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   fresh@0.5.2: {}
 
@@ -13126,17 +13140,17 @@ snapshots:
       has-symbols: 1.1.0
       set-function-name: 2.0.2
 
-  its-fine@1.2.5(@types/react@18.3.23)(react@18.3.1):
+  its-fine@1.2.5(@types/react@19.1.8)(react@18.2.0):
     dependencies:
-      '@types/react-reconciler': 0.28.9(@types/react@18.3.23)
-      react: 18.3.1
+      '@types/react-reconciler': 0.28.9(@types/react@19.1.8)
+      react: 18.2.0
     transitivePeerDependencies:
       - '@types/react'
 
-  its-fine@1.2.5(@types/react@19.1.0)(react@18.2.0):
+  its-fine@2.0.0(@types/react@19.1.8)(react@19.1.0):
     dependencies:
-      '@types/react-reconciler': 0.28.9(@types/react@19.1.0)
-      react: 18.2.0
+      '@types/react-reconciler': 0.28.9(@types/react@19.1.8)
+      react: 19.1.0
     transitivePeerDependencies:
       - '@types/react'
 
@@ -13821,15 +13835,15 @@ snapshots:
       '@types/three': 0.162.0
       three: 0.162.0
 
-  maath@0.10.8(@types/three@0.178.1)(three@0.162.0):
+  maath@0.10.8(@types/three@0.178.1)(three@0.178.0):
     dependencies:
       '@types/three': 0.178.1
-      three: 0.162.0
+      three: 0.178.0
 
-  maath@0.6.0(@types/three@0.178.1)(three@0.162.0):
+  maath@0.6.0(@types/three@0.178.1)(three@0.178.0):
     dependencies:
       '@types/three': 0.178.1
-      three: 0.162.0
+      three: 0.178.0
 
   magic-string@0.30.17:
     dependencies:
@@ -13878,6 +13892,10 @@ snapshots:
   meshline@3.3.1(three@0.162.0):
     dependencies:
       three: 0.162.0
+
+  meshline@3.3.1(three@0.178.0):
+    dependencies:
+      three: 0.178.0
 
   meshoptimizer@0.18.1: {}
 
@@ -13965,10 +13983,10 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
-  n8ao@1.10.1(postprocessing@6.37.6(three@0.162.0))(three@0.162.0):
+  n8ao@1.10.1(postprocessing@6.37.6(three@0.178.0))(three@0.178.0):
     dependencies:
-      postprocessing: 6.37.6(three@0.162.0)
-      three: 0.162.0
+      postprocessing: 6.37.6(three@0.178.0)
+      three: 0.178.0
 
   nanoid@3.3.11: {}
 
@@ -13984,33 +14002,7 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@next/env': 15.3.0
-      '@swc/counter': 0.1.3
-      '@swc/helpers': 0.5.15
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001713
-      postcss: 8.4.31
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.6(@babel/core@7.28.0)(react@18.3.1)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 15.3.0
-      '@next/swc-darwin-x64': 15.3.0
-      '@next/swc-linux-arm64-gnu': 15.3.0
-      '@next/swc-linux-arm64-musl': 15.3.0
-      '@next/swc-linux-x64-gnu': 15.3.0
-      '@next/swc-linux-x64-musl': 15.3.0
-      '@next/swc-win32-arm64-msvc': 15.3.0
-      '@next/swc-win32-x64-msvc': 15.3.0
-      '@playwright/test': 1.54.1
-      sharp: 0.34.3
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-
-  next@15.3.0(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@15.3.0(@babel/core@7.28.0)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@next/env': 15.3.0
       '@swc/counter': 0.1.3
@@ -14020,7 +14012,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      styled-jsx: 5.1.6(react@19.1.0)
+      styled-jsx: 5.1.6(@babel/core@7.28.0)(react@19.1.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.3.0
       '@next/swc-darwin-x64': 15.3.0
@@ -14459,9 +14451,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postprocessing@6.37.6(three@0.162.0):
+  postprocessing@6.37.6(three@0.178.0):
     dependencies:
-      three: 0.162.0
+      three: 0.178.0
 
   potpack@1.0.2: {}
 
@@ -14623,11 +14615,6 @@ snapshots:
       prop-types: 15.8.1
       react: 18.2.0
 
-  react-composer@5.0.3(react@18.3.1):
-    dependencies:
-      prop-types: 15.8.1
-      react: 18.3.1
-
   react-docgen-typescript@2.4.0(typescript@5.8.3):
     dependencies:
       typescript: 5.8.3
@@ -14653,12 +14640,6 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.2
 
-  react-dom@18.3.1(react@18.3.1):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
-
   react-dom@19.1.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -14676,19 +14657,18 @@ snapshots:
       react: 18.2.0
       scheduler: 0.21.0
 
-  react-reconciler@0.27.0(react@18.3.1):
+  react-reconciler@0.31.0(react@19.1.0):
     dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.21.0
+      react: 19.1.0
+      scheduler: 0.25.0
 
-  react-redux@9.2.0(@types/react@18.3.23)(react@18.3.1)(redux@5.0.1):
+  react-redux@9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1):
     dependencies:
       '@types/use-sync-external-store': 0.0.6
-      react: 18.3.1
-      use-sync-external-store: 1.5.0(react@18.3.1)
+      react: 19.1.0
+      use-sync-external-store: 1.5.0(react@19.1.0)
     optionalDependencies:
-      '@types/react': 18.3.23
+      '@types/react': 19.1.8
       redux: 5.0.1
 
   react-refresh@0.14.2: {}
@@ -14699,17 +14679,13 @@ snapshots:
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
 
-  react-use-measure@2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-use-measure@2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      react: 18.3.1
+      react: 19.1.0
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.1.0(react@19.1.0)
 
   react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
-
-  react@18.3.1:
     dependencies:
       loose-envify: 1.4.0
 
@@ -14755,21 +14731,21 @@ snapshots:
       tiny-invariant: 1.3.3
       tslib: 2.8.1
 
-  recharts@3.1.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(redux@5.0.1):
+  recharts@3.1.0(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(redux@5.0.1):
     dependencies:
-      '@reduxjs/toolkit': 2.8.2(react-redux@9.2.0(@types/react@18.3.23)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
+      '@reduxjs/toolkit': 2.8.2(react-redux@9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1))(react@19.1.0)
       clsx: 2.1.1
       decimal.js-light: 2.5.1
       es-toolkit: 1.39.7
       eventemitter3: 5.0.1
       immer: 10.1.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       react-is: 18.3.1
-      react-redux: 9.2.0(@types/react@18.3.23)(react@18.3.1)(redux@5.0.1)
+      react-redux: 9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1)
       reselect: 5.1.1
       tiny-invariant: 1.3.3
-      use-sync-external-store: 1.5.0(react@18.3.1)
+      use-sync-external-store: 1.5.0(react@19.1.0)
       victory-vendor: 37.3.6
     transitivePeerDependencies:
       - '@types/react'
@@ -14969,6 +14945,8 @@ snapshots:
   scheduler@0.23.2:
     dependencies:
       loose-envify: 1.4.0
+
+  scheduler@0.25.0: {}
 
   scheduler@0.26.0: {}
 
@@ -15228,10 +15206,10 @@ snapshots:
       '@types/three': 0.162.0
       three: 0.162.0
 
-  stats-gl@2.4.2(@types/three@0.178.1)(three@0.162.0):
+  stats-gl@2.4.2(@types/three@0.178.1)(three@0.178.0):
     dependencies:
       '@types/three': 0.178.1
-      three: 0.162.0
+      three: 0.178.0
 
   stats.js@0.17.0: {}
 
@@ -15399,17 +15377,12 @@ snapshots:
     dependencies:
       webpack: 5.100.2(esbuild@0.25.8)
 
-  styled-jsx@5.1.6(@babel/core@7.28.0)(react@18.3.1):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.3.1
-    optionalDependencies:
-      '@babel/core': 7.28.0
-
-  styled-jsx@5.1.6(react@19.1.0):
+  styled-jsx@5.1.6(@babel/core@7.28.0)(react@19.1.0):
     dependencies:
       client-only: 0.0.1
       react: 19.1.0
+    optionalDependencies:
+      '@babel/core': 7.28.0
 
   sucrase@3.35.0:
     dependencies:
@@ -15443,9 +15416,9 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  suspend-react@0.1.3(react@18.3.1):
+  suspend-react@0.1.3(react@19.1.0):
     dependencies:
-      react: 18.3.1
+      react: 19.1.0
 
   symbol-tree@3.2.4: {}
 
@@ -15538,6 +15511,10 @@ snapshots:
     dependencies:
       three: 0.162.0
 
+  three-mesh-bvh@0.8.3(three@0.178.0):
+    dependencies:
+      three: 0.178.0
+
   three-stdlib@2.36.0(three@0.162.0):
     dependencies:
       '@types/draco3d': 1.4.10
@@ -15548,7 +15525,19 @@ snapshots:
       potpack: 1.0.2
       three: 0.162.0
 
+  three-stdlib@2.36.0(three@0.178.0):
+    dependencies:
+      '@types/draco3d': 1.4.10
+      '@types/offscreencanvas': 2019.7.3
+      '@types/webxr': 0.5.22
+      draco3d: 1.5.7
+      fflate: 0.6.10
+      potpack: 1.0.2
+      three: 0.178.0
+
   three@0.162.0: {}
+
+  three@0.178.0: {}
 
   through@2.3.8: {}
 
@@ -15620,9 +15609,21 @@ snapshots:
       troika-worker-utils: 0.52.0
       webgl-sdf-generator: 1.1.1
 
+  troika-three-text@0.52.4(three@0.178.0):
+    dependencies:
+      bidi-js: 1.0.3
+      three: 0.178.0
+      troika-three-utils: 0.52.4(three@0.178.0)
+      troika-worker-utils: 0.52.0
+      webgl-sdf-generator: 1.1.1
+
   troika-three-utils@0.52.4(three@0.162.0):
     dependencies:
       three: 0.162.0
+
+  troika-three-utils@0.52.4(three@0.178.0):
+    dependencies:
+      three: 0.178.0
 
   troika-worker-utils@0.52.0: {}
 
@@ -15664,17 +15665,17 @@ snapshots:
 
   tty-browserify@0.0.1: {}
 
-  tunnel-rat@0.1.2(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1):
+  tunnel-rat@0.1.2(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0):
     dependencies:
-      zustand: 4.5.7(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1)
+      zustand: 4.5.7(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - immer
       - react
 
-  tunnel-rat@0.1.2(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0):
+  tunnel-rat@0.1.2(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0):
     dependencies:
-      zustand: 4.5.7(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0)
+      zustand: 4.5.7(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - immer
@@ -15856,18 +15857,18 @@ snapshots:
       punycode: 1.4.1
       qs: 6.14.0
 
-  use-sound@5.0.0(react@18.3.1):
+  use-sound@5.0.0(react@19.1.0):
     dependencies:
       howler: 2.2.4
-      react: 18.3.1
+      react: 19.1.0
 
   use-sync-external-store@1.5.0(react@18.2.0):
     dependencies:
       react: 18.2.0
 
-  use-sync-external-store@1.5.0(react@18.3.1):
+  use-sync-external-store@1.5.0(react@19.1.0):
     dependencies:
-      react: 18.3.1
+      react: 19.1.0
 
   util-deprecate@1.0.2: {}
 
@@ -16186,36 +16187,32 @@ snapshots:
     optionalDependencies:
       react: 18.2.0
 
-  zustand@3.7.2(react@18.3.1):
-    optionalDependencies:
-      react: 18.3.1
-
-  zustand@4.5.7(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1):
-    dependencies:
-      use-sync-external-store: 1.5.0(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.23
-      immer: 10.1.1
-      react: 18.3.1
-
-  zustand@4.5.7(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0):
+  zustand@4.5.7(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0):
     dependencies:
       use-sync-external-store: 1.5.0(react@18.2.0)
     optionalDependencies:
-      '@types/react': 19.1.0
+      '@types/react': 19.1.8
       immer: 10.1.1
       react: 18.2.0
 
-  zustand@5.0.6(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1)):
+  zustand@4.5.7(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0):
+    dependencies:
+      use-sync-external-store: 1.5.0(react@19.1.0)
     optionalDependencies:
-      '@types/react': 18.3.23
+      '@types/react': 19.1.8
       immer: 10.1.1
-      react: 18.3.1
-      use-sync-external-store: 1.5.0(react@18.3.1)
+      react: 19.1.0
 
-  zustand@5.0.6(@types/react@19.1.0)(immer@10.1.1)(react@18.2.0)(use-sync-external-store@1.5.0(react@18.2.0)):
+  zustand@5.0.6(@types/react@19.1.8)(immer@10.1.1)(react@18.2.0)(use-sync-external-store@1.5.0(react@18.2.0)):
     optionalDependencies:
-      '@types/react': 19.1.0
+      '@types/react': 19.1.8
       immer: 10.1.1
       react: 18.2.0
       use-sync-external-store: 1.5.0(react@18.2.0)
+
+  zustand@5.0.6(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
+    optionalDependencies:
+      '@types/react': 19.1.8
+      immer: 10.1.1
+      react: 19.1.0
+      use-sync-external-store: 1.5.0(react@19.1.0)
