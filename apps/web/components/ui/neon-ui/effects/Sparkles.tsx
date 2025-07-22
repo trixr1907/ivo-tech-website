@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import { Vector3, Color, BufferAttribute, AdditiveBlending } from '@/lib/three-utils';
 import { SparkleProps } from '../types';
 
 interface SparkleParticle {

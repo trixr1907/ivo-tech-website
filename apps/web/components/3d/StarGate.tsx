@@ -1,6 +1,6 @@
 'use client';
 
-import * as THREE from 'three';
+import { Color, SIDES } from '@/lib/three-utils';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Torus } from '@react-three/drei';

@@ -5,7 +5,7 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Box, Text, Html, useGLTF, Sphere } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSound from 'use-sound';
-import * as THREE from 'three';
+import { BoxGeometry, ConeGeometry, Color } from 'three';
 import { roastEngine, formatRoastForDisplay, type RoastEntry } from './RoastEngine';
 
 // Types

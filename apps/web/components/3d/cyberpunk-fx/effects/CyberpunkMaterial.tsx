@@ -110,16 +110,20 @@ export const CyberpunkMaterial = forwardRef<THREE.ShaderMaterial, CyberpunkMater
         }),
       };
 
-      const material = new THREE.ShaderMaterial({
-        uniforms,
-        vertexShader: shaderDef.vertex,
-        fragmentShader: shaderDef.fragment,
-        transparent: true,
-        side: THREE.DoubleSide,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        ...props,
-      }) as CyberpunkMaterialInstance;
+      const material = Object.assign(
+        new THREE.ShaderMaterial({
+          uniforms,
+          vertexShader: shaderDef.vertex,
+          fragmentShader: shaderDef.fragment,
+          ...props,
+        }),
+        {
+          transparent: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        }
+      ) as CyberpunkMaterialInstance;
 
       // Metadata für spätere Referenz
       material.userData = {

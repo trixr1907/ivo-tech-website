@@ -15,13 +15,13 @@ importers:
         specifier: ^9.0.0
         version: 9.1.7
       lint-staged:
-        specifier: ^15.2.0
+        specifier: ^15.5.2
         version: 15.5.2
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.9
+        specifier: ^0.5.14
         version: 0.5.14(prettier@3.6.2)
       turbo:
         specifier: ^2.5.5
@@ -284,6 +284,9 @@ importers:
       jest-environment-jsdom:
         specifier: ^30.0.4
         version: 30.0.4
+      null-loader:
+        specifier: ^4.0.1
+        version: 4.0.1(webpack@5.100.2(esbuild@0.25.8))
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -339,7 +342,7 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.9
+        specifier: ^0.5.14
         version: 0.5.14(prettier@3.6.2)
 
   packages/config-tailwind:
@@ -5375,6 +5378,12 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  null-loader@4.0.1:
+    resolution: {integrity: sha512-pxqVbi4U6N26lq+LmgIbB5XATP0VdZKOG25DhHi8btMmJJefGArFyDg1yc4U3hWCJbMqSrw0qyrz1UQX+qYXqg==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
 
   nwsapi@2.2.20:
     resolution: {integrity: sha512-/ieB+mDe4MrrKMT8z+mQL8klXydZWGR5Dowt4RAGKbJ3kIGEx3X4ljUo+6V73IXtUPWgfOlU5B9MlGxFO5T+cA==}
@@ -13035,6 +13044,12 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  null-loader@4.0.1(webpack@5.100.2(esbuild@0.25.8)):
+    dependencies:
+      loader-utils: 2.0.4
+      schema-utils: 3.3.0
+      webpack: 5.100.2(esbuild@0.25.8)
 
   nwsapi@2.2.20: {}
 

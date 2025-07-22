@@ -27,8 +27,8 @@ const nextConfig = {
     esmExternals: true,
   },
   
-  // Server external packages
-  serverExternalPackages: ['three', '@react-three/fiber', 'nodemailer'],
+  // Don't externalize Three.js - it's a browser library
+  serverExternalPackages: ['nodemailer'],
   
   // Webpack optimizations
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
@@ -132,10 +132,36 @@ const nextConfig = {
       };
     }
     
-    // Simple fix for self variable
-    config.plugins.push(new webpack.DefinePlugin({
-      'typeof self': JSON.stringify('undefined'),
-    }));
+  // Fix for browser globals and Three.js polyfills
+    if (isServer) {
+      // Import our polyfills at the entry point
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        const polyfillPaths = [
+          './src/lib/polyfills.js',
+          './src/lib/three-polyfills.js'
+        ];
+        
+        const allEntries = Object.keys(entries);
+        allEntries.forEach(entry => {
+          if (Array.isArray(entries[entry])) {
+            entries[entry] = [
+              ...polyfillPaths,
+              ...entries[entry]
+            ];
+          }
+        });
+        
+        return entries;
+      };
+
+      // Handle Three.js and related modules on server
+      config.module.rules.unshift({
+        test: /three|@react-three\/fiber|\.glsl$/,
+        loader: 'null-loader'
+      });
+    }
     
     return config;
   },

@@ -1,3 +1,3 @@
-import baseConfig from '@config/eslint/next.js';
+import { config as baseConfig } from '@config/eslint/base';
 
 export default [...baseConfig];

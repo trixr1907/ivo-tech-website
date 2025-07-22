@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, useLoader, type ThreeElements } from '@react-three/fiber';
 import {
   Text3D,
   OrbitControls,
@@ -11,8 +11,15 @@ import {
   Html,
   Center,
   MeshTransmissionMaterial,
+  Box,
+  Plane,
 } from '@react-three/drei';
-import * as THREE from 'three';
+import { Color, AdditiveBlending, Mesh, DoubleSide, MeshBasicMaterial, Vector3, AmbientLight, PointLight } from '@/lib/three-utils';
+import { Material } from 'three';
+
+interface MaterialWithOpacity extends Material {
+  opacity: number;
+}
 
 /**
  * Props Interface für AnimatedLogo4D
@@ -48,9 +55,9 @@ const createNeonTubeShader = (colors: { primary: string; secondary: string; glow
   uniforms: {
     uTime: { value: 0 },
     uEmissiveIntensity: { value: 2.0 },
-    uPrimaryColor: { value: new THREE.Color(colors.primary) },
-    uSecondaryColor: { value: new THREE.Color(colors.secondary) },
-    uGlowColor: { value: new THREE.Color(colors.glow) },
+    uPrimaryColor: { value: new Color(colors.primary) },
+    uSecondaryColor: { value: new Color(colors.secondary) },
+    uGlowColor: { value: new Color(colors.glow) },
     uFlickerSpeed: { value: 8.0 },
     uFlickerIntensity: { value: 0.3 },
     uTubeRadius: { value: 0.05 },
@@ -177,7 +184,7 @@ function ParticleEmitter({ colors, position }: { colors: any; position: [number,
       velocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
 
       // Farben (Logo-Farben)
-      const color = new THREE.Color().setHSL(Math.random() * 0.1 + 0.55, 0.8, 0.6);
+      const color = new Color().setHSL(Math.random() * 0.1 + 0.55, 0.8, 0.6);
       colors[i3] = color.r;
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
@@ -222,55 +229,50 @@ function ParticleEmitter({ colors, position }: { colors: any; position: [number,
       <bufferGeometry>
         <bufferAttribute
           attach='attributes-position'
-          count={particleCount}
-          array={particles.positions}
-          itemSize={3}
           args={[particles.positions, 3]}
+          onUpdate={(self) => (self.needsUpdate = true)}
         />
         <bufferAttribute
           attach='attributes-color'
-          count={particleCount}
-          array={particles.colors}
-          itemSize={3}
           args={[particles.colors, 3]}
+          onUpdate={(self) => (self.needsUpdate = true)}
         />
         <bufferAttribute
           attach='attributes-size'
-          count={particleCount}
-          array={particles.sizes}
-          itemSize={1}
           args={[particles.sizes, 1]}
+          onUpdate={(self) => (self.needsUpdate = true)}
         />
       </bufferGeometry>
       <shaderMaterial
-        transparent
-        depthWrite={false}
-        blending={THREE.AdditiveBlending}
-        vertexColors
-        uniforms={{
-          uTime: { value: 0 },
-          uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-        }}
-        vertexShader={`
-          attribute float size;
-          uniform float uTime;
-          uniform float uPixelRatio;
-          
-          void main() {
-            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_Position = projectionMatrix * mvPosition;
-            gl_PointSize = size * uPixelRatio * (300.0 / -mvPosition.z);
+        args={[
+          {
+            transparent: true,
+            uniforms: {
+              uTime: { value: 0 },
+              uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+            },
+            vertexShader: `
+              attribute float size;
+              uniform float uTime;
+              uniform float uPixelRatio;
+              
+              void main() {
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                gl_Position = projectionMatrix * mvPosition;
+                gl_PointSize = size * uPixelRatio * (300.0 / -mvPosition.z);
+              }
+            `,
+            fragmentShader: `
+              void main() {
+                float distance = length(gl_PointCoord - vec2(0.5));
+                if (distance > 0.5) discard;
+                
+                float alpha = 1.0 - smoothstep(0.0, 0.5, distance);
+                gl_FragColor = vec4(vec3(0.0, 1.0, 1.0), alpha);
+              }
+            `,
           }
-        `}
-        fragmentShader={`
-          void main() {
-            float distance = length(gl_PointCoord - vec2(0.5));
-            if (distance > 0.5) discard;
-            
-            float alpha = 1.0 - smoothstep(0.0, 0.5, distance);
-            gl_FragColor = vec4(vec3(0.0, 1.0, 1.0), alpha);
-          }
-        `}
+        ]}
       />
     </points>
   );
@@ -286,9 +288,11 @@ function HolographicScanLines() {
     if (!scanLinesRef.current) return;
 
     scanLinesRef.current.children.forEach((child, index) => {
-      if (child instanceof THREE.Mesh) {
+      if (child instanceof Mesh) {
         child.position.y = Math.sin(state.clock.elapsedTime * 2 + index) * 3;
-        child.material.opacity = Math.abs(Math.sin(state.clock.elapsedTime + index)) * 0.3;
+        if ('opacity' in child.material) {
+          (child.material as MaterialWithOpacity).opacity = Math.abs(Math.sin(state.clock.elapsedTime + index)) * 0.3;
+        }
       }
     });
   });
@@ -297,8 +301,13 @@ function HolographicScanLines() {
     <group ref={scanLinesRef}>
       {Array.from({ length: 10 }, (_, i) => (
         <mesh key={i} position={[0, i * 0.3 - 1.5, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[6, 0.05]} />
-          <meshBasicMaterial color='#00ffff' transparent opacity={0.2} blending={THREE.AdditiveBlending} />
+          <Plane args={[6, 0.05]} />
+          <primitive object={new MeshBasicMaterial({
+            color: '#00ffff',
+            transparent: true,
+            opacity: 0.2,
+            blending: AdditiveBlending
+          })} />
         </mesh>
       ))}
     </group>
@@ -339,7 +348,10 @@ function Logo3D({
 
     // Logo-Pulsation
     const pulse = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
-    logoRef.current.scale.setScalar(pulse * size);
+    const scaleValue = pulse * size;
+    logoRef.current.scale.x = scaleValue;
+    logoRef.current.scale.y = scaleValue;
+    logoRef.current.scale.z = scaleValue;
   });
 
   return (
@@ -353,13 +365,17 @@ function Logo3D({
           onPointerOut={() => (document.body.style.cursor = 'default')}
         >
           {/* Erstelle extrudierte Box-Geometrie als Logo-Platzhalter */}
-          <boxGeometry args={[3, 0.8, 0.2]} />
-          <shaderMaterial attach='material' {...neonShader} transparent side={THREE.DoubleSide} />
+          <Box args={[3, 0.8, 0.2]} />
+           <shaderMaterial attach='material' args={[neonShader]} />
         </mesh>
         {/* Logo Text als einfache Box */}
         <mesh position={[0, 0, 0.15]}>
-          <boxGeometry args={[2.5, 0.4, 0.05]} />
-          <meshBasicMaterial color={colors.primary} transparent opacity={0.9} />
+          <Box args={[2.5, 0.4, 0.05]} />
+          <primitive object={new MeshBasicMaterial({
+            color: colors.primary,
+            transparent: true,
+            opacity: 0.9
+          })} />
         </mesh>
       </Center>
     </Float>
@@ -387,9 +403,9 @@ function Scene({
   return (
     <>
       {/* Lighting Setup */}
-      <ambientLight intensity={0.1} />
-      <pointLight position={[5, 5, 5]} intensity={0.5} color={colors.accent} />
-      <pointLight position={[-5, -5, -5]} intensity={0.3} color={colors.secondary} />
+      <primitive object={new AmbientLight(undefined, 0.1)} />
+      <primitive object={new PointLight(colors.accent, 0.5)} position={[5, 5, 5]} />
+      <primitive object={new PointLight(colors.secondary, 0.3)} position={[-5, -5, -5]} />
 
       {/* Main Logo */}
       <Logo3D colors={colors} size={size} enableTimeMorphing={enableTimeMorphing} onClick={onClick} />

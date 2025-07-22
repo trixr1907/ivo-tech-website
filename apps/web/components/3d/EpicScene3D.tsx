@@ -4,7 +4,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text, Box, Sphere, Torus, Stars, Float, Html } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import * as THREE from 'three';
+import { Vector3 } from '@/lib/three-utils';
 
 // Floating Tech Orbs Component
 function TechOrb({ position, color, tech, onClick }: any) {
