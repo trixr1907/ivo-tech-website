@@ -22,6 +22,7 @@
     "test:e2e:headed": "pnpm exec playwright test --headed",
     "test:all": "pnpm test && pnpm test:e2e",
     "check-types": "tsc --noEmit",
+    "analyze": "node scripts/analyze-bundle.mjs",
     "generate-base-icons": "node scripts/generate-base-icons.mjs",
     "generate-icons": "node scripts/generate-maskable-icons.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
