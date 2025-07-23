@@ -2,6 +2,7 @@
   "name": "ivo-tech-web",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
@@ -21,6 +22,8 @@
     "test:e2e:headed": "pnpm exec playwright test --headed",
     "test:all": "pnpm test && pnpm test:e2e",
     "check-types": "tsc --noEmit",
+    "generate-base-icons": "node scripts/generate-base-icons.mjs",
+    "generate-icons": "node scripts/generate-maskable-icons.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -87,6 +90,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "null-loader": "^4.0.1",
     "postcss": "^8.5.6",
+    "sharp": "^0.34.3",
     "storybook": "^8.4.7",
     "tailwindcss": "^3.4.17",
     "three": "^0.178.0",
