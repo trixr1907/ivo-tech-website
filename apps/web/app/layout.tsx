@@ -1,16 +1,30 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { VercelAnalytics } from '../components/analytics/VercelAnalytics';
-import { MotionOrchestratorProvider } from '../components/motion/MotionOrchestrator';
-import { NeonProvider } from '../components/ui/neon-ui/NeonProvider';
+import dynamic from 'next/dynamic';
 import {
   generateMetadata,
   viewportConfig,
   generateStructuredData,
 } from '../lib/seo.config';
-import ErrorBoundary from '../components/error/ErrorBoundary';
-import { MonitoringProvider } from '../components/monitoring/MonitoringProvider';
-import { PWAProvider } from '../components/PWAProvider';
+
+// Dynamisch geladene Komponenten
+const DynamicMotionProvider = dynamic(
+  () => import('../components/motion/DynamicMotionOrchestrator')
+    .then(mod => mod.DynamicMotionProvider),
+  { ssr: false }
+);
+
+const DynamicAnalytics = dynamic(
+  () => import('../components/analytics/DynamicAnalytics')
+    .then(mod => mod.DynamicAnalytics),
+  { ssr: false }
+);
+
+const PWAProvider = dynamic(
+  () => import('../components/PWAProvider')
+    .then(mod => mod.PWAProvider),
+  { ssr: false }
+);
 
 // Optimierte Metadaten aus SEO-Konfiguration
 export const metadata: Metadata = generateMetadata();
@@ -44,25 +58,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-180x180.png" />
       </head>
       <body className="bg-gray-900 text-white antialiased">
-        <MonitoringProvider>
-          <PWAProvider />
-          {/* <NeonProvider enableAudio={true}> */}
-          <MotionOrchestratorProvider
-            initialSettings={{
-              enablePageTransitions: true,
-              enableCurtainSweep: true,
-              enableScrollAnimations: true,
-              enableParallax: true,
-              transitionDuration: 1.2,
-              curtainColor: [0, 1, 0.8],
-              debugMode: false,
-            }}
-          >
-            {children}
-          </MotionOrchestratorProvider>
-          {/* </NeonProvider> */}
-        </MonitoringProvider>
-        <VercelAnalytics />
+        <PWAProvider />
+        <DynamicMotionProvider>
+          {children}
+        </DynamicMotionProvider>
+        <DynamicAnalytics />
       </body>
     </html>
   );
