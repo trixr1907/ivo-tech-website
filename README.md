@@ -108,6 +108,21 @@ npm run build && npm run export
 vercel
 ```
 
+### Automatisierte Health-Checks
+
+Das Projekt verwendet automatisierte Health-Checks, die bei jedem Commit und Push ausgeführt werden:
+
+- **Pre-Commit Hook**: Führt den Health-Check vor jedem Commit aus und stellt sicher, dass die `project-health.md` aktualisiert wird
+- **Pre-Push Hook**: Führt den Health-Check vor jedem Push aus
+
+Die Health-Checks überprüfen:
+- Code-Qualität und Formatting
+- Test-Coverage
+- Performance-Metriken
+- Dependency-Status
+
+Alle Ergebnisse werden automatisch in der `project-health.md` dokumentiert.
+
 ### Testing
 
 ```bash
