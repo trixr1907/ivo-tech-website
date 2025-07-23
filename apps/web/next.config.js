@@ -12,7 +12,6 @@ const nextConfig = {
   compress: true,
   experimental: {
     optimizeCss: true,
-    serverActions: true,
   },
   eslint: {
     dirs: ['app', 'components', 'lib', 'utils'],
@@ -48,14 +47,6 @@ const nextConfig = {
     }
 
     return config;
-  },
-  // Nur bestimmte Pfade für statische Optimierung
-  generateStaticParams: async () => {
-    return [
-      '/',
-      '/impressum',
-      '/datenschutz',
-    ];
   },
 };
 
