@@ -1,0 +1,143 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '18'
+  PNPM_VERSION: '9'
+
+jobs:
+  # Continuous Integration
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Build-Phase
+      - name: Build Application
+        run: pnpm run build
+
+      # Test-Phase
+      - name: Run Type Checks
+        run: pnpm run check-types
+
+      - name: Run Linting
+        run: pnpm run lint
+
+      - name: Run Unit Tests
+        run: pnpm run test:ci
+
+      - name: Run E2E Tests
+        run: pnpm run test:e2e
+        
+      # Pre-deployment Tests
+      - name: Run Integration Tests
+        run: |
+          pnpm run test:integration || exit 1
+
+      # Security Scans
+      - name: Run Security Audit
+        run: pnpm audit
+
+      - name: Run Bundle Analysis
+        run: pnpm run build:analyze
+
+  # Continuous Delivery - Staging
+  cd-staging:
+    needs: ci
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: staging
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Build and Push to ECR
+        run: |
+          aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+          docker build -t ${{ secrets.ECR_REGISTRY }}/ivo-tech-staging:${{ github.sha }} .
+          docker push ${{ secrets.ECR_REGISTRY }}/ivo-tech-staging:${{ github.sha }}
+
+      - name: Deploy to Staging
+        run: |
+          aws ecs update-service --cluster ivo-tech-staging --service web --force-new-deployment
+
+      # Post-deployment Tests
+      - name: Run Smoke Tests
+        run: |
+          sleep 30  # Warte auf Deployment
+          curl -f https://staging.ivo-tech.com/health || exit 1
+
+      - name: Monitor Deployment
+        run: |
+          # Überprüfe Logs und Metriken
+          aws cloudwatch get-metric-statistics --namespace AWS/ECS --metric-name CPUUtilization --dimensions Name=ClusterName,Value=ivo-tech-staging
+
+  # Continuous Delivery - Production
+  cd-production:
+    needs: [ci, cd-staging]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Build and Push to ECR
+        run: |
+          aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+          docker build -t ${{ secrets.ECR_REGISTRY }}/ivo-tech:${{ github.sha }} .
+          docker push ${{ secrets.ECR_REGISTRY }}/ivo-tech:${{ github.sha }}
+
+      - name: Deploy to Production
+        run: |
+          aws ecs update-service --cluster ivo-tech-prod --service web --force-new-deployment
+
+      # Post-deployment Verification
+      - name: Verify Production Deployment
+        run: |
+          sleep 45  # Warte auf Deployment
+          curl -f https://ivo-tech.com/health || exit 1
+
+      - name: Monitor Production Metrics
+        run: |
+          aws cloudwatch get-metric-statistics \
+            --namespace AWS/ECS \
+            --metric-name CPUUtilization \
+            --dimensions Name=ClusterName,Value=ivo-tech-prod \
+            --start-time $(date -u -v-5M "+%Y-%m-%dT%H:%M:00") \
+            --end-time $(date -u "+%Y-%m-%dT%H:%M:00") \
+            --period 300 \
+            --statistics Average

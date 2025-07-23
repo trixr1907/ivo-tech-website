@@ -1,13 +1,8 @@
 {
-  "buildCommand": "turbo run build",
-  "outputDirectory": "apps/web/out",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": ".next",
   "installCommand": "pnpm install",
   "devCommand": "pnpm dev",
-  "functions": {
-    "apps/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
