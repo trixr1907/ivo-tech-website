@@ -1,30 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import dynamic from 'next/dynamic';
 import {
   generateMetadata,
   viewportConfig,
   generateStructuredData,
 } from '../lib/seo.config';
-
-// Dynamisch geladene Komponenten
-const DynamicMotionProvider = dynamic(
-  () => import('../components/motion/DynamicMotionOrchestrator')
-    .then(mod => mod.DynamicMotionProvider),
-  { ssr: false }
-);
-
-const DynamicAnalytics = dynamic(
-  () => import('../components/analytics/DynamicAnalytics')
-    .then(mod => mod.DynamicAnalytics),
-  { ssr: false }
-);
-
-const PWAProvider = dynamic(
-  () => import('../components/PWAProvider')
-    .then(mod => mod.PWAProvider),
-  { ssr: false }
-);
+import { ClientLayout } from '../components/layout/ClientLayout';
 
 // Optimierte Metadaten aus SEO-Konfiguration
 export const metadata: Metadata = generateMetadata();
@@ -58,11 +39,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-180x180.png" />
       </head>
       <body className="bg-gray-900 text-white antialiased">
-        <PWAProvider />
-        <DynamicMotionProvider>
+        <ClientLayout>
           {children}
-        </DynamicMotionProvider>
-        <DynamicAnalytics />
+        </ClientLayout>
       </body>
     </html>
   );
