@@ -1,22 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 
-interface WebSocketHookOptions {
-  onMessage?: (data: any) => void;
+interface WebSocketHookOptions<T> {
+  onMessage?: (data: T) => void;
   onError?: (error: Event) => void;
   reconnectAttempts?: number;
   reconnectInterval?: number;
 }
 
-interface WebSocketHookResult {
-  data: any | null;
+interface WebSocketHookResult<T> {
+  data: T | null;
   error: Event | null;
   status: 'CONNECTING' | 'OPEN' | 'CLOSED' | 'ERROR';
 }
 
-export const useWebSocket = (
+export const useWebSocket = <T>(
   url: string,
-  options: WebSocketHookOptions = {}
-): WebSocketHookResult => {
+  options: WebSocketHookOptions<T> = {}
+): WebSocketHookResult<T> => {
   const {
     onMessage,
     onError,
@@ -24,7 +24,7 @@ export const useWebSocket = (
     reconnectInterval = 5000,
   } = options;
 
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Event | null>(null);
   const [status, setStatus] =
     useState<WebSocketHookResult['status']>('CONNECTING');

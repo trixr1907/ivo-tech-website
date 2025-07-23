@@ -2,7 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '<rootDir>/__mocks__/setup.js'],
   transform: {
     '^.+\.[tj]sx?$': [
       'babel-jest',
@@ -20,6 +20,7 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^canvas$': '<rootDir>/__mocks__/canvas.js',
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -29,4 +30,9 @@ module.exports = {
   transformIgnorePatterns: [
     '/node_modules/(?!three|@react-three|postprocessing)/',
   ],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.jest.json'
+    }
+  },
 };

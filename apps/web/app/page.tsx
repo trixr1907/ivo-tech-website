@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+// @ts-ignore
 import React, { useState } from 'react';
 import HeroSection from '../components/ui/HeroSection';
 import { NavigationHeader } from '../components/ui/NavigationHeader';
@@ -14,101 +15,82 @@ import { usePerformance } from '../hooks/usePerformance';
 import { ServicesSection } from '../components/ui/ServicesSection';
 import { LoginModal } from '../components/ui/LoginModal';
 
-// Dynamic imports to prevent SSR issues
-const Scene3D = dynamic(
-  () =>
-    import('../components/3d/Scene3D').then(mod => ({ default: mod.Scene3D })),
+// Optimierte dynamische Imports
+const OptimizedScene3D = dynamic(
+  () => import('../components/three/OptimizedScene3D').then((mod) => ({ default: mod.default })),
   {
     ssr: false,
+    loading: () => (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-white" />
+      </div>
+    ),
   }
 );
-const ParallaxStarfield = dynamic(
-  () =>
-    import('../components/3d/ParallaxStarfield').then(mod => ({
-      default: mod.ParallaxStarfield,
-    })),
-  { ssr: false }
+const OptimizedParallaxStarfield = dynamic(
+  () => import('../components/three/optimized/OptimizedParallaxStarfield').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
 );
 const Adaptive3DContainer = dynamic(
-  () =>
-    import('../components/3d/Adaptive3DContainer').then(mod => ({
-      default: mod.Adaptive3DContainer,
-    })),
+  () => import('../components/three/Adaptive3DContainer').then((mod) => ({ default: mod.default })),
   { ssr: false }
 );
 const PWAProvider = dynamic(
-  () =>
-    import('../components/PWAProvider').then(mod => ({
-      default: mod.PWAProvider,
-    })),
+  () => import('../components/PWAProvider').then((mod) => ({ default: mod.default })),
   {
     ssr: false,
   }
 );
-const NoCoinerRoastMachine = dynamic(
-  () =>
-    import('../components/games/NoCoinerRoastMachine').then(mod => ({
-      default: mod.NoCoinerRoastMachine,
-    })),
-  { ssr: false }
-);
-const CryptoDashboard = dynamic(
-  () =>
-    import('../components/dashboard/CryptoDashboard').then(mod => ({
-      default: mod.CryptoDashboard,
-    })),
-  { ssr: false }
-);
-const MonitoringDashboard = dynamic(
-  () => import('../components/monitoring/MonitoringDashboard'),
-  { ssr: false }
-);
-const NeonProvider = dynamic(
-  () =>
-    import('../components/ui/neon-ui').then(mod => ({
-      default: mod.NeonProvider,
-    })),
-  {
-    ssr: false,
-  }
-);
-const NeonUIDemo = dynamic(
-  () =>
-    import('../components/ui/neon-ui/NeonUIDemo').then(mod => ({
-      default: mod.NeonUIDemo,
-    })),
-  { ssr: false }
-);
-const Advanced3DPerformanceDashboard = dynamic(
-  () =>
-    import('../components/monitoring/Advanced3DPerformanceDashboard').then(
-      mod => ({
-        default: mod.Advanced3DPerformanceDashboard,
-      })
-    ),
-  { ssr: false }
-);
-const AdaptivePerformanceEngine = dynamic(
-  () =>
-    import('../components/performance/AdaptivePerformanceEngine').then(mod => ({
-      default: mod.AdaptivePerformanceEngine,
-    })),
-  { ssr: false }
-);
-const OrchestatedSection = dynamic(
-  () =>
-    import('../components/motion/MotionOrchestrator').then(mod => ({
-      default: mod.OrchestatedSection,
-    })),
-  { ssr: false }
-);
-const MotionControlPanel = dynamic(
-  () =>
-    import('../components/motion/MotionOrchestrator').then(mod => ({
-      default: mod.MotionControlPanel,
-    })),
-  { ssr: false }
-);
+// TODO: Implementiere NoCoinerRoastMachine
+// const NoCoinerRoastMachine = dynamic(
+//   () => import('../components/games/NoCoinerRoastMachine').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere CryptoDashboard
+// const CryptoDashboard = dynamic(
+//   () => import('../components/dashboard/CryptoDashboard').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere MonitoringDashboard
+// const MonitoringDashboard = dynamic(
+//   () => import('../components/monitoring/MonitoringDashboard'),
+//   { ssr: false }
+// );
+// TODO: Implementiere NeonProvider
+// const NeonProvider = dynamic(
+//   () => import('../components/ui/neon-ui').then(mod => mod.default),
+//   {
+//     ssr: false,
+//   }
+// );
+// TODO: Implementiere NeonUIDemo
+// const NeonUIDemo = dynamic(
+//   () => import('../components/ui/neon-ui/NeonUIDemo').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere Advanced3DPerformanceDashboard
+// const Advanced3DPerformanceDashboard = dynamic(
+//   () => import('../components/monitoring/Advanced3DPerformanceDashboard').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere AdaptivePerformanceEngine
+// const AdaptivePerformanceEngine = dynamic(
+//   () => import('../components/performance/AdaptivePerformanceEngine').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere OrchestatedSection
+// const OrchestatedSection = dynamic(
+//   () => import('../components/motion/MotionOrchestrator').then(mod => mod.default),
+//   { ssr: false }
+// );
+// TODO: Implementiere MotionControlPanel
+// const MotionControlPanel = dynamic(
+//   () => import('../components/motion/MotionOrchestrator').then(mod => mod.default),
+//   { ssr: false }
+// );
 
 // Hook import (not dynamic)
 // import { useMotionOrchestrator } from '../components/motion/MotionOrchestrator';
@@ -131,11 +113,8 @@ const [isLoginOpen, setIsLoginOpen] = useState(false);
     <div className="relative min-h-screen overflow-hidden bg-gray-900 text-white">
       {/* Background Elements - TEMPORARILY DISABLED FOR DEPLOYMENT */}
       <div className="fixed inset-0 z-0">
-        {/* Temporär deaktiviert für PWA-Test */}
-        {/*<ClientOnly3D>
-        <ParallaxStarfield />
-        <Scene3D />
-      </ClientOnly3D>*/}
+        <OptimizedParallaxStarfield />
+        <OptimizedScene3D />
         <div className="h-full w-full bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 opacity-50"></div>
       </div>
 
@@ -206,10 +185,9 @@ const [isLoginOpen, setIsLoginOpen] = useState(false);
                   Interaktive 3D-Welten powered by WebGL und Three.js
                 </p>
               </div>
-              <div className="flex h-96 items-center justify-center rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
-                <p className="text-xl text-cyan-400">
-                  🚀 3D Experience - Coming Soon!
-                </p>
+              <div className="h-96 overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
+                {/* <OptimizedEpicScene3D /> */}
+                <div className="text-xl text-cyan-400">🚀 3D Experience - Coming Soon!</div>
               </div>
             </div>
           </section>
@@ -376,7 +354,8 @@ const [isLoginOpen, setIsLoginOpen] = useState(false);
         <button
           onClick={() => setIsMotionPanelOpen(true)}
           className="fixed bottom-4 right-20 z-50 rounded-full bg-purple-600 p-3 text-white shadow-lg transition-colors hover:bg-purple-700"
-          title="Motion Control Panel"
+          type="button"
+          aria-label="Motion Control Panel"
         >
           🎭
         </button>

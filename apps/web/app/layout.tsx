@@ -6,6 +6,7 @@ import {
   generateStructuredData,
 } from '../lib/seo.config';
 import { ClientLayout } from '../components/layout/ClientLayout';
+import { OptimizedImageProvider } from '../components/providers/OptimizedImageProvider';
 
 // Optimierte Metadaten aus SEO-Konfiguration
 export const metadata: Metadata = generateMetadata();
@@ -39,7 +40,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-180x180.png" />
       </head>
       <body className="bg-gray-900 text-white antialiased">
-        <ClientLayout>{children}</ClientLayout>
+        <OptimizedImageProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </OptimizedImageProvider>
       </body>
     </html>
   );

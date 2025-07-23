@@ -18,8 +18,7 @@ const Advanced3DPerformanceDashboard: React.FC = () => {
   const measureGPUUsage = async () => {
     try {
       if ('gpu' in navigator) {
-        // @ts-ignore - Experimentelles Feature
-        const adapter = await navigator.gpu.requestAdapter();
+        const adapter = await (navigator as unknown as { gpu: GPU }).gpu.requestAdapter();
         const usage = await adapter?.requestStatistics();
         return usage?.utilizationPercentage || 0;
       }
@@ -34,8 +33,7 @@ const Advanced3DPerformanceDashboard: React.FC = () => {
   const measureMemoryUsage = () => {
     try {
       if ('memory' in performance) {
-        // @ts-ignore
-        const memory = performance.memory;
+        const memory = (performance as unknown as { memory: Performance['memory'] }).memory;
         return (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
       }
       return 0;

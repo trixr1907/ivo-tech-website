@@ -1,0 +1,152 @@
+name: Lighthouse CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Erlaube manuelle Ausführung
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    
+    env:
+      LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g @lhci/cli@0.13.x
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Start server
+        run: |
+          npm run start & # Start server in background
+          sleep 10 # Wait for server to start
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse-reports
+          path: ./.lighthouse/
+
+      - name: Parse Lighthouse Results
+        id: lighthouse
+        if: always()
+        run: |
+          REPORT_PATH="./.lighthouse/lhr-*.json"
+          
+          # Extrahiere Scores
+          PERFORMANCE=$(jq '.categories.performance.score' $REPORT_PATH)
+          ACCESSIBILITY=$(jq '.categories.accessibility.score' $REPORT_PATH)
+          BEST_PRACTICES=$(jq '.categories["best-practices"].score' $REPORT_PATH)
+          SEO=$(jq '.categories.seo.score' $REPORT_PATH)
+          
+          # Berechne Gesamtscore
+          TOTAL_SCORE=$(echo "($PERFORMANCE + $ACCESSIBILITY + $BEST_PRACTICES + $SEO) / 4 * 100" | bc -l)
+          
+          # Setze Umgebungsvariablen für Badge
+          echo "LIGHTHOUSE_SCORE=${TOTAL_SCORE%.*}" >> $GITHUB_ENV
+          
+          # Prüfe auf Regressionen
+          if (( $(echo "$PERFORMANCE < 0.9" | bc -l) )); then
+            echo "::warning::Performance Score ist unter 90%"
+          fi
+
+      - name: Generate Lighthouse Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: lighthouse-badge-gist-id
+          filename: lighthouse.json
+          label: Lighthouse Score
+          message: ${{ env.LIGHTHOUSE_SCORE }}%
+          color: ${{ env.LIGHTHOUSE_SCORE >= 90 && 'success' || env.LIGHTHOUSE_SCORE >= 75 && 'yellow' || 'red' }}
+
+      - name: Comment PR with Lighthouse Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const reportPath = './.lighthouse/lhr-*.json';
+            const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+            
+            const formatScore = (score) => (score * 100).toFixed(0);
+            
+            const comment = `## 🔦 Lighthouse Ergebnisse
+            
+            | Kategorie | Score |
+            |-----------|-------|
+            | Performance | ${formatScore(report.categories.performance.score)}% |
+            | Zugänglichkeit | ${formatScore(report.categories.accessibility.score)}% |
+            | Best Practices | ${formatScore(report.categories['best-practices'].score)}% |
+            | SEO | ${formatScore(report.categories.seo.score)}% |
+            
+            ### ⚡ Performance Metriken
+            
+            - First Contentful Paint: ${report.audits['first-contentful-paint'].displayValue}
+            - Largest Contentful Paint: ${report.audits['largest-contentful-paint'].displayValue}
+            - Total Blocking Time: ${report.audits['total-blocking-time'].displayValue}
+            - Cumulative Layout Shift: ${report.audits['cumulative-layout-shift'].displayValue}
+            
+            [Vollständiger Bericht](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  notify:
+    needs: lighthouse
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Success
+        if: ${{ needs.lighthouse.result == 'success' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text":"✅ Lighthouse Tests erfolgreich abgeschlossen"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Failure
+        if: ${{ needs.lighthouse.result == 'failure' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text":"❌ Lighthouse Tests fehlgeschlagen"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Score Warning
+        if: ${{ env.LIGHTHOUSE_SCORE < 90 }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text":"⚠️ Lighthouse Score unter 90%: ${{ env.LIGHTHOUSE_SCORE }}%"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}

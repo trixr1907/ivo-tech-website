@@ -103,20 +103,27 @@ const categories = [
   'IoT',
 ];
 
-export default function Portfolio() {
+interface Props {}
+
+export default function Portfolio({}: Props) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('Alle');
+  const [refs] = useState({
+    categoryRefs: new Map<string, HTMLButtonElement>(),
+    projectRefs: new Map<number, HTMLDivElement>(),
+    techRefs: new Map<string, HTMLSpanElement>()
+  });
 
-  const filteredProjects =
-    activeCategory === 'Alle'
-      ? portfolioData
-      : portfolioData.filter(item => item.category === activeCategory);
+  const filteredProjects = activeCategory === 'Alle'
+    ? portfolioData
+    : portfolioData.filter(item => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <NavigationHeader onLoginClick={() => setIsLoginOpen(true)} />
+    <>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <NavigationHeader onLoginClick={() => setIsLoginOpen(true)} />
 
-      <main className="pb-12 pt-24">
+        <main className="pb-12 pt-24">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 py-20">
           <div className="container mx-auto px-4 text-center">
@@ -145,21 +152,21 @@ export default function Portfolio() {
         {/* Filter Buttons */}
         <section className="py-8">
           <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-4">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`rounded-full px-6 py-2 font-medium transition-all ${
-                    activeCategory === category
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
+              <button
+                onClick={() => setActiveCategory(category)}
+                type="button"
+                className={`rounded-full px-6 py-2 font-medium transition-all ${
+                  activeCategory === category
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
           </div>
         </section>
 
@@ -169,7 +176,6 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {filteredProjects.map(project => (
                 <div
-                  key={project.id}
                   className="group rounded-xl border border-gray-700/50 bg-gray-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:transform hover:border-blue-500/50 hover:shadow-2xl"
                 >
                   {/* Category Badge */}
@@ -194,7 +200,6 @@ export default function Portfolio() {
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 3).map(tech => (
                         <span
-                          key={tech}
                           className="rounded-md bg-gray-700 px-2 py-1 text-xs font-medium text-gray-300"
                         >
                           {tech}
@@ -306,9 +311,9 @@ export default function Portfolio() {
         </section>
       </main>
 
-      <Footer />
-
+        <Footer />
+      </div>
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-    </div>
+    </>
   );
 }

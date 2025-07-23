@@ -1,7 +1,7 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
 import superjson from 'superjson';
-import { ZodError } from 'zod';
+import { z, ZodError } from 'zod';
 import { PrismaClient } from '@prisma/client';
 
 // Initialize Prisma client

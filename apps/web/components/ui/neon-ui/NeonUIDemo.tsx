@@ -5,7 +5,7 @@ import { NeonProvider, useNeonContext } from './NeonProvider';
 import { NeonButton } from './NeonButton';
 import { NeonCard } from './NeonCard';
 import { NeonModal } from './NeonModal';
-import { NeonEnhanced3DScene } from '../../3d/NeonEnhanced3DScene';
+import { NeonEnhanced3DScene } from '../../three/NeonEnhanced3DScene';
 
 function NeonUIDemoContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);

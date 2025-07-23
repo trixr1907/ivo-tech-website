@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWebSocket } from '../../../hooks/useWebSocket';
 import { useCryptoApi } from '../../../hooks/useCryptoApi';
 import { CryptoPrice } from '../../../types/crypto';
+import { BinanceTickerResponse } from '../../../types/binance';
 
 const WEBSOCKET_URL = 'wss://stream.binance.com:9443/ws/!ticker@arr';
 const API_BASE_URL = 'https://api.binance.com/api/v3';
@@ -13,10 +14,10 @@ export const CryptoDashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Verbindung zum WebSocket
-  const { data: wsData, error: wsError } = useWebSocket(WEBSOCKET_URL, {
+  const { data: wsData, error: wsError } = useWebSocket<BinanceTickerResponse[]>(WEBSOCKET_URL, {
     onMessage: data => {
       // Binance Websocket Daten verarbeiten
-      const cryptoPrices = data.map((ticker: any) => ({
+      const cryptoPrices = data.map((ticker: BinanceTickerResponse) => ({
         symbol: ticker.s,
         name: ticker.s.replace('USDT', ''), // Symbol ohne USDT suffix
         price: parseFloat(ticker.c),

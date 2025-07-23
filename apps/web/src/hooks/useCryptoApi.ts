@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { CryptoPrice } from '../types/crypto';
+import { BinanceApiResponse, CoingeckoApiResponse } from '../types/api';
 
 interface CryptoApiOptions {
   baseUrl: string;
@@ -32,8 +33,8 @@ export const useCryptoApi = (
 
     const rawData = await response.json();
     return rawData
-      .filter((item: any) => item.symbol.endsWith('USDT'))
-      .map((item: any) => ({
+      .filter((item: BinanceApiResponse) => item.symbol.endsWith('USDT'))
+      .map((item: BinanceApiResponse) => ({
         symbol: item.symbol,
         name: item.symbol.replace('USDT', ''),
         price: parseFloat(item.lastPrice),
@@ -50,7 +51,7 @@ export const useCryptoApi = (
     if (!response.ok) throw new Error('Coingecko API Fehler');
 
     const data = await response.json();
-    return Object.entries(data).map(([id, details]: [string, any]) => ({
+    return Object.entries(data).map(([id, details]: [string, CoingeckoApiResponse[string]]) => ({
       symbol: id.toUpperCase(),
       name: id.charAt(0).toUpperCase() + id.slice(1),
       price: details.usd,

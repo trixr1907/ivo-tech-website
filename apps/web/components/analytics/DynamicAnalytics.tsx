@@ -14,12 +14,12 @@ const MonitoringProvider = dynamic(
   { ssr: false }
 );
 
-export function DynamicAnalytics() {
+export function DynamicAnalytics({ children }: { children?: React.ReactNode }) {
   return (
     <>
       <VercelAnalytics />
       <MonitoringProvider>
-        {/* Placeholder für zusätzliches Monitoring */}
+        {children}
       </MonitoringProvider>
     </>
   );

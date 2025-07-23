@@ -1,30 +1,65 @@
 'use client';
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import type { ReactNode, ErrorInfo, ComponentType } from 'react';
+import React from 'react';
+import { a11yService } from '../../lib/services/a11y';
+import { performanceMonitor } from '../../lib/services/performance';
+import { monitoringService } from '../../lib/services/monitoring';
+import { notificationService } from '../../lib/services/notifications';
+import { NotificationContainer } from '../notifications/NotificationContainer';
 
-interface Props {
-  children: ReactNode;
-  fallback?: React.ComponentType<ErrorFallbackProps>;
-}
-
-interface State {
-  hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
-}
-
-interface ErrorFallbackProps {
-  error?: Error;
+export interface ErrorFallbackProps {
+  error: Error;
   errorInfo?: ErrorInfo;
   resetError: () => void;
 }
 
-// Standard Fallback UI
-const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({
-  error,
-  errorInfo,
-  resetError,
-}) => {
+export interface ErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ComponentType<ErrorFallbackProps>;
+}
+
+export interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+  errorInfo?: ErrorInfo;
+  showDetails?: boolean;
+}
+const ErrorDetails: React.FC<{ error: Error; errorInfo?: ErrorInfo }> = ({ error, errorInfo }) => (
+  <div className="mt-4">
+    <details className="rounded bg-gray-800/50 p-3">
+      <summary className="cursor-pointer font-medium text-yellow-400">
+        Entwickler-Details anzeigen
+      </summary>
+      <div className="mt-2 space-y-4 text-sm">
+        <div>
+          <p className="font-medium text-red-300">Fehler:</p>
+          <code className="mt-1 block overflow-x-auto rounded bg-gray-900 p-2 text-xs">
+            {error.message}
+          </code>
+        </div>
+        {error.stack && (
+          <div>
+            <p className="font-medium text-red-300">Stackverlauf:</p>
+            <code className="mt-1 block max-h-[200px] overflow-y-auto whitespace-pre rounded bg-gray-900 p-2 text-xs">
+              {error.stack}
+            </code>
+          </div>
+        )}
+        {errorInfo?.componentStack && (
+          <div>
+            <p className="font-medium text-red-300">Komponentenstapel:</p>
+            <code className="mt-1 block max-h-[200px] overflow-y-auto whitespace-pre rounded bg-gray-900 p-2 text-xs">
+              {errorInfo.componentStack}
+            </code>
+          </div>
+        )}
+      </div>
+    </details>
+  </div>
+);
+
+const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({ error, errorInfo, resetError }) => {
   const isDevelopment = process.env.NODE_ENV === 'development';
 
   return (
@@ -57,31 +92,7 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({
             </div>
           </div>
 
-          {isDevelopment && error && (
-            <div className="mt-4">
-              <details className="rounded bg-gray-800/50 p-3">
-                <summary className="cursor-pointer font-medium text-yellow-400">
-                  Entwickler-Details anzeigen
-                </summary>
-                <div className="mt-2 text-sm">
-                  <p className="font-medium text-red-300">Fehler:</p>
-                  <code className="mt-1 block overflow-x-auto rounded bg-gray-900 p-2 text-xs">
-                    {error.message}
-                  </code>
-                  {error.stack && (
-                    <>
-                      <p className="mt-3 font-medium text-red-300">
-                        Stack Trace:
-                      </p>
-                      <code className="mt-1 block overflow-x-auto whitespace-pre rounded bg-gray-900 p-2 text-xs">
-                        {error.stack}
-                      </code>
-                    </>
-                  )}
-                </div>
-              </details>
-            </div>
-          )}
+          {isDevelopment && error && <ErrorDetails error={error} errorInfo={errorInfo} />}
 
           <div className="mt-6 flex gap-3">
             <button
@@ -109,60 +120,118 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({
   );
 };
 
-class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: Props) {
+class ErrorBoundaryComponent extends React.Component<ErrorBoundaryProps> {
+  state: ErrorBoundaryState = {
+    hasError: false,
+    error: undefined,
+    errorInfo: undefined,
+    showDetails: false
+  };
+
+  constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return {
       hasError: true,
       error,
+      errorInfo: undefined,
+      showDetails: false
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log error to Sentry if available
+  componentDidMount(): void {
+    // Initialisiere Monitoring-Service
+    monitoringService.initialize();
+  }
+
+  async componentDidCatch(error: Error, errorInfo: ErrorInfo): Promise<void> {
     this.setState({
+      hasError: true,
       error,
-      errorInfo,
+      errorInfo
     });
 
-    // Log to console (Sentry integration can be added later if needed)
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Barrierefreie Benachrichtigung über den Fehler
+    // Monitoring und Error Tracking
+    await monitoringService.captureError(error, {
+      componentName: 'ErrorBoundary',
+      severity: 'error',
+      metadata: {
+        componentStack: errorInfo.componentStack
+      }
+    });
 
-    // Also log to console for development
+    // Accessibility Benachrichtigung
+    a11yService.notifyError(error, true);
+
+    // Performance-Monitoring
+    performanceMonitor.trackError(error, errorInfo.componentStack);
+    performanceMonitor.trackComponentMetrics('ErrorBoundary', {
+      errorCount: 1,
+      recoveryTime: 0
+    });
+
+    // Zeige Benachrichtigung
+    await notificationService.showError(error, {
+      title: 'Fehler in der Anwendung',
+      actions: [
+        {
+          label: 'Neu laden',
+          onClick: () => window.location.reload()
+        },
+        {
+          label: 'Details',
+          onClick: () => this.setState({ showDetails: true })
+        }
+      ]
+    });
+
     if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo);
+      console.error('Fehler gefangen von ErrorBoundary:', error);
+      console.error('Komponentenstapel:', errorInfo.componentStack);
     }
   }
 
-  resetError = () => {
+  resetError = (): void => {
+    const startTime = performance.now();
+    // Performance-Monitoring für die Wiederherstellung
+    performanceMonitor.trackErrorRecovery('ErrorBoundary', 'reset');
+    performanceMonitor.trackComponentMetrics('ErrorBoundary', {
+      recoveryCount: 1,
+      recoveryTime: performance.now() - startTime
+    });
+
     this.setState({
       hasError: false,
       error: undefined,
       errorInfo: undefined,
+      showDetails: false
     });
   };
 
   render() {
-    if (this.state.hasError) {
-      const FallbackComponent = this.props.fallback || DefaultErrorFallback;
+    const { children, fallback: FallbackComponent = DefaultErrorFallback } = this.props;
+    const { hasError, error, errorInfo } = this.state;
 
+    if (hasError && error) {
       return (
-        <FallbackComponent
-          error={this.state.error}
-          errorInfo={this.state.errorInfo}
-          resetError={this.resetError}
-        />
+        <>
+          <NotificationContainer />
+          <FallbackComponent
+            error={error}
+            errorInfo={errorInfo}
+            resetError={this.resetError}
+          />
+        </>
       );
     }
 
-    return this.props.children;
+    return children;
   }
 }
 
+export const ErrorBoundary = ErrorBoundaryComponent;
+
 export default ErrorBoundary;
-export type { ErrorFallbackProps };

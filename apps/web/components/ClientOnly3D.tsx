@@ -1,5 +1,6 @@
 'use client';
 
+// @ts-ignore
 import { useState, useEffect } from 'react';
 
 interface ClientOnly3DProps {

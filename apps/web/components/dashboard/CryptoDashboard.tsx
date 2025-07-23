@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -44,7 +45,7 @@ const cryptoIds = [
   'chainlink',
 ];
 
-export function CryptoDashboard() {
+const CryptoDashboard: React.FC = () => {
   const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
   const [selectedCrypto, setSelectedCrypto] = useState<string>('bitcoin');
   const [priceHistory, setPriceHistory] = useState<PriceHistory[]>([]);
@@ -80,7 +81,7 @@ export function CryptoDashboard() {
         setPriceHistory(history);
       }
     } catch (err) {
-      setError('Failed to fetch crypto data. Using demo data.');
+      setError('Fehler beim Laden der Kryptodaten. Verwende Demo-Daten.');
       setLoading(false);
 
       // Fallback demo data
@@ -180,12 +181,12 @@ export function CryptoDashboard() {
         className="mb-8 text-center"
       >
         <div className="mb-4 font-mono text-sm text-cyan-400">
-          $ crypto --live
+          $ krypto --live
         </div>
         <h2 className="text-3xl font-bold text-white md:text-4xl">
           Live{' '}
           <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-            Crypto
+            Krypto
           </span>{' '}
           Dashboard
         </h2>
@@ -271,13 +272,13 @@ export function CryptoDashboard() {
 
               <div className="border-t border-gray-700 pt-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Market Cap:</span>
+                  <span className="text-gray-400">Marktkapitalisierung:</span>
                   <span className="text-gray-200">
                     {formatMarketCap(crypto.market_cap)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Volume:</span>
+                  <span className="text-gray-400">Handelsvolumen:</span>
                   <span className="text-gray-200">
                     {formatMarketCap(crypto.total_volume)}
                   </span>
@@ -311,44 +312,49 @@ export function CryptoDashboard() {
               <h3 className="text-xl font-bold text-white">
                 {cryptoData.find(c => c.id === selectedCrypto)?.name ||
                   'Selected'}{' '}
-                Price Chart
+                Preisverlauf
               </h3>
               <div className="flex items-center space-x-2 text-sm text-gray-400">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-                <span>Live Data</span>
+                <span>Echtzeitdaten</span>
               </div>
             </div>
 
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={priceHistory}>
-                  <defs>
-                    <linearGradient
-                      id="priceGradient"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
+                  <svg>
+                    <defs>
+                      <linearGradient
+                        id="priceGradient"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  {/* @ts-ignore */}
                   <XAxis
                     dataKey="timestamp"
-                    tickFormatter={value =>
+                    tickFormatter={(value: number) =>
                       new Date(value).toLocaleTimeString('de-DE', {
                         timeStyle: 'short',
                       })
                     }
                     stroke="#9ca3af"
                   />
+                  {/* @ts-ignore */}
                   <YAxis
                     domain={['dataMin - 100', 'dataMax + 100']}
-                    tickFormatter={value => `$${value.toFixed(0)}`}
+                    tickFormatter={(value: number) => `$${value.toFixed(0)}`}
                     stroke="#9ca3af"
                   />
+                  {/* @ts-ignore */}
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#1f2937',
@@ -361,6 +367,7 @@ export function CryptoDashboard() {
                     }
                     formatter={(value: number) => [formatPrice(value), 'Preis']}
                   />
+                  {/* @ts-ignore */}
                   <Area
                     type="monotone"
                     dataKey="price"
@@ -383,19 +390,19 @@ export function CryptoDashboard() {
         transition={{ delay: 0.5 }}
         className="rounded-2xl border border-gray-700 bg-gray-800/30 p-6"
       >
-        <h3 className="mb-4 text-xl font-bold text-white">Market Summary</h3>
+        <h3 className="mb-4 text-xl font-bold text-white">Marktübersicht</h3>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-green-400">
               {cryptoData.filter(c => c.price_change_percentage_24h > 0).length}
             </div>
-            <div className="text-sm text-gray-400">Gainers</div>
+            <div className="text-sm text-gray-400">Gewinner</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-red-400">
               {cryptoData.filter(c => c.price_change_percentage_24h < 0).length}
             </div>
-            <div className="text-sm text-gray-400">Losers</div>
+            <div className="text-sm text-gray-400">Verlierer</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-400">
@@ -403,7 +410,7 @@ export function CryptoDashboard() {
                 cryptoData.reduce((sum, c) => sum + c.market_cap, 0)
               )}
             </div>
-            <div className="text-sm text-gray-400">Total Market Cap</div>
+            <div className="text-sm text-gray-400">Gesamtmarktkapitalisierung</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-purple-400">
@@ -411,10 +418,12 @@ export function CryptoDashboard() {
                 cryptoData.reduce((sum, c) => sum + c.total_volume, 0)
               )}
             </div>
-            <div className="text-sm text-gray-400">24h Volume</div>
+            <div className="text-sm text-gray-400">24h Handelsvolumen</div>
           </div>
         </div>
       </motion.div>
     </div>
   );
 }
+
+export default CryptoDashboard;

@@ -1,3 +1,37 @@
+import { Vector3, Matrix4, Color, Material, Object3D, BufferGeometry, Points, Group, Mesh, Quaternion, Euler, ShaderMaterial, EventDispatcher, Intersection, Line3, Box3, Ray, Scene } from 'three';
+
+declare module 'three' {
+  export class Vector3 extends Vector3 {}
+  export class Matrix4 extends Matrix4 {}
+  export class Color extends Color {}
+  export class Material extends Material {}
+  export class Object3D extends Object3D {}
+  export class BufferGeometry extends BufferGeometry {}
+  export class Points extends Points {}
+  export class Group extends Group {}
+  export class Mesh extends Mesh {}
+  export class Quaternion extends Quaternion {}
+  export class Euler extends Euler {}
+  export class ShaderMaterial extends ShaderMaterial {}
+  export class EventDispatcher extends EventDispatcher {}
+  export class Intersection extends Intersection {}
+  export class Line3 extends Line3 {}
+  export class Box3 extends Box3 {}
+  export class Ray extends Ray {}
+  export class Scene extends Scene {}
+
+  export interface IUniform {
+    value: any;
+  }
+
+  export interface ColorRepresentation {}
+  export interface TextureDataType {}
+  export interface PixelFormat {}
+  export interface Mapping {}
+  export interface Side {}
+  export interface Wrapping {}
+}
+
 declare module 'three' {
   export class Vector3 {
     constructor(x?: number, y?: number, z?: number);

@@ -8,9 +8,9 @@ declare module '@react-three/fiber/jsx-runtime' {
 declare module '@react-three/fiber' {
   interface BaseProps {
     attach?: string;
-    args?: any[];
+    args?: unknown[];
     children?: React.ReactNode;
-    ref?: React.Ref<any>;
+    ref?: React.Ref<THREE.Object3D>;
   }
 
   interface Object3DProps extends BaseProps {
@@ -91,7 +91,7 @@ declare module '@react-three/fiber' {
     directionalLight: LightProps;
     spotLight: LightProps;
     rectAreaLight: LightProps;
-    fog: any;
+    fog: { color: THREE.ColorRepresentation; near?: number; far?: number };
     meshStandardMaterial: MaterialProps;
     meshBasicMaterial: MaterialProps;
     meshPhongMaterial: MaterialProps;

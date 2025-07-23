@@ -1,5 +1,6 @@
 'use client';
 
+// @ts-ignore
 import React, { useRef, useEffect, useMemo, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import {

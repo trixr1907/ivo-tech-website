@@ -1,0 +1,77 @@
+{
+  "metrics": {
+    "FCP": {
+      "budget": 1000,
+      "warning": 800,
+      "unit": "ms",
+      "description": "First Contentful Paint"
+    },
+    "LCP": {
+      "budget": 2500,
+      "warning": 2000,
+      "unit": "ms",
+      "description": "Largest Contentful Paint"
+    },
+    "FID": {
+      "budget": 100,
+      "warning": 80,
+      "unit": "ms",
+      "description": "First Input Delay"
+    },
+    "CLS": {
+      "budget": 0.1,
+      "warning": 0.08,
+      "unit": "",
+      "description": "Cumulative Layout Shift"
+    },
+    "TTI": {
+      "budget": 3500,
+      "warning": 3000,
+      "unit": "ms",
+      "description": "Time to Interactive"
+    },
+    "TBT": {
+      "budget": 300,
+      "warning": 250,
+      "unit": "ms",
+      "description": "Total Blocking Time"
+    },
+    "errorRecoveryTime": {
+      "budget": 1000,
+      "warning": 800,
+      "unit": "ms",
+      "description": "Error Recovery Time"
+    },
+    "memoryUsage": {
+      "budget": 50,
+      "warning": 40,
+      "unit": "MB",
+      "description": "Memory Usage"
+    }
+  },
+  "thresholds": {
+    "score": {
+      "fail": 75,
+      "warning": 90
+    }
+  },
+  "reporting": {
+    "commentOnPR": true,
+    "failOnError": true,
+    "notification": {
+      "slack": true,
+      "email": false
+    }
+  },
+  "tracking": {
+    "retention": {
+      "days": 30,
+      "maxReports": 100
+    },
+    "trends": {
+      "analyze": true,
+      "notifyOnRegression": true,
+      "regressionThreshold": 10
+    }
+  }
+}

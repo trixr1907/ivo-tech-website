@@ -4,20 +4,19 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export function VercelAnalytics() {
-  // Only enable in production or when explicitly configured
-  const analyticsEnabled =
-    process.env.NODE_ENV === 'production' ||
-    process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID;
+  const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development';
+  const analyticsId = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID;
 
-  if (!analyticsEnabled) {
+  // Only enable in production or when explicitly configured
+  if (!analyticsId && isDev) {
     console.log('Vercel Analytics disabled in development environment');
     return null;
   }
 
   return (
     <>
-      <Analytics debug={process.env.NODE_ENV === 'development'} />
-      <SpeedInsights debug={process.env.NODE_ENV === 'development'} />
+      <Analytics debug={isDev} />
+      <SpeedInsights debug={isDev} />
     </>
   );
 }

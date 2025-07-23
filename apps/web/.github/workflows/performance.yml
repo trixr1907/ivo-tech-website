@@ -1,0 +1,146 @@
+name: Performance Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Erlaube manuelle Ausführung
+  workflow_dispatch:
+
+jobs:
+  performance:
+    name: Run Performance Tests
+    runs-on: ubuntu-latest
+    
+    env:
+      NODE_ENV: test
+      NEXT_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Performance Tests
+        run: |
+          npm run test:performance
+        env:
+          CI: true
+
+      - name: Upload Performance Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-reports
+          path: performance/reports/
+          retention-days: 14
+
+      - name: Analyze Performance Results
+        id: analyze
+        run: |
+          LATEST_REPORT=$(ls -t performance/reports/*.json | head -n1)
+          if [ ! -f "$LATEST_REPORT" ]; then
+            echo "No performance report found"
+            exit 1
+          fi
+
+          # Extrahiere wichtige Metriken
+          FCP=$(jq '.summary.averageMetrics.FCP' "$LATEST_REPORT")
+          LCP=$(jq '.summary.averageMetrics.LCP' "$LATEST_REPORT")
+          FID=$(jq '.summary.averageMetrics.FID' "$LATEST_REPORT")
+          CLS=$(jq '.summary.averageMetrics.CLS' "$LATEST_REPORT")
+          
+          # Setze Statuswerte
+          if (( $(echo "$LCP > 2500" | bc -l) )); then
+            echo "::warning::LCP ist zu hoch: ${LCP}ms (Ziel: <2500ms)"
+          fi
+          
+          if (( $(echo "$FID > 100" | bc -l) )); then
+            echo "::warning::FID ist zu hoch: ${FID}ms (Ziel: <100ms)"
+          fi
+          
+          if (( $(echo "$CLS > 0.1" | bc -l) )); then
+            echo "::warning::CLS ist zu hoch: $CLS (Ziel: <0.1)"
+          fi
+          
+          # Erstelle Performance-Badge
+          echo "PERF_SCORE=$((($FCP < 1000 ? 25 : 0) + ($LCP < 2500 ? 25 : 0) + ($FID < 100 ? 25 : 0) + ($CLS < 0.1 ? 25 : 0)))" >> $GITHUB_ENV
+
+      - name: Generate Performance Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: performance-badge-gist-id
+          filename: performance.json
+          label: Performance
+          message: ${{ env.PERF_SCORE }}%
+          color: ${{ env.PERF_SCORE >= 90 && 'success' || env.PERF_SCORE >= 75 && 'yellow' || 'red' }}
+
+      - name: Comment PR with Performance Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('${{ env.LATEST_REPORT }}', 'utf8'));
+            
+            const metrics = report.summary.averageMetrics;
+            const score = process.env.PERF_SCORE;
+            
+            const comment = `## 📊 Performance Test Results
+            
+            Performance Score: ${score}%
+            
+            ### Core Web Vitals
+            - FCP: ${metrics.FCP.toFixed(2)}ms
+            - LCP: ${metrics.LCP.toFixed(2)}ms
+            - FID: ${metrics.FID.toFixed(2)}ms
+            - CLS: ${metrics.CLS.toFixed(4)}
+            
+            ### Error Handling Metrics
+            - Error Recovery Time: ${metrics.errorRecoveryTime.toFixed(2)}ms
+            - Memory Usage: ${(metrics.memoryUsage / 1024 / 1024).toFixed(2)}MB
+            
+            [View Full Report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  notify:
+    needs: performance
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on Success
+        if: ${{ needs.performance.result == 'success' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text":"✅ Performance Tests erfolgreich abgeschlossen"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on Failure
+        if: ${{ needs.performance.result == 'failure' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text":"❌ Performance Tests fehlgeschlagen"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}

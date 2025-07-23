@@ -1,10 +1,26 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "three"
+    ],
     "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
+    "skipLibCheck": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,16 +38,26 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/utils/*": ["./src/lib/*"],
-      "@/lib/*": ["./src/lib/*"]
+      "@/lib/*": ["./src/lib/*"],
+      "three/*": ["node_modules/three/*"],
+      "@react-three/*": ["node_modules/@react-three/*"]
     },
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "strictNullChecks": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": ["react", "react-dom", "node"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts",
+    "types/config.d.ts",
+    "types/react.d.ts",
+    "types/three.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

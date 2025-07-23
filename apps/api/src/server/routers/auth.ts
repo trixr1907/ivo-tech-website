@@ -1,7 +1,7 @@
 import { z } from 'zod';
+import { router, publicProcedure, protectedProcedure } from '../trpc';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { router, publicProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-dev';
