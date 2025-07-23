@@ -42,7 +42,8 @@ if (typeof window === 'undefined') {
     ...global.navigator,
     userAgent: 'node',
     mediaDevices: {
-      getUserMedia: () => Promise.reject(new Error('getUserMedia is not implemented')),
+      getUserMedia: () =>
+        Promise.reject(new Error('getUserMedia is not implemented')),
     },
   };
 

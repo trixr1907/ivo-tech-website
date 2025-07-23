@@ -14,7 +14,7 @@ jest.mock('@react-three/fiber', () => ({
     gl: { setSize: jest.fn(), setPixelRatio: jest.fn() },
     scene: { add: jest.fn(), remove: jest.fn() },
   }),
-}))
+}));
 
 jest.mock('@react-three/drei', () => ({
   OrbitControls: () => <div data-testid="orbit-controls" />,

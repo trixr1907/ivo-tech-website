@@ -70,7 +70,9 @@ describe('CryptoDashboard', () => {
       render(<CryptoDashboard />);
 
       await waitFor(() => {
-        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(/Live.*Crypto.*Dashboard/i);
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          /Live.*Crypto.*Dashboard/i
+        );
         expect(
           screen.getByText(/Echtzeit-Kryptowährungsdaten/i)
         ).toBeInTheDocument();
@@ -177,7 +179,7 @@ describe('CryptoDashboard', () => {
         // 1 gainer (Bitcoin with +2.5%)
         const gainers = screen.getByText('Gainers');
         expect(gainers.previousElementSibling).toHaveTextContent('1');
-        
+
         // 1 loser (Ethereum with -1.2%)
         const losers = screen.getByText('Losers');
         expect(losers.previousElementSibling).toHaveTextContent('1');

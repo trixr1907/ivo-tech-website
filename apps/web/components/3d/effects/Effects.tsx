@@ -47,9 +47,7 @@ export function Effects({
       {(enableBloom || enableGlow) && (
         <Bloom
           {...bloomConfig}
-          blendFunction={
-            enableGlow ? BlendFunction.ADD : BlendFunction.SCREEN
-          }
+          blendFunction={enableGlow ? BlendFunction.ADD : BlendFunction.SCREEN}
           opacity={glowStrength}
         />
       )}

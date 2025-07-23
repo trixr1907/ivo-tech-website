@@ -7,7 +7,10 @@ const VercelAnalytics = dynamic(
 );
 
 const MonitoringProvider = dynamic(
-  () => import('../monitoring/MonitoringProvider').then(mod => mod.MonitoringProvider),
+  () =>
+    import('../monitoring/MonitoringProvider').then(
+      mod => mod.MonitoringProvider
+    ),
   { ssr: false }
 );
 

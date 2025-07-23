@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useMotionSupport } from '../../lib/motion/useMotionSupport';
 
 // Dynamisch geladener Renderer

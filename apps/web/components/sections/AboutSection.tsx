@@ -69,7 +69,10 @@ export function AboutSection({
   ],
 }: AboutSectionProps) {
   return (
-    <section id="about" className="relative overflow-hidden bg-gray-900 py-20 text-white">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-gray-900 py-20 text-white"
+    >
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-gray-900 to-purple-900/40 mix-blend-multiply" />
 
@@ -106,7 +109,9 @@ export function AboutSection({
                     {stat.icon}
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-white">{stat.value}</div>
+                    <div className="text-3xl font-bold text-white">
+                      {stat.value}
+                    </div>
                     <div className="text-sm text-gray-400">{stat.label}</div>
                   </div>
                 </div>
@@ -144,7 +149,9 @@ export function AboutSection({
                 <h3 className="text-center text-xl font-semibold text-white">
                   {member.name}
                 </h3>
-                <p className="text-center text-sm text-gray-400">{member.role}</p>
+                <p className="text-center text-sm text-gray-400">
+                  {member.role}
+                </p>
                 {member.description && (
                   <p className="mt-3 text-center text-sm text-gray-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     {member.description}
@@ -160,4 +167,3 @@ export function AboutSection({
 }
 
 export default AboutSection;
-

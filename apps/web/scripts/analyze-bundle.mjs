@@ -15,7 +15,7 @@ try {
   // Führe Production Build mit Analyzer aus
   execSync('pnpm build:analyze', {
     stdio: 'inherit',
-    cwd: projectRoot
+    cwd: projectRoot,
   });
 
   console.log('✅ Bundle-Analyse erfolgreich abgeschlossen!');

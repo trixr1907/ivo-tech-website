@@ -137,4 +137,3 @@ export function FloatingCTAButton({
     </group>
   );
 }
-

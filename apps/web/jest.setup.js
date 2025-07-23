@@ -4,11 +4,11 @@ require('@testing-library/jest-dom');
 // Mock document.createElement if it doesn't exist
 if (typeof document === 'undefined') {
   global.document = {
-    createElement: (tag) => ({
+    createElement: tag => ({
       setAttribute: () => {},
       innerHTML: '',
-      tagName: tag.toUpperCase()
-    })
+      tagName: tag.toUpperCase(),
+    }),
   };
 }
 
@@ -29,7 +29,7 @@ jest.mock('three', () => ({
 jest.mock('@react-three/fiber', () => ({
   Canvas: jest.fn(() => ({
     type: 'div',
-    props: { 'data-testid': 'canvas' }
+    props: { 'data-testid': 'canvas' },
   })),
   useFrame: jest.fn(),
   useThree: jest.fn(() => ({
@@ -42,15 +42,15 @@ jest.mock('@react-three/fiber', () => ({
 jest.mock('@react-three/drei', () => ({
   OrbitControls: jest.fn(() => ({
     type: 'div',
-    props: { 'data-testid': 'orbit-controls' }
+    props: { 'data-testid': 'orbit-controls' },
   })),
   Stars: jest.fn(() => ({
     type: 'div',
-    props: { 'data-testid': 'stars' }
+    props: { 'data-testid': 'stars' },
   })),
   Environment: jest.fn(() => ({
     type: 'div',
-    props: { 'data-testid': 'environment' }
+    props: { 'data-testid': 'environment' },
   })),
 }));
 

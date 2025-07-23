@@ -7,8 +7,8 @@ const publicDir = path.join(__dirname, '..', 'public');
 
 async function generateMaskableIcon(size) {
   const padding = Math.floor(size * 0.1); // 10% padding for safe area
-  const canvas = size + (padding * 2);
-  
+  const canvas = size + padding * 2;
+
   await sharp(path.join(publicDir, 'icons', `icon-${size}x${size}.png`))
     .resize(size, size)
     .extend({
@@ -16,7 +16,7 @@ async function generateMaskableIcon(size) {
       bottom: padding,
       left: padding,
       right: padding,
-      background: { r: 0, g: 0, b: 0, alpha: 1 }
+      background: { r: 0, g: 0, b: 0, alpha: 1 },
     })
     .resize(size, size)
     .toFile(path.join(publicDir, 'icons', `maskable-icon-${size}x${size}.png`));

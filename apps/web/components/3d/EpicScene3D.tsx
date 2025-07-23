@@ -85,15 +85,11 @@ function AnimatedGrid() {
           position={[
             (Math.random() - 0.5) * 20,
             (Math.random() - 0.5) * 20,
-            (Math.random() - 0.5) * 20
+            (Math.random() - 0.5) * 20,
           ]}
           args={[0.1, 0.1, 0.1]}
         >
-          <meshBasicMaterial
-            color="#0099ff"
-            transparent
-            opacity={0.6}
-          />
+          <meshBasicMaterial color="#0099ff" transparent opacity={0.6} />
         </Box>
       ))}
     </group>

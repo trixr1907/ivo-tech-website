@@ -6,7 +6,7 @@ test.describe('Homepage', () => {
   });
 
   test('should have the correct page title', async ({ page }) => {
-    await expect(page).toHaveTitle(/IVO Tech/);
+    await expect(page).toHaveTitle(/IVO-TECH/);
   });
 
   test('should display main navigation', async ({ page }) => {

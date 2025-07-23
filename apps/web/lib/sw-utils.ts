@@ -57,7 +57,10 @@ export class PWAManager {
     this.notifyStateChange();
 
     try {
-      // Service Worker registrieren
+/// <reference lib="webworker" />
+/// <reference lib="dom" />
+
+// Service Worker Registrierung
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/',
       });

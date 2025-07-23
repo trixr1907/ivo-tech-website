@@ -148,7 +148,9 @@ function InteractiveLogo4DDemo() {
       {/* Controls */}
       <div className="grid grid-cols-2 gap-4 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
         <div>
-          <label htmlFor="size" className="mb-2 block text-sm text-white">Größe</label>
+          <label htmlFor="size" className="mb-2 block text-sm text-white">
+            Größe
+          </label>
           <input
             id="size"
             type="range"
@@ -165,7 +167,9 @@ function InteractiveLogo4DDemo() {
         </div>
 
         <div>
-          <label htmlFor="fps-limit" className="mb-2 block text-sm text-white">FPS Limit</label>
+          <label htmlFor="fps-limit" className="mb-2 block text-sm text-white">
+            FPS Limit
+          </label>
           <select
             id="fps-limit"
             value={config.fpsLimit}
@@ -184,7 +188,9 @@ function InteractiveLogo4DDemo() {
         </div>
 
         <div>
-          <label htmlFor="theme" className="mb-2 block text-sm text-white">Theme</label>
+          <label htmlFor="theme" className="mb-2 block text-sm text-white">
+            Theme
+          </label>
           <select
             id="theme"
             value={config.theme}
@@ -212,7 +218,9 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label htmlFor="particles" className="text-sm text-white">Partikel</label>
+          <label htmlFor="particles" className="text-sm text-white">
+            Partikel
+          </label>
         </div>
 
         <div className="flex items-center">
@@ -228,7 +236,9 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label htmlFor="scan-lines" className="text-sm text-white">Scan Lines</label>
+          <label htmlFor="scan-lines" className="text-sm text-white">
+            Scan Lines
+          </label>
         </div>
 
         <div className="flex items-center">
@@ -244,7 +254,9 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label htmlFor="time-morphing" className="text-sm text-white">Time Morphing</label>
+          <label htmlFor="time-morphing" className="text-sm text-white">
+            Time Morphing
+          </label>
         </div>
       </div>
 

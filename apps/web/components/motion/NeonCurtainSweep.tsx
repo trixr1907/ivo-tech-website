@@ -76,7 +76,7 @@ const CurtainMesh: React.FC<{
   color: [number, number, number];
   intensity: number;
 }> = ({ progress, color, intensity }) => {
-  const meshRef = useRef<Mesh>(null);
+const meshRef = useRef<THREE.Mesh>(null);
   const { size } = useThree();
 
   const shaderMaterial = useMemo(

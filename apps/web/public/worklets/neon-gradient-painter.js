@@ -22,8 +22,10 @@ class NeonGradientPainter {
 
     // Extract CSS properties
     const hue = parseFloat(properties.get('--neon-hue')?.toString()) || 180;
-    const intensity = parseFloat(properties.get('--neon-intensity')?.toString()) || 1;
-    const audioReactive = parseFloat(properties.get('--audio-reactive')?.toString()) || 0;
+    const intensity =
+      parseFloat(properties.get('--neon-intensity')?.toString()) || 1;
+    const audioReactive =
+      parseFloat(properties.get('--audio-reactive')?.toString()) || 0;
 
     // Parse arguments with fallbacks
     const angle = args[0]?.toString() || '45deg';

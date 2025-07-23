@@ -10,7 +10,7 @@ async function generateBaseIcon(size) {
   const svg = `
     <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="#000"/>
-      <text x="50%" y="50%" font-family="Arial" font-size="${size/4}" fill="#fff" text-anchor="middle" dy=".3em">IVO</text>
+      <text x="50%" y="50%" font-family="Arial" font-size="${size / 4}" fill="#fff" text-anchor="middle" dy=".3em">IVO</text>
     </svg>
   `;
 

@@ -3,6 +3,6 @@ module.exports = {
   extends: ['next/core-web-vitals'],
   ignorePatterns: ['**/*'],
   rules: {
-    '@next/next/no-html-link-for-pages': 'off'
-  }
+    '@next/next/no-html-link-for-pages': 'off',
+  },
 };

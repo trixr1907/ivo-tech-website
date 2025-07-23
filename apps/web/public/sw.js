@@ -57,7 +57,12 @@ const PATTERNS = {
 };
 
 // Assets die nicht gecacht werden sollen
-const SKIP_CACHE_PATTERNS = [/\/api\//, /\/_next\/static\/development/, /chrome-extension/, /webpack-hmr/];
+const SKIP_CACHE_PATTERNS = [
+  /\/api\//,
+  /\/_next\/static\/development/,
+  /chrome-extension/,
+  /webpack-hmr/,
+];
 
 // Install Event - Cache statische Assets
 self.addEventListener('install', event => {
@@ -143,12 +148,18 @@ self.addEventListener('fetch', event => {
       return fetch(request)
         .then(networkResponse => {
           // Nur erfolgreiche Responses cachen
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          if (
+            !networkResponse ||
+            networkResponse.status !== 200 ||
+            networkResponse.type !== 'basic'
+          ) {
             return networkResponse;
           }
 
           const responseToCache = networkResponse.clone();
-          const cacheToUse = url.pathname.startsWith('/api/') ? DYNAMIC_CACHE : STATIC_CACHE;
+          const cacheToUse = url.pathname.startsWith('/api/')
+            ? DYNAMIC_CACHE
+            : STATIC_CACHE;
 
           caches.open(cacheToUse).then(cache => {
             cache.put(request, responseToCache);

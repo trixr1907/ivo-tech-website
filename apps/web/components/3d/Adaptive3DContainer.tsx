@@ -7,6 +7,7 @@ import React, {
   ComponentType,
   Component,
 } from 'react';
+import type { WebGLPowerPreference } from 'three';
 import { Canvas } from '@react-three/fiber';
 import {
   isLowEndDevice,

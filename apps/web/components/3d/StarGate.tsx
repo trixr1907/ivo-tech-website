@@ -125,4 +125,3 @@ export function StarGate({ position = [0, 0, -5], scale = 1 }: StarGateProps) {
     </group>
   );
 }
-

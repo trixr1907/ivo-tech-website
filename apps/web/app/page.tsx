@@ -2,9 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import { isLowEndDevice } from '../lib/utils';
-import { ProgressiveScene } from '../components/3d/ProgressiveScene';
-import { HeroSection } from '../components/ui/HeroSection';
+import HeroSection from '../components/ui/HeroSection';
 import { NavigationHeader } from '../components/ui/NavigationHeader';
 import { AboutSection } from '../components/ui/AboutSection';
 import { TechShowcase } from '../components/ui/TechShowcase';
@@ -15,7 +13,6 @@ import { CLIInterface } from '../components/ui/CLIInterface';
 import { usePerformance } from '../hooks/usePerformance';
 import { ServicesSection } from '../components/ui/ServicesSection';
 import { LoginModal } from '../components/ui/LoginModal';
-import ClientOnly3D from '../components/ClientOnly3D';
 
 // Dynamic imports to prevent SSR issues
 const Scene3D = dynamic(
@@ -118,7 +115,7 @@ const MotionControlPanel = dynamic(
 
 export default function HomePage() {
   const metrics = usePerformance();
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMotionPanelOpen, setIsMotionPanelOpen] = useState(false);
   // const { motionSettings } = useMotionOrchestrator();
 

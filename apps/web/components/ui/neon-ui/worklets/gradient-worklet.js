@@ -1,14 +1,24 @@
 // CSS Houdini Paint Worklet für NeonUI
 class NeonGradientPainter {
   static get inputProperties() {
-    return ['--neon-colors', '--neon-speed', '--neon-time', '--neon-direction', '--neon-frequency-data'];
+    return [
+      '--neon-colors',
+      '--neon-speed',
+      '--neon-time',
+      '--neon-direction',
+      '--neon-frequency-data',
+    ];
   }
 
   paint(ctx, size, properties) {
-    const colors = properties.get('--neon-colors').toString().split(',') || ['#00ff00', '#0080ff'];
+    const colors = properties.get('--neon-colors').toString().split(',') || [
+      '#00ff00',
+      '#0080ff',
+    ];
     const speed = parseFloat(properties.get('--neon-speed').toString()) || 1;
     const time = parseFloat(properties.get('--neon-time').toString()) || 0;
-    const direction = parseFloat(properties.get('--neon-direction').toString()) || 0;
+    const direction =
+      parseFloat(properties.get('--neon-direction').toString()) || 0;
     const frequencyData = properties.get('--neon-frequency-data').toString();
 
     const width = size.width;
@@ -27,12 +37,19 @@ class NeonGradientPainter {
     }
 
     // Animierter Gradient mit Zeitbasierung
-    const gradient = ctx.createLinearGradient(0, 0, Math.cos(direction) * width, Math.sin(direction) * height);
+    const gradient = ctx.createLinearGradient(
+      0,
+      0,
+      Math.cos(direction) * width,
+      Math.sin(direction) * height
+    );
 
     const animatedTime = time * speed * audioIntensity;
 
     colors.forEach((color, index) => {
-      const stop = (index / (colors.length - 1) + Math.sin(animatedTime + index) * 0.1) % 1;
+      const stop =
+        (index / (colors.length - 1) + Math.sin(animatedTime + index) * 0.1) %
+        1;
       gradient.addColorStop(Math.max(0, Math.min(1, stop)), color.trim());
     });
 
