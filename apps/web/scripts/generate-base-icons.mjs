@@ -21,6 +21,7 @@ async function generateBaseIcon(size) {
 }
 
 // Generate base icons
+await generateBaseIcon(180);
 await generateBaseIcon(192);
 await generateBaseIcon(512);
 

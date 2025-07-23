@@ -1,5 +1,88 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { AnimatedLogo4D } from '../3d/AnimatedLogo4D';
+
+export function HeroSection() {
+  return (
+    <div className="relative w-full overflow-hidden">
+      {/* 3D Logo Background */}
+      <div className="absolute inset-0 z-0">
+        <AnimatedLogo4D
+          className="h-full w-full"
+          enableParticles={true}
+          enableTimeMorphing={true}
+          fpsLimit={60}
+          themeColors={{
+            primary: '#00ffff',
+            secondary: '#ff00ff',
+            accent: '#ffff00',
+            glow: '#ffffff',
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl"
+          >
+            <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              IVO TECH
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mx-auto mt-6 max-w-lg text-xl text-gray-300 sm:max-w-3xl"
+          >
+            Innovative Softwarelösungen für die digitale Zukunft
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-10 flex justify-center gap-x-6"
+          >
+            <a
+              href="#contact"
+              className="rounded-md bg-cyan-500 px-8 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+            >
+              Kontakt aufnehmen
+            </a>
+            <a
+              href="#portfolio"
+              className="rounded-md border border-cyan-500 bg-transparent px-8 py-3 text-base font-semibold text-cyan-400 shadow-sm transition-colors hover:bg-cyan-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+            >
+              Portfolio ansehen
+            </a>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div
+          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-cyan-500 to-blue-500 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+'use client';
+
 import React, { Suspense, useState } from 'react';
 import dynamic from 'next/dynamic';
 
