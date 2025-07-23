@@ -9,9 +9,10 @@ export default createNextApiHandler({
   onError:
     process.env.NODE_ENV === 'development'
       ? ({ path, error }) => {
-          console.error(
-            `❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`
-          );
-        }
+        // eslint-disable-next-line no-console
+        console.error(
+          `❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`
+        );
+      }
       : undefined,
 });
