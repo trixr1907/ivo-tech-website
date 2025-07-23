@@ -148,8 +148,9 @@ function InteractiveLogo4DDemo() {
       {/* Controls */}
       <div className="grid grid-cols-2 gap-4 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
         <div>
-          <label className="mb-2 block text-sm text-white">Größe</label>
+          <label htmlFor="size" className="mb-2 block text-sm text-white">Größe</label>
           <input
+            id="size"
             type="range"
             min="0.5"
             max="2"
@@ -164,8 +165,9 @@ function InteractiveLogo4DDemo() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm text-white">FPS Limit</label>
+          <label htmlFor="fps-limit" className="mb-2 block text-sm text-white">FPS Limit</label>
           <select
+            id="fps-limit"
             value={config.fpsLimit}
             onChange={e =>
               setConfig(prev => ({
@@ -182,8 +184,9 @@ function InteractiveLogo4DDemo() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm text-white">Theme</label>
+          <label htmlFor="theme" className="mb-2 block text-sm text-white">Theme</label>
           <select
+            id="theme"
             value={config.theme}
             onChange={e =>
               setConfig(prev => ({ ...prev, theme: e.target.value }))
@@ -198,6 +201,7 @@ function InteractiveLogo4DDemo() {
 
         <div className="flex items-center">
           <input
+            id="particles"
             type="checkbox"
             checked={config.enableParticles}
             onChange={e =>
@@ -208,11 +212,12 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label className="text-sm text-white">Partikel</label>
+          <label htmlFor="particles" className="text-sm text-white">Partikel</label>
         </div>
 
         <div className="flex items-center">
           <input
+            id="scan-lines"
             type="checkbox"
             checked={config.enableScanLines}
             onChange={e =>
@@ -223,11 +228,12 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label className="text-sm text-white">Scan Lines</label>
+          <label htmlFor="scan-lines" className="text-sm text-white">Scan Lines</label>
         </div>
 
         <div className="flex items-center">
           <input
+            id="time-morphing"
             type="checkbox"
             checked={config.enableTimeMorphing}
             onChange={e =>
@@ -238,7 +244,7 @@ function InteractiveLogo4DDemo() {
             }
             className="mr-2"
           />
-          <label className="text-sm text-white">Time Morphing</label>
+          <label htmlFor="time-morphing" className="text-sm text-white">Time Morphing</label>
         </div>
       </div>
 

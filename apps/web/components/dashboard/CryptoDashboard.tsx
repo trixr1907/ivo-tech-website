@@ -162,9 +162,10 @@ export function CryptoDashboard() {
     return (
       <div className="flex h-96 items-center justify-center">
         <motion.div
+          data-testid="loading-spinner"
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="h-12 w-12 rounded-full border-4 border-blue-500 border-t-transparent"
+          className="h-12 w-12 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"
         />
       </div>
     );

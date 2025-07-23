@@ -1,19 +1,20 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import EpicScene3D from '@/components/3d/EpicScene3D';
+import { EpicScene3D } from '../../../components/3d/EpicScene3D';
 
 // Mock Three.js and React Three Fiber
 jest.mock('@react-three/fiber', () => ({
-  Canvas: ({ children, ...props }: any) => (
+  Canvas: jest.fn().mockImplementation(({ children, ...props }: any) => (
     <div data-testid="canvas" data-props={JSON.stringify(props)}>
       {children}
     </div>
-  ),
+  )),
   useFrame: jest.fn(),
-  useThree: () => ({
-    camera: { position: { set: jest.fn() } },
-    gl: { setSize: jest.fn() },
+  useThree: jest.fn().mockReturnValue({
+    camera: { position: { set: jest.fn() }, rotation: { set: jest.fn() } },
+    gl: { setSize: jest.fn(), setPixelRatio: jest.fn() },
+    scene: { add: jest.fn(), remove: jest.fn() },
   }),
-}));
+}))
 
 jest.mock('@react-three/drei', () => ({
   OrbitControls: () => <div data-testid="orbit-controls" />,

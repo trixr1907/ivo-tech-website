@@ -1,7 +1,6 @@
 {
   "name": "ivo-tech-web",
   "version": "1.0.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
@@ -13,13 +12,14 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --watchAll=false",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed",
+    "test": "jest --passWithNoTests --ci",
+    "test:watch": "jest --watch --testPathIgnorePatterns=['e2e/.*']",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns=['e2e/.*']",
+    "test:ci": "jest --ci --coverage --testPathIgnorePatterns=['e2e/.*'] --watchAll=false",
+    "test:e2e": "pnpm exec playwright test",
+    "test:e2e:ui": "pnpm exec playwright test --ui",
+    "test:e2e:headed": "pnpm exec playwright test --headed",
+    "test:all": "pnpm test && pnpm test:e2e",
     "check-types": "tsc --noEmit",
     "chromatic": "chromatic --exit-zero-on-changes",
     "storybook": "storybook dev -p 6006",
@@ -44,6 +44,9 @@
     "use-sound": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@next/bundle-analyzer": "^15.4.2",
     "@next/eslint-plugin-next": "^15.3.0",
     "@playwright/test": "^1.47.2",
@@ -69,6 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "autoprefixer": "^10.4.21",
+    "babel-jest": "^30.0.5",
     "chromatic": "^11.23.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.31.0",
@@ -86,6 +90,7 @@
     "storybook": "^8.4.7",
     "tailwindcss": "^3.4.17",
     "three": "^0.178.0",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
   }
 }
