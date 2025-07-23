@@ -5,6 +5,32 @@ Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
 und dieses Projekt folgt [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2025-07-23 - **Deployment Optimization**
+
+### 🚀 Features & Verbesserungen
+- **Build Optimierung**: Bundle-Größe auf 102 KB reduziert
+- **Asset Kompression**: Verbesserte Ladezeiten durch optimierte Assets
+- **Deployment Pipeline**: Automatisierte Vercel Deployment-Konfiguration
+
+### 🔧 Technische Updates
+- **Environment Setup**: Prod/Dev/Stage Konfigurationen überarbeitet
+- **Security**: API-Keys und Secrets über Vercel Dashboard gesichert
+- **Build System**: Turbo-Konfiguration optimiert
+
+### 📊 Performance Metriken
+- **First Load JS**: 102 KB (shared)
+- **Chunk Größen**: Optimiert (max. 53.2 KB)
+- **Middleware**: 33.7 KB
+- **Build Zeit**: 6.0 Sekunden
+
+### 🐛 Fehlerbehebungen
+- TypeScript-Fehler in Three.js Komponenten behoben
+- Build-Komplikationen systematisch beseitigt
+
+### 🔐 Sicherheit & Compliance
+- Umgebungsvariablen überprüft und aktualisiert
+- Sensitive Daten sicher konfiguriert
+
 ## [1.3.0] - 2025-07-20 - **Step 10: QA, Documentation & Handover**
 
 ### ✅ Added
