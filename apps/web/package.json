@@ -43,6 +43,7 @@
     "postprocessing": "^6.37.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-is": "^19.1.0",
     "recharts": "^3.1.0",
     "use-sound": "^5.0.0"
   },
