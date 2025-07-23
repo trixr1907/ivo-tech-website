@@ -1,6 +1,6 @@
 'use client';
 
-import { Color, SIDES } from '@/lib/three-utils';
+import { Color, SIDES } from '../../lib/three-utils';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Torus } from '@react-three/drei';
@@ -125,3 +125,4 @@ export function StarGate({ position = [0, 0, -5], scale = 1 }: StarGateProps) {
     </group>
   );
 }
+

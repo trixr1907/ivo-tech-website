@@ -1,6 +1,6 @@
 'use client';
 
-import { MathUtils } from '@/lib/three-utils';
+import { MathUtils } from '../../lib/three-utils';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
@@ -137,3 +137,4 @@ export function FloatingCTAButton({
     </group>
   );
 }
+
