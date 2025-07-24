@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Cloudflare Dynamic DNS Updater Every 5 Minutes
+Requires=cloudflare-ddns.service
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+Unit=cloudflare-ddns.service
+
+[Install]
+WantedBy=timers.target

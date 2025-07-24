@@ -1,0 +1,126 @@
+import { ShaderMaterialParameters, WebGLRenderer, WebGLRenderTarget, Vector2, Color, Vector3 } from 'three';
+import React from 'react';
+
+/**
+ * Audio-Reaktive Daten Interface
+ */
+export interface AudioReactiveData {
+  frequency: Float32Array;
+  amplitude: number;
+  bass: number;
+  mid: number;
+  high: number;
+  time: number;
+}
+
+/**
+ * Shader-Typen
+ */
+export type ShaderType =
+  | 'neonWireframe'
+  | 'hologramGrid'
+  | 'liquidMetal'
+  | 'datastreamFlow'
+  | 'timeWarpNoise'
+  | 'audioColorShift';
+
+/**
+ * Props für CyberpunkMaterial
+ */
+export interface CyberpunkMaterialProps extends ShaderMaterialParameters {
+  type: ShaderType;
+  audioReactive?: boolean;
+  glitchIntensity?: number;
+  neonIntensity?: number;
+  flowSpeed?: number;
+  colorShift?: number;
+}
+
+/**
+ * Cyberpunk-spezifische Shader Uniforms
+ */
+export interface CyberpunkShaderUniforms {
+  uTime: { value: number };
+  uAudioData: { value: AudioReactiveData };
+  uResolution: { value: Vector2 };
+  uMouse: { value: Vector2 };
+  uColorShift: { value: number };
+  uGlitchIntensity: { value: number };
+  uNeonIntensity: { value: number };
+  uFlowSpeed: { value: number };
+}
+
+/**
+ * Post-Processing Konfiguration
+ */
+export interface PostProcessingConfig {
+  bloom: {
+    enabled: boolean;
+    intensity: number;
+    radius: number;
+    threshold: number;
+  };
+  godRays: {
+    enabled: boolean;
+    samples: number;
+    density: number;
+    weight: number;
+    decay: number;
+  };
+  chromaticAberration: {
+    enabled: boolean;
+    offset: Vector2;
+    radialModulation: boolean;
+  };
+  volumetricLight: {
+    enabled: boolean;
+    samples: number;
+    scattering: number;
+    intensity: number;
+  };
+}
+
+/**
+ * SceneContext State Interface
+ */
+export interface SceneContextState {
+  audioData: AudioReactiveData;
+  time: number;
+  mouse: Vector2;
+  resolution: Vector2;
+  currentPreset: string;
+  shaderUniforms: CyberpunkShaderUniforms;
+  postProcessing: PostProcessingConfig;
+}
+
+/**
+ * Environment Preset Type
+ */
+export interface EnvironmentPreset {
+  name: string;
+  component: React.ComponentType;
+  postProcessing: PostProcessingConfig;
+  skybox: string;
+  fog: {
+    enabled: boolean;
+    color: Color;
+    near: number;
+    far: number;
+  };
+  lighting: {
+    ambient: {
+      color: Color;
+      intensity: number;
+    };
+    directional: {
+      color: Color;
+      intensity: number;
+      position: Vector3;
+    };
+    point: Array<{
+      color: Color;
+      intensity: number;
+      position: Vector3;
+    }>;
+  };
+}

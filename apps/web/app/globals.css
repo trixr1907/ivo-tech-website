@@ -1,0 +1,41 @@
+/* @import '../styles/neon-ui.css'; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Parallax & Motion Styles */
+.scroll-linked-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.parallax-section-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Custom utilities */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}

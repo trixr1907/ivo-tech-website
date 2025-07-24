@@ -1,0 +1,47 @@
+'use client';
+
+import React from 'react';
+import * as THREE from 'three';
+
+interface LightProps {
+  color: number;
+  intensity: number;
+  position?: [number, number, number];
+  castShadow?: boolean;
+  distance?: number;
+  decay?: number;
+}
+
+interface LightsProps {
+  ambient?: LightProps;
+  directional?: LightProps;
+  points?: LightProps[];
+}
+
+export const Lights: React.FC<LightsProps> = ({ ambient, directional, points = [] }) => {
+  return (
+    <>
+      {ambient && <ambientLight color={ambient.color} intensity={ambient.intensity} />}
+
+      {directional && (
+        <directionalLight
+          color={directional.color}
+          intensity={directional.intensity}
+          position={directional.position}
+          castShadow={directional.castShadow}
+        />
+      )}
+
+      {points.map((point, index) => (
+        <pointLight
+          key={index}
+          color={point.color}
+          intensity={point.intensity}
+          position={point.position}
+          distance={point.distance}
+          decay={point.decay}
+        />
+      ))}
+    </>
+  );
+};
