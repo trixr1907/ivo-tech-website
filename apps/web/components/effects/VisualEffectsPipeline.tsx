@@ -384,13 +384,14 @@ export function VisualEffectsPipeline() {
       });
       particleSystems.current.clear();
     };
-  }, []);
+  }, [createParticleSystem, scene]);
 
   // Get current preset effects
   const currentEffects = effectPresets[currentPreset]?.effects || {};
 
-  // API for external control
-  const effectsAPI = {
+
+  // Effect API Memo
+  const effectsAPI = useMemo(() => ({
     setPreset: setCurrentPreset,
     toggleEffects: () => setEffectsEnabled(!effectsEnabled),
     toggleAudioReactive: () => setAudioReactive(!audioReactive),
@@ -408,7 +409,7 @@ export function VisualEffectsPipeline() {
     getAvailablePresets: () => Object.keys(effectPresets),
     isEnabled: effectsEnabled,
     isAudioReactive: audioReactive,
-  };
+  }), [currentPreset, effectsEnabled, audioReactive, createParticleSystem, scene]);
 
   // Make API globally available
   useEffect(() => {
