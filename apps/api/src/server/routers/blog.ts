@@ -80,8 +80,17 @@ export const blogRouter = router({
 
       const post = await ctx.db.blogPost.create({
         data: {
-          ...input,
-          authorId,
+          title: input.title,
+          slug: input.slug,
+          excerpt: input.excerpt,
+          content: input.content,
+          category: input.category,
+          tags: input.tags,
+          featured: input.featured,
+          published: input.published,
+          author: {
+            connect: { id: authorId }
+          }
         },
       });
 

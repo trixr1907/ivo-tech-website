@@ -75,7 +75,18 @@ export const projectsRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const project = await ctx.db.project.create({
-        data: input,
+        data: {
+          title: input.title,
+          slug: input.slug,
+          description: input.description,
+          content: input.content ?? '',
+          technologies: input.technologies ?? '',
+          githubUrl: input.githubUrl,
+          liveUrl: input.liveUrl,
+          imageUrl: input.imageUrl,
+          featured: input.featured,
+          status: input.status
+        },
       });
 
       return project;
