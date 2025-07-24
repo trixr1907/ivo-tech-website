@@ -1,5 +1,6 @@
-const { expect } = require('@jest/globals');
-require('jest-canvas-mock');
+import { expect } from '@jest/globals';
+import 'jest-canvas-mock';
+import '@testing-library/jest-dom';
 
 // Mock window functions
 if (typeof window !== 'undefined') {
@@ -19,7 +20,6 @@ if (typeof window !== 'undefined') {
   window.requestAnimationFrame = jest.fn(callback => setTimeout(callback, 0));
   window.cancelAnimationFrame = jest.fn();
 }
-require('@testing-library/jest-dom');
 
 // Mock document.createElement if it doesn't exist
 if (typeof document === 'undefined') {

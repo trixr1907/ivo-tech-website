@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "target": "ES2020",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es2020"
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -41,19 +44,29 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "types": [
+      "node",
       "react",
       "react-dom",
-      "node",
-      "web"
+      "jest"
+    ],
+    "typeRoots": [
+      "../../node_modules/@types",
+      "./types"
     ]
   },
   "include": [
+    "**/*.js",
+    "**/*.jsx",
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "lib/types/*.d.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    ".next/types/**/*.ts"
   ],
+  "ts-node": {
+    "transpileOnly": true
+  },
   "exclude": [
     "node_modules"
   ]

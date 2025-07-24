@@ -17,7 +17,7 @@ interface LightsProps {
   points?: LightProps[];
 }
 
-export const Lights: React.FC<LightsProps> = () => {
+export const Lights = (_props: LightsProps) => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <p className="text-gray-400">

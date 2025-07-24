@@ -1,13 +1,8 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useRef,
-  useEffect,
-  useState,
-  ReactNode,
-} from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import {

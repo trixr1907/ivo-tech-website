@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
-export function CLIInterface() {
-  // const [currentCommand, setCurrentCommand] = useState('');
-  const [commandHistory, setCommandHistory] = useState([
+interface CLIInterfaceProps {}
+
+export const CLIInterface: FC = () => {
+  const [commandHistory, setCommandHistory] = React.useState([
     '$ welcome to ivo-tech.com',
     '> Initializing system...',
     '> Loading components... ✓',
     '> System ready.',
   ]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const commands = [
       '$ npm run dev',
       '> Starting development server...',

@@ -1,7 +1,8 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import React from 'react';
+import type { FC } from 'react';
 import { HeroSection } from '../components/ui/HeroSection';
 import { NavigationHeader } from '../components/ui/NavigationHeader';
 import { AboutSection } from '../components/ui/AboutSection';
@@ -21,7 +22,7 @@ import { LoginModal } from '../components/ui/LoginModal';
 
 export default function HomePage() {
   const metrics = usePerformance();
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+const [isLoginOpen, setIsLoginOpen] = React.useState(false);
   // const { motionSettings } = useMotionOrchestrator();
 
   const handleLoginClick = () => {

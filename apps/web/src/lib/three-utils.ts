@@ -1,4 +1,6 @@
-import {
+import * as THREE from 'three';
+
+const {
   Color,
   Vector3,
   Vector2,
@@ -17,7 +19,7 @@ import {
   MeshBasicMaterial,
   AmbientLight,
   PointLight,
-} from 'three';
+} = THREE;
 
 // Re-export all Three.js components
 export {

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useMemo, useRef, forwardRef } from 'react';
+import React from 'react';
+import { useMemo, useRef, forwardRef, type ComponentType } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useSceneContext } from '../contexts/SceneContext';

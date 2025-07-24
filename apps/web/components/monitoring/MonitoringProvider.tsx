@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, ReactNode } from 'react';
+import React from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface MonitoringProviderProps {
   children: ReactNode;
@@ -30,10 +31,8 @@ export const trackPerformance = (
   }
 };
 
-export const MonitoringProvider: React.FC<MonitoringProviderProps> = ({
-  children,
-}) => {
-  useEffect(() => {
+export const MonitoringProvider: FC<MonitoringProviderProps> = ({ children }) => {
+  React.useEffect(() => {
     console.log('MonitoringProvider initialized');
 
     // Global error handler

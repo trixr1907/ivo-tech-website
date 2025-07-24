@@ -38,9 +38,7 @@ interface PostProcessingPipelineProps {
   audioIntensity?: number;
 }
 
-export const PostProcessingPipeline: React.FC<
-  PostProcessingPipelineProps
-> = () => {
+export const PostProcessingPipeline = (_props: PostProcessingPipelineProps) => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <p className="text-gray-400">
