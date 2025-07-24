@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useMemo, useState } from 'react';
+import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import {
   EffectComposer,
@@ -193,16 +193,17 @@ export function VisualEffectsPipeline() {
   }, []);
 
   // Create particle system
-  const createParticleSystem = (
-    id: string,
-    config: {
-      count: number;
-      emissionRate: number;
-      maxLifetime: number;
-      color: THREE.Color;
-      size: number;
-    }
-  ) => {
+  const createParticleSystem = useCallback(
+    (
+      id: string,
+      config: {
+        count: number;
+        emissionRate: number;
+        maxLifetime: number;
+        color: THREE.Color;
+        size: number;
+      }
+    ) => {
     const { count, emissionRate, maxLifetime, color, size } = config;
 
     const positions = new Float32Array(count * 3);
@@ -268,10 +269,10 @@ export function VisualEffectsPipeline() {
 
     particleSystems.current.set(id, particleSystem);
     return particleSystem;
-  };
+  }, [scene]);
 
   // Update particle systems
-  const updateParticles = (delta: number, audioData?: Uint8Array) => {
+  const updateParticles = useCallback((delta: number, audioData?: Uint8Array) => {
     particleSystems.current.forEach(system => {
       const { positions, velocities, lifetimes, maxLifetime, count } = system;
 
@@ -326,7 +327,7 @@ export function VisualEffectsPipeline() {
         new THREE.BufferAttribute(opacities, 1)
       );
     });
-  };
+  }, [audioReactive]);
 
   // Animation loop
   useFrame((state, delta) => {
