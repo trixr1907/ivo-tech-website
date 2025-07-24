@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-const { ShaderMaterial, Vector2 } = THREE;
+const { ShaderMaterial, Vector2, Mesh } = THREE;
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
@@ -76,7 +76,7 @@ const CurtainMesh: React.FC<{
   color: [number, number, number];
   intensity: number;
 }> = ({ progress, color, intensity }) => {
-  const meshRef = useRef<Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const { size } = useThree();
 
   const shaderMaterial = useMemo(

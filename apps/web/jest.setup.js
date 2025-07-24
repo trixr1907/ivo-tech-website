@@ -1,4 +1,24 @@
 const { expect } = require('@jest/globals');
+require('jest-canvas-mock');
+
+// Mock window functions
+if (typeof window !== 'undefined') {
+  window.scrollTo = jest.fn();
+  
+  window.matchMedia = jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  }));
+
+  window.requestAnimationFrame = jest.fn(callback => setTimeout(callback, 0));
+  window.cancelAnimationFrame = jest.fn();
+}
 require('@testing-library/jest-dom');
 
 // Mock document.createElement if it doesn't exist

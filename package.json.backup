@@ -1,6 +1,5 @@
 {
   "name": "ivo-tech",
-  "type": "module",
   "private": true,
   "scripts": {
     "build": "turbo run build",

@@ -139,23 +139,23 @@ export function CryptoDashboard() {
   }, []);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'USD',
+    const formattedPrice = new Intl.NumberFormat('de-DE', {
+      style: 'decimal',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(price);
+    return `${formattedPrice} $`;
   };
 
   const formatMarketCap = (marketCap: number) => {
     if (marketCap >= 1e12) {
-      return `$${(marketCap / 1e12).toFixed(2)}T`;
+      return `$${(marketCap / 1e12).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}T`;
     } else if (marketCap >= 1e9) {
-      return `$${(marketCap / 1e9).toFixed(2)}B`;
+      return `$${(marketCap / 1e9).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}B`;
     } else if (marketCap >= 1e6) {
-      return `$${(marketCap / 1e6).toFixed(2)}M`;
+      return `$${(marketCap / 1e6).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}M`;
     }
-    return `$${marketCap.toFixed(2)}`;
+    return `$${marketCap.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   if (loading) {
@@ -251,7 +251,7 @@ export function CryptoDashboard() {
               >
                 <div className="text-lg font-bold">
                   {crypto.price_change_percentage_24h >= 0 ? '↗' : '↘'}
-                  {Math.abs(crypto.price_change_percentage_24h).toFixed(2)}%
+                  {Math.abs(crypto.price_change_percentage_24h).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%
                 </div>
               </motion.div>
             </div>

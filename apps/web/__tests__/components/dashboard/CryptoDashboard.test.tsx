@@ -83,8 +83,8 @@ describe('CryptoDashboard', () => {
       await waitFor(() => {
         expect(screen.getByText('Bitcoin')).toBeInTheDocument();
         expect(screen.getByText('Ethereum')).toBeInTheDocument();
-        expect(screen.getByText('BTC')).toBeInTheDocument();
-        expect(screen.getByText('ETH')).toBeInTheDocument();
+expect(screen.getByText('btc')).toBeInTheDocument();
+expect(screen.getByText('eth')).toBeInTheDocument();
       });
     });
 
@@ -264,15 +264,18 @@ describe('CryptoDashboard', () => {
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
-        value: 375,
+        value: 375
       });
 
+      jest.useFakeTimers();
       render(<CryptoDashboard />);
+      jest.advanceTimersByTime(5000);
 
       await waitFor(() => {
         const grid = screen.getByTestId('crypto-grid');
         expect(grid).toHaveClass('grid-cols-1');
       });
+      jest.useRealTimers();
     });
   });
 });

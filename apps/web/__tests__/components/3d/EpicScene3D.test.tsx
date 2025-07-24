@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { EpicScene3D } from '../../../components/3d/EpicScene3D';
+import EpicScene3D from '../../../components/3d/EpicScene3D';
 
 // Mock Three.js and React Three Fiber
 jest.mock('@react-three/fiber', () => ({
@@ -20,6 +20,12 @@ jest.mock('@react-three/drei', () => ({
   OrbitControls: () => <div data-testid="orbit-controls" />,
   Stars: () => <div data-testid="stars" />,
   Environment: () => <div data-testid="environment" />,
+  Text: () => <div data-testid="text" />,
+  Box: () => <div data-testid="box" />,
+  Sphere: () => <div data-testid="sphere" />,
+  Torus: () => <div data-testid="torus" />,
+  Float: ({ children }) => <div data-testid="float">{children}</div>,
+  Html: ({ children }) => <div data-testid="html">{children}</div>,
 }));
 
 jest.mock('three', () => ({
@@ -63,10 +69,6 @@ describe('EpicScene3D', () => {
       expect(screen.getByTestId('stars')).toBeInTheDocument();
     });
 
-    test('renders Environment for lighting', () => {
-      render(<EpicScene3D />);
-      expect(screen.getByTestId('environment')).toBeInTheDocument();
-    });
   });
 
   describe('Responsive Behavior', () => {

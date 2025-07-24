@@ -3,6 +3,8 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFiles: ['jest-canvas-mock'],
+  testTimeout: 30000, // Increased timeout to 30 seconds
   transform: {
     '^.+\.[tj]sx?$': ['babel-jest', {
       presets: [

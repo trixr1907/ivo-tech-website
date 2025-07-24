@@ -334,18 +334,19 @@ export const ParallaxSection3D: React.FC<{
     }
   };
 
-  const transform3D = enable3D
-    ? useTransform(
-        scrollYProgress,
-        [0, 1],
-        [
+  const transform3D = useTransform(
+    scrollYProgress,
+    [0, 1],
+    enable3D
+      ? [
           `${getTransform(direction, scrollYProgress)} rotateX(0deg) rotateY(0deg)`,
           `${getTransform(direction, scrollYProgress)} rotateX(5deg) rotateY(2deg)`,
         ]
-      )
-    : useTransform(scrollYProgress, progress =>
-        getTransform(direction, { get: () => progress } as MotionValue<number>)
-      );
+      : [
+          getTransform(direction, { get: () => 0 } as MotionValue<number>),
+          getTransform(direction, { get: () => 1 } as MotionValue<number>),
+        ]
+  );
 
   return (
     <motion.div
