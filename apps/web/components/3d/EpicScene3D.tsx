@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
   Text,
@@ -12,11 +12,9 @@ import {
   Float,
   Html,
 } from '@react-three/drei';
-import { motion } from 'framer-motion';
 import * as THREE from 'three';
-import { ThreeElements } from '@react-three/fiber';
 
-// Floating Tech Orbs Component
+// Internal Components
 interface TechOrbProps {
   position: [number, number, number];
   color: string;
@@ -243,4 +241,5 @@ function EpicScene3D({
   );
 }
 
-export default EpicScene3D;
+// TechOrb wird direkt in EpicScene3D verwendet, muss nicht exportiert werden
+export default EpicScene3D

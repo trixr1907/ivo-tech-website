@@ -5,9 +5,8 @@ import React, {
   useEffect,
   lazy,
   ComponentType,
-  Component,
 } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { WebGLPowerPreference } from 'three';
 import {
   isLowEndDevice,
   prefersReducedMotion,
@@ -43,57 +42,7 @@ interface DeviceCapabilities {
   maxParticles: number;
 }
 
-/**
- * 3D Loading Spinner
- */
-function Loading3D({
-  message = '3D-Inhalte werden geladen...',
-}: {
-  message?: string;
-}) {
-  return (
-    <div className="flex h-full min-h-[200px] items-center justify-center rounded-lg border border-cyan-500/30 bg-gray-900/50">
-      <div className="text-center">
-        <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
-        <p className="font-mono text-sm text-cyan-400">{message}</p>
-        <div className="mt-2 text-xs text-gray-400">
-          Optimiere für dein Gerät...
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // Vereinfachte Error Boundary - temporär deaktiviert
-
-/**
- * Error Fallback für 3D-Komponenten
- */
-function Error3DFallback({
-  error,
-  retry,
-}: {
-  error: Error;
-  retry: () => void;
-}) {
-  return (
-    <div className="flex h-full min-h-[200px] items-center justify-center rounded-lg border border-red-500/30 bg-red-900/20">
-      <div className="p-6 text-center">
-        <div className="mb-2 text-2xl text-red-400">⚠️</div>
-        <h3 className="mb-2 font-semibold text-red-400">3D-Rendering Fehler</h3>
-        <p className="mb-4 text-sm text-red-300">
-          {error.message || 'WebGL wird nicht unterstützt oder ist deaktiviert'}
-        </p>
-        <button
-          onClick={retry}
-          className="rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
-        >
-          Erneut versuchen
-        </button>
-      </div>
-    </div>
-  );
-}
 
 /**
  * Hauptkomponente für adaptives 3D-Rendering
@@ -266,12 +215,6 @@ export function Adaptive3DContainer({
     };
   };
 
-  // Retry-Funktion für Error Boundary
-  const handleRetry = () => {
-    setShowFallback(false);
-    // Komponente neu laden
-    window.location.reload();
-  };
 
   // Zeige SVG-Fallback wenn nötig
   if (showFallback || !deviceCapabilities.canHandle3D) {

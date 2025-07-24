@@ -2,8 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import { isLowEndDevice } from '../lib/utils';
-import { ProgressiveScene } from '../components/3d/ProgressiveScene';
 import { HeroSection } from '../components/ui/HeroSection';
 import { NavigationHeader } from '../components/ui/NavigationHeader';
 import { AboutSection } from '../components/ui/AboutSection';
@@ -15,103 +13,8 @@ import { CLIInterface } from '../components/ui/CLIInterface';
 import { usePerformance } from '../hooks/usePerformance';
 import { ServicesSection } from '../components/ui/ServicesSection';
 import { LoginModal } from '../components/ui/LoginModal';
-import ClientOnly3D from '../components/ClientOnly3D';
 
-// Dynamic imports to prevent SSR issues
-const Scene3D = dynamic(
-  () =>
-    import('../components/3d/Scene3D').then(mod => ({ default: mod.Scene3D })),
-  {
-    ssr: false,
-  }
-);
-const ParallaxStarfield = dynamic(
-  () =>
-    import('../components/3d/ParallaxStarfield').then(mod => ({
-      default: mod.ParallaxStarfield,
-    })),
-  { ssr: false }
-);
-const Adaptive3DContainer = dynamic(
-  () =>
-    import('../components/3d/Adaptive3DContainer').then(mod => ({
-      default: mod.Adaptive3DContainer,
-    })),
-  { ssr: false }
-);
-const PWAProvider = dynamic(
-  () =>
-    import('../components/PWAProvider').then(mod => ({
-      default: mod.PWAProvider,
-    })),
-  {
-    ssr: false,
-  }
-);
-const NoCoinerRoastMachine = dynamic(
-  () =>
-    import('../components/games/NoCoinerRoastMachine').then(mod => ({
-      default: mod.NoCoinerRoastMachine,
-    })),
-  { ssr: false }
-);
-const CryptoDashboard = dynamic(
-  () =>
-    import('../components/dashboard/CryptoDashboard').then(mod => ({
-      default: mod.CryptoDashboard,
-    })),
-  { ssr: false }
-);
-const MonitoringDashboard = dynamic(
-  () => import('../components/monitoring/MonitoringDashboard'),
-  { ssr: false }
-);
-const NeonProvider = dynamic(
-  () =>
-    import('../components/ui/neon-ui').then(mod => ({
-      default: mod.NeonProvider,
-    })),
-  {
-    ssr: false,
-  }
-);
-const NeonUIDemo = dynamic(
-  () =>
-    import('../components/ui/neon-ui/NeonUIDemo').then(mod => ({
-      default: mod.NeonUIDemo,
-    })),
-  { ssr: false }
-);
-const Advanced3DPerformanceDashboard = dynamic(
-  () =>
-    import('../components/monitoring/Advanced3DPerformanceDashboard').then(
-      mod => ({
-        default: mod.Advanced3DPerformanceDashboard,
-      })
-    ),
-  { ssr: false }
-);
-const AdaptivePerformanceEngine = dynamic(
-  () =>
-    import('../components/performance/AdaptivePerformanceEngine').then(mod => ({
-      default: mod.AdaptivePerformanceEngine,
-    })),
-  { ssr: false }
-);
-const OrchestatedSection = dynamic(
-  () =>
-    import('../components/motion/MotionOrchestrator').then(mod => ({
-      default: mod.OrchestatedSection,
-    })),
-  { ssr: false }
-);
-const MotionControlPanel = dynamic(
-  () =>
-    import('../components/motion/MotionOrchestrator').then(mod => ({
-      default: mod.MotionControlPanel,
-    })),
-  { ssr: false }
-);
+// Dynamic imports sind temporär auskommentiert, da sie aktuell nicht verwendet werden
 
 // Hook import (not dynamic)
 // import { useMotionOrchestrator } from '../components/motion/MotionOrchestrator';
@@ -119,7 +22,6 @@ const MotionControlPanel = dynamic(
 export default function HomePage() {
   const metrics = usePerformance();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isMotionPanelOpen, setIsMotionPanelOpen] = useState(false);
   // const { motionSettings } = useMotionOrchestrator();
 
   const handleLoginClick = () => {
@@ -372,18 +274,6 @@ export default function HomePage() {
       <LoginModal isOpen={isLoginOpen} onClose={handleCloseLogin} />
 
       {/* Motion Control Panel - TEMPORARILY DISABLED */}
-      {/* <MotionControlPanel isOpen={isMotionPanelOpen} onClose={() => setIsMotionPanelOpen(false)} /> */}
-
-      {/* Motion Control Trigger (Development) */}
-      {process.env.NODE_ENV === 'development' && (
-        <button
-          onClick={() => setIsMotionPanelOpen(true)}
-          className="fixed bottom-4 right-20 z-50 rounded-full bg-purple-600 p-3 text-white shadow-lg transition-colors hover:bg-purple-700"
-          title="Motion Control Panel"
-        >
-          🎭
-        </button>
-      )}
 
       {/* PWA Provider für Service Worker und Installation - Temporarily disabled */}
       {/* <PWAProvider /> */}
