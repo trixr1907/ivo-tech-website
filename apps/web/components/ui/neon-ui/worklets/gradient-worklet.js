@@ -4,15 +4,18 @@ class NeonGradientPainter {
     return ['--neon-colors', '--neon-speed', '--neon-time', '--neon-direction', '--neon-frequency-data'];
   }
 
-  paint(ctx, size, properties) {
+  /** @param {PaintRenderingContext2D} ctx */
+  /** @param {PaintSize} geom */
+  /** @param {StylePropertyMapReadonly} properties */
+  paint(ctx, geom, properties) {
     const colors = properties.get('--neon-colors').toString().split(',') || ['#00ff00', '#0080ff'];
     const speed = parseFloat(properties.get('--neon-speed').toString()) || 1;
     const time = parseFloat(properties.get('--neon-time').toString()) || 0;
     const direction = parseFloat(properties.get('--neon-direction').toString()) || 0;
     const frequencyData = properties.get('--neon-frequency-data').toString();
 
-    const width = size.width;
-    const height = size.height;
+    const width = geom.width;
+    const height = geom.height;
 
     // Audio-reaktive Modifikation
     let audioIntensity = 1;
@@ -21,7 +24,7 @@ class NeonGradientPainter {
         const data = JSON.parse(frequencyData);
         const average = data.reduce((a, b) => a + b, 0) / data.length;
         audioIntensity = 1 + (average / 255) * 0.5;
-      } catch (e) {
+      } catch {
         // Fallback ohne Audio
       }
     }
