@@ -5,6 +5,7 @@ import styles from './page.module.css';
 type Props = Omit<ImageProps, 'src'> & {
   srcLight: string;
   srcDark: string;
+  alt: string;
 };
 
 const ThemeImage = (props: Props) => {
