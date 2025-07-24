@@ -17,4 +17,8 @@ export const motion = {
   span: createMockComponent('span'),
   img: createMockComponent('img'),
   button: createMockComponent('button'),
+  section: createMockComponent('section'),
+  h3: createMockComponent('h3'),
+  ul: createMockComponent('ul'),
+  li: createMockComponent('li'),
 };
