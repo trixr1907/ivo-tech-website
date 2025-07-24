@@ -1,5 +1,6 @@
 {
   "name": "ivo-tech",
+  "packageManager": "pnpm@8.15.5",
   "type": "module",
   "private": true,
   "scripts": {
@@ -7,41 +8,19 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types",
-    "prepare": "husky",
-    "pre-commit": "lint-staged"
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.15.1",
+    "@types/node": "^24.1.0",
+    "@types/react": "18.2.66",
+    "@types/react-dom": "^18.2.22",
     "husky": "^9.0.0",
     "lint-staged": "^15.5.2",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "turbo": "^2.5.5",
-    "typescript": "5.8.3"
-  },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,md}": [
-      "prettier --write"
-    ],
-    "apps/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ],
-    "packages/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
-  "dependencies": {
-    "@react-three/drei": "^9.102.6",
-    "@react-three/fiber": "^8.15.19",
-    "@types/react": "18.2.0",
-    "@types/three": "^0.162.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "three": "^0.162.0"
+    "turbo": "^2.5.5",
+    "typescript": "5.8.3"
   }
 }
