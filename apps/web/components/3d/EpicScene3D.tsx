@@ -11,12 +11,12 @@ import {
   Stars,
   Float,
   Html,
-  meshStandardMaterial as MeshStandardMaterial,
   MeshBasicMaterial,
   AmbientLight,
   PointLight,
   SpotLight,
-  Mesh
+  Mesh,
+  primitive
 } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
@@ -53,13 +53,13 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
         scale={hovered ? 1.2 : 1}
       >
         <Sphere args={[0.5, 32, 32]} />
-        <MeshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={hovered ? 0.3 : 0.1}
-          transparent={true}
-          opacity={0.8}
-        />
+        <primitive object={new THREE.MeshStandardMaterial({
+          color: color,
+          emissive: color,
+          emissiveIntensity: hovered ? 0.3 : 0.1,
+          transparent: true,
+          opacity: 0.8
+        })} />
         {hovered && (
           <Html center>
             <div className="rounded bg-black/80 p-2 font-mono text-sm text-white backdrop-blur">
@@ -129,9 +129,9 @@ function DNAHelix() {
           position={[point.x, point.y, point.z]}
           args={[0.05]}
         >
-          <MeshStandardMaterial
-            color={new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)}
-          />
+          <primitive object={new THREE.MeshStandardMaterial({
+            color: new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)
+          })} />
         </Sphere>
       ))}
     </group>
@@ -209,12 +209,12 @@ function EpicScene3D({
         {/* Central Torus */}
         <Float speed={1} rotationIntensity={2}>
           <Torus position={[0, 0, 0]} args={[2, 0.5, 16, 32]}>
-            <MeshStandardMaterial
-              color={new THREE.Color('#ff6b6b')}
-              emissive={new THREE.Color('#ff6b6b')}
-              emissiveIntensity={0.2}
-              wireframe={true}
-            />
+            <primitive object={new THREE.MeshStandardMaterial({
+              color: new THREE.Color('#ff6b6b'),
+              emissive: new THREE.Color('#ff6b6b'),
+              emissiveIntensity: 0.2,
+              wireframe: true
+            })} />
           </Torus>
         </Float>
 
