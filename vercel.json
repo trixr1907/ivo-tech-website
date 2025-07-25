@@ -2,7 +2,12 @@
   "buildCommand": "pnpm install \u0026\u0026 pnpm build",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "devCommand": "pnpm dev",
-  "outputDirectory": ".next",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/apps/api/api/(.*)" },
+    { "source": "/docs/(.*)", "destination": "/apps/docs/(.*)" },
+    { "source": "/(.*)", "destination": "/apps/web/(.*)" }
+  ],
+  "outputDirectory": "apps/web/.next",
   "crons": [
     {
       "path": "/api/revalidate",
