@@ -38,7 +38,7 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-      <mesh
+<Mesh
         ref={mesh}
         position={position}
         onClick={onClick}
@@ -46,12 +46,12 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
         onPointerOut={() => setHovered(false)}
         scale={hovered ? 1.2 : 1}
       >
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial
+        <Sphere args={[0.5, 32, 32]} />
+        <MeshStandardMaterial
           color={color}
           emissive={color}
           emissiveIntensity={hovered ? 0.3 : 0.1}
-          transparent
+          transparent={true}
           opacity={0.8}
         />
         {hovered && (
@@ -89,7 +89,7 @@ function AnimatedGrid() {
           ]}
           args={[0.1, 0.1, 0.1]}
         >
-          <meshBasicMaterial color="#0099ff" transparent opacity={0.6} />
+          <MeshBasicMaterial color="#0099ff" transparent={true} opacity={0.6} />
         </Box>
       ))}
     </group>
@@ -123,14 +123,17 @@ function DNAHelix() {
           position={[point.x, point.y, point.z]}
           args={[0.05]}
         >
-          <meshStandardMaterial
+          <MeshStandardMaterial
             color={new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)}
           />
-        </Sphere>
+</Sphere>
       ))}
     </group>
   );
 }
+
+// Import necessary components
+import { AmbientLight, PointLight, SpotLight, Mesh, MeshStandardMaterial, MeshBasicMaterial } from '@react-three/drei';
 
 // Main Epic Scene Component
 function EpicScene3D({
@@ -156,19 +159,19 @@ function EpicScene3D({
         performance={{ min: 0.5 }}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight
+        <AmbientLight intensity={0.3} />
+        <PointLight position={[10, 10, 10]} intensity={1} />
+        <PointLight
           position={[-10, -10, -10]}
           intensity={0.5}
           color="#ff0040"
         />
-        <spotLight
+        <SpotLight
           position={[15, 15, 15]}
           angle={0.3}
           penumbra={1}
           intensity={0.5}
-          castShadow
+          castShadow={true}
         />
 
         {/* Background Stars */}
@@ -202,11 +205,11 @@ function EpicScene3D({
         {/* Central Torus */}
         <Float speed={1} rotationIntensity={2}>
           <Torus position={[0, 0, 0]} args={[2, 0.5, 16, 32]}>
-            <meshStandardMaterial
+            <MeshStandardMaterial
               color={new THREE.Color('#ff6b6b')}
               emissive={new THREE.Color('#ff6b6b')}
               emissiveIntensity={0.2}
-              wireframe
+              wireframe={true}
             />
           </Torus>
         </Float>
