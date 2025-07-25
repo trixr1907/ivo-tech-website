@@ -28,12 +28,14 @@ function PuzzleCube({
 
   useFrame(state => {
     if (mesh.current) {
-      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime + index) * 0.1;
-      mesh.current.rotation.y = Math.cos(state.clock.elapsedTime + index) * 0.1;
+      mesh.current.rotation.x =
+        Math.sin(state.clock.getElapsedTime() + index) * 0.1;
+      mesh.current.rotation.y =
+        Math.cos(state.clock.getElapsedTime() + index) * 0.1;
 
       if (isCorrect) {
         mesh.current.scale.setScalar(
-          1.1 + Math.sin(state.clock.elapsedTime * 3) * 0.05
+          1.1 + Math.sin(state.clock.getElapsedTime() * 3) * 0.05
         );
       } else {
         mesh.current.scale.setScalar(hovered ? 1.1 : 1);

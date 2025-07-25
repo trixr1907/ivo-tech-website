@@ -24,7 +24,7 @@ export function FloatingCTAButton({
     if (buttonRef.current) {
       // Floating animation
       buttonRef.current.position.y =
-        position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.1;
+        position[1] + Math.sin(state.clock.getElapsedTime() * 2) * 0.1;
 
       // Hover tilt effect
       if (hovered) {

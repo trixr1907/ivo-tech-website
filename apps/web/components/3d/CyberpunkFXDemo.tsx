@@ -27,7 +27,7 @@ function CyberpunkObjects() {
 
   useFrame(state => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.1;
     }
   });
 

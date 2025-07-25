@@ -27,9 +27,9 @@ function ModalLayer({
   useFrame(state => {
     if (meshRef.current) {
       meshRef.current.rotation.z =
-        Math.sin(state.clock.elapsedTime * 0.5) * 0.02;
+        Math.sin(state.clock.getElapsedTime() * 0.5) * 0.02;
       meshRef.current.scale.setScalar(
-        1 + Math.sin(state.clock.elapsedTime * 2) * 0.01
+        1 + Math.sin(state.clock.getElapsedTime() * 2) * 0.01
       );
     }
   });

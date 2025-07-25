@@ -61,7 +61,7 @@ function OptimizedTechOrbs({
     technologies.forEach((tech, index) => {
       const matrix = new THREE.Matrix4();
       const position = new THREE.Vector3(...tech.position);
-      position.y += Math.sin(state.clock.elapsedTime + index) * 0.2;
+      position.y += Math.sin(state.clock.getElapsedTime() + index) * 0.2;
 
       const scale = hoveredIndex === index ? 1.2 : 1;
       matrix.compose(
@@ -140,7 +140,7 @@ function OptimizedAnimatedGrid() {
     positions.forEach((pos, index) => {
       const matrix = new THREE.Matrix4();
       const position = new THREE.Vector3(
-        pos[0] + Math.sin(state.clock.elapsedTime + index) * 0.5,
+        pos[0] + Math.sin(state.clock.getElapsedTime() + index) * 0.5,
         pos[1],
         pos[2]
       );
@@ -183,7 +183,7 @@ function OptimizedDNAHelix() {
 
   useFrame(state => {
     if (helixRef.current) {
-      helixRef.current.rotation.y = state.clock.elapsedTime * 0.3; // Langsamere Rotation
+      helixRef.current.rotation.y = state.clock.getElapsedTime() * 0.3; // Langsamere Rotation
     }
   });
 

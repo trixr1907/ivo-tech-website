@@ -44,7 +44,7 @@ function FloatingNeonObject({
   useFrame(state => {
     if (!meshRef.current) return;
 
-    const time = state.clock.elapsedTime;
+    const time = state.clock.getElapsedTime();
     const audioIntensity =
       is4DMode && frequencyData
         ? Array.from(frequencyData).reduce((a, b) => a + b, 0) /
@@ -85,7 +85,7 @@ function InteractiveNeonPlane() {
   useFrame(state => {
     if (!planeRef.current || !planeRef.current.material) return;
 
-    const time = state.clock.elapsedTime;
+    const time = state.clock.getElapsedTime();
     const material = planeRef.current.material as THREE.ShaderMaterial;
     if (material.uniforms && material.uniforms.uTime) {
       material.uniforms.uTime.value = time;
@@ -160,7 +160,7 @@ function NeonText3D() {
   useFrame(state => {
     if (!textRef.current) return;
 
-    const time = state.clock.elapsedTime;
+    const time = state.clock.getElapsedTime();
     const audioIntensity =
       is4DMode && frequencyData
         ? Array.from(frequencyData).reduce((a, b) => a + b, 0) /

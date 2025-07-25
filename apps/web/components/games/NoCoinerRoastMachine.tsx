@@ -241,7 +241,7 @@ const ScreenMaterial = ({
 
   useFrame(state => {
     if (materialRef.current) {
-      materialRef.current.uniforms.time.value = state.clock.elapsedTime;
+      materialRef.current.uniforms.time.value = state.clock.getElapsedTime();
     }
   });
 
@@ -272,7 +272,7 @@ function ArcadeCabinet({
   useFrame(state => {
     if (cabinetRef.current && !isTransformed) {
       cabinetRef.current.rotation.y =
-        Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+        Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1;
     }
   });
 

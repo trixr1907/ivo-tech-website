@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
   Text,
@@ -12,9 +12,8 @@ import {
   Float,
   Html,
 } from '@react-three/drei';
-import { motion } from 'framer-motion';
 import * as THREE from 'three';
-import { ThreeElements } from '@react-three/fiber';
+import { MeshStandardMaterial, Group, Color } from '../../lib/three-utils';
 
 // Floating Tech Orbs Component
 interface TechOrbProps {
@@ -53,6 +52,8 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
           emissiveIntensity={hovered ? 0.3 : 0.1}
           transparent
           opacity={0.8}
+          metalness={0.5}
+          roughness={0.2}
         />
         {hovered && (
           <Html center>
@@ -68,7 +69,7 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
 
 // Animated Grid Component
 function AnimatedGrid() {
-  const gridRef = useRef<THREE.Group>(null);
+  const gridRef = useRef<Group>(null);
 
   useFrame(state => {
     if (gridRef.current) {
@@ -89,7 +90,13 @@ function AnimatedGrid() {
           ]}
           args={[0.1, 0.1, 0.1]}
         >
-          <meshBasicMaterial color="#0099ff" transparent opacity={0.6} />
+          <meshBasicMaterial
+            color="#0099ff"
+            transparent
+            opacity={0.6}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
         </Box>
       ))}
     </group>
@@ -98,7 +105,7 @@ function AnimatedGrid() {
 
 // DNA Helix Component
 function DNAHelix() {
-  const helixRef = useRef<THREE.Group>(null);
+  const helixRef = useRef<Group>(null);
 
   useFrame(state => {
     if (helixRef.current) {
@@ -124,7 +131,9 @@ function DNAHelix() {
           args={[0.05]}
         >
           <meshStandardMaterial
-            color={new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)}
+            color={`hsl(${index * 3.6}, 70%, 60%)`}
+            metalness={0.5}
+            roughness={0.2}
           />
         </Sphere>
       ))}
@@ -133,18 +142,42 @@ function DNAHelix() {
 }
 
 // Main Epic Scene Component
-function EpicScene3D({
-  onTechClick,
-}: {
+interface EpicScene3DProps {
   onTechClick?: (tech: string) => void;
-}) {
+}
+
+function EpicScene3D({ onTechClick }: EpicScene3DProps) {
   const technologies = [
-    { name: 'React', position: [-4, 2, 0], color: '#61DAFB' },
-    { name: 'TypeScript', position: [4, -2, 2], color: '#3178C6' },
-    { name: 'Three.js', position: [-2, -3, -2], color: '#000000' },
-    { name: 'Next.js', position: [6, 1, -3], color: '#000000' },
-    { name: 'Node.js', position: [-6, -1, 3], color: '#339933' },
-    { name: 'Python', position: [2, 4, 1], color: '#3776AB' },
+    {
+      name: 'React',
+      position: [-4, 2, 0] as [number, number, number],
+      color: '#61DAFB',
+    },
+    {
+      name: 'TypeScript',
+      position: [4, -2, 2] as [number, number, number],
+      color: '#3178C6',
+    },
+    {
+      name: 'Three.js',
+      position: [-2, -3, -2] as [number, number, number],
+      color: '#000000',
+    },
+    {
+      name: 'Next.js',
+      position: [6, 1, -3] as [number, number, number],
+      color: '#000000',
+    },
+    {
+      name: 'Node.js',
+      position: [-6, -1, 3] as [number, number, number],
+      color: '#339933',
+    },
+    {
+      name: 'Python',
+      position: [2, 4, 1] as [number, number, number],
+      color: '#3776AB',
+    },
   ];
 
   return (
@@ -203,10 +236,12 @@ function EpicScene3D({
         <Float speed={1} rotationIntensity={2}>
           <Torus position={[0, 0, 0]} args={[2, 0.5, 16, 32]}>
             <meshStandardMaterial
-              color={new THREE.Color('#ff6b6b')}
-              emissive={new THREE.Color('#ff6b6b')}
+              color="#ff6b6b"
+              emissive="#ff6b6b"
               emissiveIntensity={0.2}
               wireframe
+              metalness={0.5}
+              roughness={0.2}
             />
           </Torus>
         </Float>
