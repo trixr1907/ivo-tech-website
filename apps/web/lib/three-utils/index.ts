@@ -1,127 +1,113 @@
 import * as THREE from 'three';
 
-// Geometry exports
-export const BufferGeometry = THREE.BufferGeometry;
-export const IcosahedronGeometry = THREE.IcosahedronGeometry;
-export const ConeGeometry = THREE.ConeGeometry;
-export const PlaneGeometry = THREE.PlaneGeometry;
-export const BoxGeometry = THREE.BoxGeometry;
-export const SphereGeometry = THREE.SphereGeometry;
-export const TorusGeometry = THREE.TorusGeometry;
+// Core Exports
+export {
+  BufferGeometry,
+  IcosahedronGeometry,
+  ConeGeometry,
+  PlaneGeometry,
+  BoxGeometry,
+  SphereGeometry,
+  TorusGeometry,
+  Material,
+  MeshStandardMaterial,
+  MeshBasicMaterial,
+  ShaderMaterial,
+  PointsMaterial,
+  Scene,
+  WebGLRenderer,
+  PerspectiveCamera,
+  OrthographicCamera,
+  AmbientLight,
+  DirectionalLight,
+  PointLight,
+  SpotLight,
+  Vector2,
+  Vector3,
+  Matrix4,
+  Quaternion,
+  Euler,
+  Color,
+  Clock,
+  Object3D,
+  Group,
+  Mesh,
+  Points,
+  BufferAttribute,
+  Float32BufferAttribute,
+  DoubleSide,
+  FrontSide,
+  BackSide,
+  AdditiveBlending,
+  NormalBlending,
+  SubtractiveBlending,
+  MultiplyBlending,
+  CustomBlending,
+  MathUtils,
+} from 'three';
 
-// Material exports
-export const Material = THREE.Material;
-export const MeshStandardMaterial = THREE.MeshStandardMaterial;
-export const MeshBasicMaterial = THREE.MeshBasicMaterial;
-export const ShaderMaterial = THREE.ShaderMaterial;
-export const PointsMaterial = THREE.PointsMaterial;
+// Type Exports
+export type {
+  Material as MaterialType,
+  MeshStandardMaterial as MeshStandardMaterialType,
+  MeshBasicMaterial as MeshBasicMaterialType,
+  ShaderMaterial as ShaderMaterialType,
+  BufferGeometry as BufferGeometryType,
+  Vector3 as Vector3Type,
+  Color as ColorType,
+  Object3D as Object3DType,
+  Group as GroupType,
+  Mesh as MeshType,
+  Scene as SceneType,
+  Clock as ClockType,
+} from 'three';
 
-// Core exports
-export const Scene = THREE.Scene;
-export const WebGLRenderer = THREE.WebGLRenderer;
-export const PerspectiveCamera = THREE.PerspectiveCamera;
-export const OrthographicCamera = THREE.OrthographicCamera;
+// Common Types from Three.js
+export type ColorRepresentation = number | string | THREE.Color;
+export type Side =
+  | typeof THREE.FrontSide
+  | typeof THREE.BackSide
+  | typeof THREE.DoubleSide;
+export type Blending =
+  | typeof THREE.NormalBlending
+  | typeof THREE.AdditiveBlending
+  | typeof THREE.SubtractiveBlending
+  | typeof THREE.MultiplyBlending
+  | typeof THREE.CustomBlending;
 
-// Light exports
-export const AmbientLight = THREE.AmbientLight;
-export const DirectionalLight = THREE.DirectionalLight;
-export const PointLight = THREE.PointLight;
-export const SpotLight = THREE.SpotLight;
-
-// Math exports
-export const Vector2 = THREE.Vector2;
-export const Vector3 = THREE.Vector3;
-export const Vector4 = THREE.Vector4;
-export const Matrix3 = THREE.Matrix3;
-export const Matrix4 = THREE.Matrix4;
-export const Quaternion = THREE.Quaternion;
-export const Euler = THREE.Euler;
-export const Box2 = THREE.Box2;
-export const Box3 = THREE.Box3;
-export const Sphere = THREE.Sphere;
-export const Plane = THREE.Plane;
-export const Ray = THREE.Ray;
-export const Line3 = THREE.Line3;
-export const Triangle = THREE.Triangle;
-export const Color = THREE.Color;
-export const Clock = THREE.Clock;
-
-// Object exports
-export const Object3D = THREE.Object3D;
-export const Group = THREE.Group;
-export const Mesh = THREE.Mesh;
-export const Line = THREE.Line;
-export const Points = THREE.Points;
-export const Sprite = THREE.Sprite;
-
-// Buffer exports
-export const BufferAttribute = THREE.BufferAttribute;
-export const Float32BufferAttribute = THREE.Float32BufferAttribute;
-export const Uint16BufferAttribute = THREE.Uint16BufferAttribute;
-export const Uint32BufferAttribute = THREE.Uint32BufferAttribute;
-
-// Constants
-export const DoubleSide = THREE.DoubleSide;
-export const FrontSide = THREE.FrontSide;
-export const BackSide = THREE.BackSide;
-export const AdditiveBlending = THREE.AdditiveBlending;
-export const NormalBlending = THREE.NormalBlending;
-export const SubtractiveBlending = THREE.SubtractiveBlending;
-export const MultiplyBlending = THREE.MultiplyBlending;
-export const CustomBlending = THREE.CustomBlending;
-
-// Math utils
-export const MathUtils = THREE.MathUtils;
-export const LinearFilter = THREE.LinearFilter;
-export const NearestFilter = THREE.NearestFilter;
-
-// Types
-export type MaterialType = THREE.Material;
-export type MeshStandardMaterialType = THREE.MeshStandardMaterial;
-export type MeshBasicMaterialType = THREE.MeshBasicMaterial;
-export type ShaderMaterialType = THREE.ShaderMaterial;
-export type BufferGeometryType = THREE.BufferGeometry;
-export type Vector3Type = THREE.Vector3;
-export type ColorType = THREE.Color;
-export type Object3DType = THREE.Object3D;
-export type GroupType = THREE.Group;
-export type MeshType = THREE.Mesh;
-export type SceneType = THREE.Scene;
-export type ClockType = THREE.Clock;
-
-// Material parameter types
-export type MaterialParameters = {
-  color?: THREE.ColorRepresentation;
+// Material Parameter Types
+export interface MaterialParameters {
+  color?: ColorRepresentation;
   transparent?: boolean;
   opacity?: number;
-  side?: THREE.Side;
+  side?: Side;
   fog?: boolean;
-  blending?: THREE.Blending;
+  blending?: Blending;
   depthWrite?: boolean;
   depthTest?: boolean;
-};
+}
 
-export type MeshBasicMaterialParameters = MaterialParameters & {
+export interface MeshBasicMaterialParameters extends MaterialParameters {
   wireframe?: boolean;
   wireframeLinewidth?: number;
-};
+}
 
-export type MeshStandardMaterialParameters = MaterialParameters & {
+export interface MeshStandardMaterialParameters extends MaterialParameters {
   roughness?: number;
   metalness?: number;
-  emissive?: THREE.ColorRepresentation;
+  emissive?: ColorRepresentation;
   emissiveIntensity?: number;
   wireframe?: boolean;
   wireframeLinewidth?: number;
-};
+}
 
-export type ShaderMaterialParameters = MaterialParameters & {
+export interface ShaderMaterialParameters extends MaterialParameters {
   uniforms?: { [uniform: string]: { value: any } };
   vertexShader?: string;
   fragmentShader?: string;
-};
+}
 
-// Type guards
+// Type Guards
 export const isMesh = (obj: any): obj is THREE.Mesh =>
   obj instanceof THREE.Mesh;
 export const isGroup = (obj: any): obj is THREE.Group =>
@@ -133,4 +119,5 @@ export const isBufferGeometry = (obj: any): obj is THREE.BufferGeometry =>
 export const isBufferAttribute = (obj: any): obj is THREE.BufferAttribute =>
   obj instanceof THREE.BufferAttribute;
 
+// Re-export THREE namespace
 export { THREE };
