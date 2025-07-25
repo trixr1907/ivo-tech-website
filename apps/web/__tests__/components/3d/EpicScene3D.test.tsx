@@ -26,6 +26,12 @@ jest.mock('@react-three/drei', () => ({
   Torus: () => <div data-testid="torus" />,
   Float: ({ children }) => <div data-testid="float">{children}</div>,
   Html: ({ children }) => <div data-testid="html">{children}</div>,
+  AmbientLight: () => <div data-testid="ambient-light" />,
+  PointLight: () => <div data-testid="point-light" />,
+  SpotLight: () => <div data-testid="spot-light" />,
+  Mesh: ({ children }) => <div data-testid="mesh">{children}</div>,
+  SphereGeometry: () => <div data-testid="sphere-geometry" />,
+  MeshStandardMaterial: () => <div data-testid="mesh-standard-material" />,
 }));
 
 jest.mock('three', () => ({
