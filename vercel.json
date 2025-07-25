@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm install && turbo run build",
+  "buildCommand": "HUSKY=0 pnpm install && HUSKY=0 turbo run build",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
