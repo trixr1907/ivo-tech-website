@@ -21,7 +21,12 @@ declare module 'three/examples/jsm/postprocessing/UnrealBloomPass' {
   import { Vector2 } from 'three';
 
   export class UnrealBloomPass {
-    constructor(resolution: Vector2, strength: number, radius: number, threshold: number);
+    constructor(
+      resolution: Vector2,
+      strength: number,
+      radius: number,
+      threshold: number
+    );
   }
 }
 

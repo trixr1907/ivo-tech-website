@@ -13,7 +13,10 @@ declare module 'react' {
     error?: Error;
   }
 
-  export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  export class ErrorBoundary extends Component<
+    ErrorBoundaryProps,
+    ErrorBoundaryState
+  > {
     state: ErrorBoundaryState;
     props: ErrorBoundaryProps;
     constructor(props: ErrorBoundaryProps);
@@ -60,7 +63,10 @@ declare module 'react' {
     error?: Error;
   }
 
-  export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  export class ErrorBoundary extends Component<
+    ErrorBoundaryProps,
+    ErrorBoundaryState
+  > {
     constructor(props: ErrorBoundaryProps);
     static getDerivedStateFromError(error: Error): ErrorBoundaryState;
     componentDidCatch(error: Error, errorInfo: ErrorInfo): void;

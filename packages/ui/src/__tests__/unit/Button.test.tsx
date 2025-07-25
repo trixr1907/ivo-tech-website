@@ -10,7 +10,7 @@ describe('Button Component', () => {
   it('handles click events', () => {
     const handleClick = jest.fn();
     render(<Button onClick={handleClick}>Click Me</Button>);
-    
+
     fireEvent.click(screen.getByText('Click Me'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });

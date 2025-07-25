@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 describe('Form Integration', () => {
   it('should handle form submission correctly', async () => {
     const mockSubmit = jest.fn();
-    
+
     render(
       <form onSubmit={mockSubmit}>
         <input type="text" placeholder="Username" />

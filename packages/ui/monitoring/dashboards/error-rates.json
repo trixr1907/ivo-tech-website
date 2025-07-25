@@ -102,9 +102,7 @@
   "refresh": "5s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [
-    "error"
-  ],
+  "tags": ["error"],
   "templating": {
     "list": []
   },

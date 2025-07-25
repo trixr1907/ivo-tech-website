@@ -14,7 +14,7 @@ describe('Button Component', () => {
   it('should handle click events', async () => {
     const handleClick = jest.fn();
     render(<button onClick={handleClick}>Click me</button>);
-    
+
     await userEvent.click(screen.getByText('Click me'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });

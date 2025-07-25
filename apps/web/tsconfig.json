@@ -24,13 +24,7 @@
       "three": ["node_modules/three/src/Three"],
       "three/*": ["node_modules/three/src/*"]
     },
-    "types": [
-      "react",
-      "react-dom",
-      "node",
-      "three",
-      "@types/three",
-    ],
+    "types": ["react", "react-dom", "node", "three", "@types/three"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },

@@ -163,7 +163,13 @@ declare module 'three' {
 
   export interface MathUtils {
     lerp(x: number, y: number, t: number): number;
-    mapLinear(x: number, a1: number, a2: number, b1: number, b2: number): number;
+    mapLinear(
+      x: number,
+      a1: number,
+      a2: number,
+      b1: number,
+      b2: number
+    ): number;
     smoothstep(x: number, min: number, max: number): number;
     degToRad(degrees: number): number;
     radToDeg(radians: number): number;
@@ -175,7 +181,7 @@ declare module 'three' {
   export const WebGLPowerPreference: {
     'high-performance': string;
     'low-power': string;
-    'default': string;
+    default: string;
   };
 
   export class BufferGeometry {
@@ -192,7 +198,15 @@ declare module 'three' {
     geometry: BufferGeometry;
     shapecast: (callbacks: any) => void;
     bvhcast: (bvh: MeshBVH, callbacks: any) => void;
-    traverse: (callback: (depth: number, isLeaf: boolean, boundingData: Float32Array, offset: number, count: number) => void) => void;
+    traverse: (
+      callback: (
+        depth: number,
+        isLeaf: boolean,
+        boundingData: Float32Array,
+        offset: number,
+        count: number
+      ) => void
+    ) => void;
     refit: () => void;
     getBoundingBox: (target: Box3) => Box3;
     raycast: (ray: Ray, intersects: Intersection[]) => void;
@@ -205,7 +219,12 @@ declare module 'three' {
   }
 
   export class PlaneGeometry extends BufferGeometry {
-    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
+    constructor(
+      width?: number,
+      height?: number,
+      widthSegments?: number,
+      heightSegments?: number
+    );
   }
 
   export class IcosahedronGeometry extends BufferGeometry {

@@ -15,10 +15,10 @@ export const options = {
 
 export default function () {
   const res = http.get('http://localhost:3000');
-  
+
   check(res, {
-    'status is 200': (r) => r.status === 200,
-    'response time < 500ms': (r) => r.timings.duration < 500,
+    'status is 200': r => r.status === 200,
+    'response time < 500ms': r => r.timings.duration < 500,
   });
 
   sleep(1);

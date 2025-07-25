@@ -1,1 +1,6 @@
-describe('Example Test', () => {\n  it('should visit the homepage', () => {\n    cy.visit('/');\n    cy.contains('Welcome');\n  });\n});
+describe('Example Test', () => {
+  it('should visit the homepage', () => {
+    cy.visit('/');
+    cy.contains('Welcome');
+  });
+});

@@ -58,7 +58,7 @@ declare module 'three' {
   }
 
   interface ShaderMaterial {
-    uniforms?: { [uniform: string]: { value: any; }; };
+    uniforms?: { [uniform: string]: { value: any } };
     vertexShader?: string;
     fragmentShader?: string;
     transparent?: boolean;
@@ -76,7 +76,7 @@ declare module 'three' {
   }
 
   interface ShaderPass {
-    uniforms: { [key: string]: { value: any; }; };
+    uniforms: { [key: string]: { value: any } };
   }
 
   export const MathUtils: {
@@ -92,7 +92,7 @@ declare module 'three' {
   export const WebGLPowerPreference: {
     'high-performance': string;
     'low-power': string;
-    'default': string;
+    default: string;
   };
 
   export class CubeTexture extends Texture {}

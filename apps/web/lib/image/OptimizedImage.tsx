@@ -6,26 +6,20 @@ export interface OptimizedImageProps extends Omit<ImageProps, 'loader'> {
   quality?: number;
 }
 
-const OptimizedImage: FC<OptimizedImageProps> = memo(({
-  src,
-  alt,
-  width,
-  height,
-  format = 'auto',
-  quality = 75,
-  ...props
-}) => {
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      quality={quality}
-      {...props}
-    />
-  );
-});
+const OptimizedImage: FC<OptimizedImageProps> = memo(
+  ({ src, alt, width, height, format = 'auto', quality = 75, ...props }) => {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        quality={quality}
+        {...props}
+      />
+    );
+  }
+);
 
 OptimizedImage.displayName = 'OptimizedImage';
 

@@ -1,9 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   testEnvironment: 'jsdom',
-  transformIgnorePatterns: [
-    'node_modules/(?!(supports-color|debug|ms)/)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(supports-color|debug|ms)/)'],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {

@@ -125,7 +125,8 @@ notify-deploy-status:
       run: echo "Deployment to ivo-tech.com completed successfully!"
       
     - name: 📊 Notify Post-Deployment Lighthouse
-      run: echo "Audit Report is available at: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}"
+      run: |
+        echo "Audit Report is available at: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}"
       env:
         PUBLIC_AUDIT_URL: ${{ secrets.PUBLIC_AUDIT_URL }}
 

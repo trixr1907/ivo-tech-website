@@ -7,8 +7,8 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Anwendung ist ausgefallen"
-          description: "Die Anwendung läuft nicht mehr auf {{ $labels.instance }}"
+          summary: 'Anwendung ist ausgefallen'
+          description: 'Die Anwendung läuft nicht mehr auf {{ $labels.instance }}'
 
       - alert: DatabaseConnectionFailed
         expr: db_connection_status == 0
@@ -16,8 +16,8 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Datenbankverbindung fehlgeschlagen"
-          description: "Die Datenbankverbindung ist seit 2 Minuten unterbrochen"
+          summary: 'Datenbankverbindung fehlgeschlagen'
+          description: 'Die Datenbankverbindung ist seit 2 Minuten unterbrochen'
 
   - name: PerformanceDegradation
     rules:
@@ -27,8 +27,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Hohe Antwortzeiten"
-          description: "Die durchschnittliche Antwortzeit liegt über 2 Sekunden"
+          summary: 'Hohe Antwortzeiten'
+          description: 'Die durchschnittliche Antwortzeit liegt über 2 Sekunden'
 
       - alert: HighErrorRate
         expr: sum(rate(http_request_errors_total[5m])) / sum(rate(http_requests_total[5m])) > 0.01
@@ -36,8 +36,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Erhöhte Fehlerrate"
-          description: "Die Fehlerrate liegt über 1%"
+          summary: 'Erhöhte Fehlerrate'
+          description: 'Die Fehlerrate liegt über 1%'
 
   - name: ResourceUsage
     rules:
@@ -47,8 +47,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Hohe CPU-Auslastung"
-          description: "Die CPU-Auslastung liegt über 80%"
+          summary: 'Hohe CPU-Auslastung'
+          description: 'Die CPU-Auslastung liegt über 80%'
 
       - alert: HighMemoryUsage
         expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
@@ -56,8 +56,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Hohe Speicherauslastung"
-          description: "Die Speicherauslastung liegt über 85%"
+          summary: 'Hohe Speicherauslastung'
+          description: 'Die Speicherauslastung liegt über 85%'
 
       - alert: DiskSpaceRunningOut
         expr: 100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) > 90
@@ -65,8 +65,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Festplattenspeicher wird knapp"
-          description: "Die Festplattennutzung liegt über 90%"
+          summary: 'Festplattenspeicher wird knapp'
+          description: 'Die Festplattennutzung liegt über 90%'
 
   - name: SecurityIncidents
     rules:
@@ -76,8 +76,8 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Viele fehlgeschlagene Login-Versuche"
-          description: "Mehr als 10 fehlgeschlagene Login-Versuche pro Minute"
+          summary: 'Viele fehlgeschlagene Login-Versuche'
+          description: 'Mehr als 10 fehlgeschlagene Login-Versuche pro Minute'
 
       - alert: UnusualTrafficPattern
         expr: rate(http_requests_total[5m]) > hist_avg_requests + (3 * hist_stddev_requests)
@@ -85,5 +85,5 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Ungewöhnliches Traffic-Muster"
-          description: "Der aktuelle Traffic weicht stark vom historischen Durchschnitt ab"
+          summary: 'Ungewöhnliches Traffic-Muster'
+          description: 'Der aktuelle Traffic weicht stark vom historischen Durchschnitt ab'
