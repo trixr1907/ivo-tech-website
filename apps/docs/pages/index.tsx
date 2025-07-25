@@ -1,0 +1,1 @@
+import { NextPage } from 'next';\n\nconst DocsPage: NextPage = () => {\n  return (\n    <div>\n      <h1>Documentation</h1>\n      <p>Welcome to the documentation.</p>\n    </div>\n  );\n};\n\nexport default DocsPage;

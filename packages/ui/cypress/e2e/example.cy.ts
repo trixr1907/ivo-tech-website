@@ -1,0 +1,1 @@
+describe('Example Test', () => {\n  it('should visit the homepage', () => {\n    cy.visit('/');\n    cy.contains('Welcome');\n  });\n});

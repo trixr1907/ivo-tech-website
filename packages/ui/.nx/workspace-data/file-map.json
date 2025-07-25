@@ -1,0 +1,131 @@
+{
+  "version": "6.0",
+  "nxVersion": "21.3.5",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".github/workflows/ci-cd.yml",
+        "hash": "3894042456555091052"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "12864255067917804761"
+      },
+      {
+        "file": "Dockerfile",
+        "hash": "6916683712850787005"
+      },
+      {
+        "file": "README.md",
+        "hash": "4148613330508342675"
+      },
+      {
+        "file": "babel.config.js",
+        "hash": "3098434939463494799"
+      },
+      {
+        "file": "cypress.config.ts",
+        "hash": "11788330697054125926"
+      },
+      {
+        "file": "cypress/e2e/example.cy.ts",
+        "hash": "4151897481564632064"
+      },
+      {
+        "file": "docker-compose.yml",
+        "hash": "10095593240859337570"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "2635413161259670607"
+      },
+      {
+        "file": "jest.config.js",
+        "hash": "3213963473102704461"
+      },
+      {
+        "file": "jest.setup.js",
+        "hash": "8898087145646452161"
+      },
+      {
+        "file": "lighthouserc.js",
+        "hash": "91139429320727833"
+      },
+      {
+        "file": "loki-config.yaml",
+        "hash": "14213358714647700840"
+      },
+      {
+        "file": "monitoring/alerting/rules.yaml",
+        "hash": "18099280826789076597"
+      },
+      {
+        "file": "monitoring/dashboards/app-performance.json",
+        "hash": "1904642114357581774"
+      },
+      {
+        "file": "monitoring/dashboards/business-kpis.json",
+        "hash": "18189251773748089089"
+      },
+      {
+        "file": "monitoring/dashboards/error-rates.json",
+        "hash": "15873164021093598287"
+      },
+      {
+        "file": "monitoring/dashboards/system-metrics.json",
+        "hash": "523717760211709533"
+      },
+      {
+        "file": "package.json",
+        "hash": "15662872383870353967"
+      },
+      {
+        "file": "prometheus/prometheus.yml",
+        "hash": "7600770797637185360"
+      },
+      {
+        "file": "src/__tests__/integration/example.test.tsx",
+        "hash": "6839340597488295078"
+      },
+      {
+        "file": "src/__tests__/unit/Button.test.tsx",
+        "hash": "6693395752765185465"
+      },
+      {
+        "file": "src/__tests__/unit/example.test.tsx",
+        "hash": "10363452696182610859"
+      },
+      {
+        "file": "src/button.tsx",
+        "hash": "8774199129712950434"
+      },
+      {
+        "file": "src/card.tsx",
+        "hash": "17583879895234874854"
+      },
+      {
+        "file": "src/code.tsx",
+        "hash": "6192065557668079314"
+      },
+      {
+        "file": "src/components/Button.tsx",
+        "hash": "15051509320950706414"
+      },
+      {
+        "file": "tests/performance/load-test.js",
+        "hash": "3331156762998004669"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "12822982646084094375"
+      },
+      {
+        "file": "webpack.config.js",
+        "hash": "11783207459885295207"
+      }
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+groups:
+  - name: CriticalErrors
+    rules:
+      - alert: ApplicationCrash
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Anwendung ist ausgefallen"
+          description: "Die Anwendung läuft nicht mehr auf {{ $labels.instance }}"
+
+      - alert: DatabaseConnectionFailed
+        expr: db_connection_status == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Datenbankverbindung fehlgeschlagen"
+          description: "Die Datenbankverbindung ist seit 2 Minuten unterbrochen"
+
+  - name: PerformanceDegradation
+    rules:
+      - alert: HighResponseTime
+        expr: rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m]) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hohe Antwortzeiten"
+          description: "Die durchschnittliche Antwortzeit liegt über 2 Sekunden"
+
+      - alert: HighErrorRate
+        expr: sum(rate(http_request_errors_total[5m])) / sum(rate(http_requests_total[5m])) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Erhöhte Fehlerrate"
+          description: "Die Fehlerrate liegt über 1%"
+
+  - name: ResourceUsage
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hohe CPU-Auslastung"
+          description: "Die CPU-Auslastung liegt über 80%"
+
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hohe Speicherauslastung"
+          description: "Die Speicherauslastung liegt über 85%"
+
+      - alert: DiskSpaceRunningOut
+        expr: 100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Festplattenspeicher wird knapp"
+          description: "Die Festplattennutzung liegt über 90%"
+
+  - name: SecurityIncidents
+    rules:
+      - alert: HighFailedLogins
+        expr: rate(failed_login_attempts_total[5m]) > 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Viele fehlgeschlagene Login-Versuche"
+          description: "Mehr als 10 fehlgeschlagene Login-Versuche pro Minute"
+
+      - alert: UnusualTrafficPattern
+        expr: rate(http_requests_total[5m]) > hist_avg_requests + (3 * hist_stddev_requests)
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ungewöhnliches Traffic-Muster"
+          description: "Der aktuelle Traffic weicht stark vom historischen Durchschnitt ab"

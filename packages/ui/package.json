@@ -8,19 +8,56 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "jest",
+    "test:unit": "jest --testPathPatterns=src/__tests__/unit",
+    "test:integration": "jest --testPathPatterns=src/__tests__/integration",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "lighthouse": "lighthouse-ci",
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
   },
   "devDependencies": {
+    "@types/node": "18.18.0",
+    "ms": "2.1.3",
+    "debug": "4.3.4",
+    "supports-color": "8.1.1",
+    "@nx/next": "17.2.8",
+    "nx": "17.2.8",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "cypress": "^13.6.4",
+    "@lhci/cli": "^0.13.0",
+    "ms": "^2.1.3",
+    "debug": "^4.3.4",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "babel-jest": "^29.7.0",
     "@config/eslint": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
+    "@types/testing-library__jest-dom": "^6.0.0",
     "eslint": "^9.30.0",
     "typescript": "5.8.2"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@react-three/drei": "^9.92.7",
+    "@react-three/fiber": "^8.15.13"
   }
 }
