@@ -1,6 +1,3 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer');
-const path = require('path');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -81,7 +78,9 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Optimierungen für Three.js
     if (!isServer) {
-      config.resolve.alias.three = path.resolve('./node_modules/three');
+      config.resolve.alias.three = require('path').resolve(
+        './node_modules/three'
+      );
     }
 
     // Draco Dekompression für 3D-Modelle
@@ -94,6 +93,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})(nextConfig);
+module.exports = nextConfig;
