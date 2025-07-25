@@ -152,7 +152,7 @@ importers:
         specifier: ^9.30.0
         version: 9.31.0(jiti@2.5.1)
       typescript:
-        specifier: ^5.0.4
+        specifier: ^5.8.3
         version: 5.8.3
 
   apps/docs:
@@ -10798,7 +10798,7 @@ snapshots:
 
   '@react-three/fiber@8.18.0(@types/react@18.3.23)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)':
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@babel/runtime': 7.28.2
       '@types/react-reconciler': 0.26.7
       '@types/webxr': 0.5.22
       base64-js: 1.5.1
