@@ -1,13 +1,7 @@
 {
-  "buildCommand": "pnpm install \u0026\u0026 pnpm build",
+  "buildCommand": "pnpm install && turbo run build",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "devCommand": "pnpm dev",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/apps/api/api/(.*)" },
-    { "source": "/docs/(.*)", "destination": "/apps/docs/(.*)" },
-    { "source": "/(.*)", "destination": "/apps/web/(.*)" }
-  ],
-  "outputDirectory": "apps/web/.next",
+  "outputDirectory": "dist",
   "crons": [
     {
       "path": "/api/revalidate",
