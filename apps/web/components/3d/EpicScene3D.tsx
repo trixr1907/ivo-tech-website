@@ -11,6 +11,12 @@ import {
   Stars,
   Float,
   Html,
+  MeshStandardMaterial,
+  MeshBasicMaterial,
+  AmbientLight,
+  PointLight,
+  SpotLight,
+  Mesh
 } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
@@ -118,7 +124,7 @@ function DNAHelix() {
   return (
     <group ref={helixRef} position={[8, 0, 0]}>
       {points.map((point, index) => (
-        <Sphere
+<Sphere
           key={index}
           position={[point.x, point.y, point.z]}
           args={[0.05]}
@@ -126,14 +132,12 @@ function DNAHelix() {
           <MeshStandardMaterial
             color={new THREE.Color(`hsl(${index * 3.6}, 70%, 60%)`)}
           />
-</Sphere>
+        </Sphere>
       ))}
     </group>
   );
 }
 
-// Import necessary components
-import { AmbientLight, PointLight, SpotLight, Mesh, MeshStandardMaterial, MeshBasicMaterial } from '@react-three/drei';
 
 // Main Epic Scene Component
 function EpicScene3D({
