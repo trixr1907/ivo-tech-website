@@ -51,9 +51,6 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
-      husky:
-        specifier: ^9.0.11
-        version: 9.1.7
       lint-staged:
         specifier: ^15.2.2
         version: 15.5.2
@@ -262,7 +259,7 @@ importers:
         specifier: ^7.27.1
         version: 7.27.1(@babel/core@7.28.0)
       '@next/bundle-analyzer':
-        specifier: ^15.4.2
+        specifier: ^15.4.3
         version: 15.4.3
       '@next/eslint-plugin-next':
         specifier: ^15.3.0
@@ -5271,11 +5268,6 @@ packages:
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
-
-  husky@9.1.7:
-    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -10771,7 +10763,7 @@ snapshots:
 
   '@react-three/drei@9.122.0(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(@types/react@19.1.8)(@types/three@0.162.0)(immer@10.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0)(use-sync-external-store@1.5.0(react@18.2.0))':
     dependencies:
-      '@babel/runtime': 7.28.2
+      '@babel/runtime': 7.27.6
       '@mediapipe/tasks-vision': 0.10.17
       '@monogrid/gainmap-js': 3.1.0(three@0.162.0)
       '@react-spring/three': 9.7.5(@react-three/fiber@8.18.0(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.162.0))(react@18.2.0)(three@0.162.0)
@@ -14417,8 +14409,6 @@ snapshots:
   human-signals@2.1.0: {}
 
   human-signals@5.0.0: {}
-
-  husky@9.1.7: {}
 
   iconv-lite@0.4.24:
     dependencies:

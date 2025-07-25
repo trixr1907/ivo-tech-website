@@ -41,7 +41,7 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@next/bundle-analyzer": "^15.4.2",
+    "@next/bundle-analyzer": "^15.4.3",
     "@next/eslint-plugin-next": "^15.3.0",
     "@playwright/test": "^1.47.2",
     "@react-three/drei": "^9.102.6",
