@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { router, publicProcedure, protectedProcedure } from '../trpc';
+import { router, publicProcedure, protectedProcedure } from '../trpc.js';
 
 export const projectsRouter = router({
   getAll: publicProcedure
@@ -75,7 +75,18 @@ export const projectsRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const project = await ctx.db.project.create({
-        data: input,
+        data: {
+          status: input.status || 'draft',
+          description: input.description || '',
+          slug: input.slug || '',
+          title: input.title,
+          content: input.content || '',
+          featured: input.featured || false,
+          technologies: input.technologies || '',
+          githubUrl: input.githubUrl || '',
+          liveUrl: input.liveUrl || '',
+          imageUrl: input.imageUrl || '',
+        },
       });
 
       return project;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { router, publicProcedure, protectedProcedure } from '../trpc';
+import { router, publicProcedure, protectedProcedure } from '../trpc.js';
 
 export const blogRouter = router({
   getAll: publicProcedure
@@ -80,7 +80,14 @@ export const blogRouter = router({
 
       const post = await ctx.db.blogPost.create({
         data: {
-          ...input,
+          title: input.title,
+          slug: input.slug,
+          excerpt: input.excerpt,
+          content: input.content,
+          category: input.category,
+          tags: input.tags,
+          featured: input.featured,
+          published: input.published,
           authorId,
         },
       });

@@ -1,5 +1,5 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
@@ -28,5 +28,14 @@ module.exports = {
   ],
   transformIgnorePatterns: [
     '/node_modules/(?!three|@react-three|postprocessing)/',
+  ],
+  collectCoverage: true,
+  coverageProvider: 'v8',
+  collectCoverageFrom: [
+    '**/*.{js,jsx,ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**',
   ],
 };

@@ -1,6 +1,6 @@
 import { createNextApiHandler } from '@trpc/server/adapters/next';
-import { appRouter } from '../../../server/routers/_app';
-import { createTRPCContext } from '../../../server/trpc';
+import { appRouter } from '../../../server/routers/_app.js';
+import { createTRPCContext } from '../../../server/trpc.js';
 
 // export API handler
 export default createNextApiHandler({
@@ -9,7 +9,6 @@ export default createNextApiHandler({
   onError:
     process.env.NODE_ENV === 'development'
       ? ({ path, error }) => {
-           
           console.error(
             `❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`
           );

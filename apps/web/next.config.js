@@ -1,13 +1,15 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+import withBundleAnalyzer from '@next/bundle-analyzer';
+import path from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+  typescript: { ignoreBuildErrors: true }, // Temporär für das erste Deployment
+  eslint: { ignoreDuringBuilds: true }, // Temporär für das erste Deployment
   reactStrictMode: true,
+  transpilePackages: ['three'],
   experimental: {
     optimizeCss: true,
-    // Bessere Tree-Shaking
     optimizePackageImports: [
       '@react-three/fiber',
       '@react-three/drei',
@@ -15,46 +17,12 @@ const nextConfig = {
       'framer-motion',
     ],
   },
-  // Optimierung der Image-Komponente
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    minimumCacheTTL: 60,
-  },
-  webpack: (config, { isServer }) => {
-    // Optimierungen für Three.js
-    if (!isServer) {
-      config.resolve.alias.three = path.resolve('./node_modules/three');
-    }
-
-    // Draco Dekompression für 3D-Modelle
-    config.module.rules.push({
-      test: /\.gltf$/,
-      use: ['draco-loader'],
-    });
-
-    return config;
-  },
-};
-
-module.exports = withBundleAnalyzer(nextConfig);
-
-import withBundleAnalyzer from '@next/bundle-analyzer';
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Optimierungen für Vercel
-  output: 'standalone',
-  typescript: { ignoreBuildErrors: true }, // Temporär für das erste Deployment
-  eslint: { ignoreDuringBuilds: true }, // Temporär für das erste Deployment
-  transpilePackages: ['three'],
   images: {
     domains: ['cdn.sanity.io', 'res.cloudinary.com'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/avif', 'image/webp'],
-  },
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ['@react-three/fiber', '@react-three/drei'],
+    minimumCacheTTL: 60,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -63,7 +31,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-  // Automatische Statische Optimierung
   staticPageGenerationTimeout: 120,
 
   // Content Security Policy
@@ -111,13 +78,19 @@ const nextConfig = {
     ];
   },
 
-  // Optimiere Images
-  images: {
-    domains: [], // Füge erlaubte Domains hinzu
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    formats: ['image/webp'],
-    minimumCacheTTL: 60,
+  webpack: (config, { isServer }) => {
+    // Optimierungen für Three.js
+    if (!isServer) {
+      config.resolve.alias.three = path.resolve('./node_modules/three');
+    }
+
+    // Draco Dekompression für 3D-Modelle
+    config.module.rules.push({
+      test: /\.gltf$/,
+      use: ['draco-loader'],
+    });
+
+    return config;
   },
 };
 

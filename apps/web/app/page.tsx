@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Scene from '../components/3d/Scene';
 import React, { useState } from 'react';
 import HeroSection from '../components/ui/HeroSection';
 import { NavigationHeader } from '../components/ui/NavigationHeader';
@@ -13,6 +14,7 @@ import { CLIInterface } from '../components/ui/CLIInterface';
 import { usePerformance } from '../hooks/usePerformance';
 import { ServicesSection } from '../components/ui/ServicesSection';
 import { LoginModal } from '../components/ui/LoginModal';
+import RoastMachine from '../components/games/RoastMachine';
 
 // Dynamic imports to prevent SSR issues
 const Scene3D = dynamic(
@@ -206,10 +208,8 @@ export default function HomePage() {
                   Interaktive 3D-Welten powered by WebGL und Three.js
                 </p>
               </div>
-              <div className="flex h-96 items-center justify-center rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
-                <p className="text-xl text-cyan-400">
-                  🚀 3D Experience - Coming Soon!
-                </p>
+              <div className="h-96 w-full rounded-2xl border border-cyan-500/30 overflow-hidden">
+                <Scene />
               </div>
             </div>
           </section>
@@ -234,10 +234,13 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="flex justify-center">
-                <div className="flex h-96 w-full max-w-4xl items-center justify-center rounded-2xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 to-red-500/10">
-                  <p className="text-xl text-orange-400">
-                    🎰 Roast Machine - Coming Soon!
-                  </p>
+                <div className="w-full max-w-4xl overflow-hidden rounded-2xl border border-orange-500/30">
+                  <RoastMachine
+                    onRoastGenerated={roast => {
+                      // Optional: Hier können wir den generierten Roast verarbeiten
+                      console.log('Neuer Roast generiert:', roast);
+                    }}
+                  />
                 </div>
               </div>
             </div>

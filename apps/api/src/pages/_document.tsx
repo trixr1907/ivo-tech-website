@@ -1,6 +1,7 @@
+import type { DocumentType } from 'next/document';
 import { Html, Head, Main, NextScript } from 'next/document';
 
-export default function Document() {
+const Document: DocumentType = () => {
   return (
     <Html lang="en">
       <Head />
@@ -10,4 +11,6 @@ export default function Document() {
       </body>
     </Html>
   );
-}
+};
+
+export default Document;

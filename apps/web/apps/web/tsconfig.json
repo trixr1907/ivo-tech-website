@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,15 +18,16 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": ["./*"],
+      "three": ["node_modules/three/src/Three"],
+      "three/*": ["node_modules/three/src/*"]
+    },
+    "types": ["react", "react-dom", "node", "three", "@types/three"],
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "app/**/*.ts",
-    "app/**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
