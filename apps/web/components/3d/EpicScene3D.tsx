@@ -38,7 +38,7 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-<Mesh
+      <Mesh
         ref={mesh}
         position={position}
         onClick={onClick}
@@ -61,7 +61,7 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
             </div>
           </Html>
         )}
-      </mesh>
+        </Mesh>
     </Float>
   );
 }
