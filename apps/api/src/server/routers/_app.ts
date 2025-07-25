@@ -1,8 +1,8 @@
 // import { z } from 'zod';
-import { router, publicProcedure } from '../trpc.js';
-import { authRouter } from './auth.js';
-import { blogRouter } from './blog.js';
-import { projectsRouter } from './projects.js';
+import { router, publicProcedure } from '../trpc';
+import { authRouter } from './auth';
+import { blogRouter } from './blog';
+import { projectsRouter } from './projects';
 
 export const appRouter = router({
   auth: authRouter,

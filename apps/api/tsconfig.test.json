@@ -1,0 +1,1 @@
+{\n  \"extends\": \"./tsconfig.json\",\n  \"compilerOptions\": {\n    \"types\": [\"node\", \"jest\", \"@testing-library/jest-dom\"]\n  },\n  \"include\": [\"src/**/*.ts\", \"src/**/*.tsx\", \"src/tests/**/*\"],\n  \"exclude\": [\"node_modules\"]\n}

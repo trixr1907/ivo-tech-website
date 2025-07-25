@@ -1,0 +1,606 @@
+import {
+  Camera,
+  Material,
+  Object3D,
+  Scene,
+  WebGLRenderer,
+  Color,
+  Clock,
+  BufferGeometry,
+  ShaderMaterial,
+  Texture,
+  Vector3,
+} from 'three';
+import { ReactNode } from 'react';
+
+import {
+  Camera,
+  Material,
+  Object3D,
+  Scene,
+  WebGLRenderer,
+  Color,
+  Clock,
+  BufferGeometry,
+  ShaderMaterial,
+  Texture,
+  Vector3,
+} from 'three';
+import { ReactNode } from 'react';
+
+declare module '@react-three/fiber' {
+  export interface Props {
+    attach?: string;
+    args?: any[];
+    children?: ReactNode;
+    ref?: any;
+    key?: any;
+    onUpdate?: (self: any) => void;
+    position?: [number, number, number];
+    up?: [number, number, number];
+    scale?: [number, number, number];
+    rotation?: [number, number, number];
+    matrix?: number[];
+    quaternion?: [number, number, number, number];
+    layers?: number;
+    dispose?: null;
+    onClick?: (e: any) => void;
+    onContextMenu?: (e: any) => void;
+    onDoubleClick?: (e: any) => void;
+    onPointerUp?: (e: any) => void;
+    onPointerDown?: (e: any) => void;
+    onPointerOver?: (e: any) => void;
+    onPointerOut?: (e: any) => void;
+    onPointerEnter?: (e: any) => void;
+    onPointerLeave?: (e: any) => void;
+    onPointerMove?: (e: any) => void;
+    onPointerMissed?: (e: any) => void;
+    onWheel?: (e: any) => void;
+    visible?: boolean;
+    userData?: { [key: string]: any };
+    castShadow?: boolean;
+    receiveShadow?: boolean;
+    renderOrder?: number;
+  }
+
+  export interface MaterialBaseProps {
+    color?: string | number | Color;
+    transparent?: boolean;
+    opacity?: number;
+    side?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    blending?: number;
+    alphaTest?: number;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface MaterialProps extends Props, MaterialBaseProps {
+    color?: string | number | Color;
+    opacity?: number;
+    transparent?: boolean;
+    side?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    blending?: number;
+    alphaTest?: number;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface ExtendedColors<T> extends MaterialBaseProps, Props {
+    color?: string | number | Color;
+    transparent?: boolean;
+    opacity?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    side?: number;
+    blending?: number;
+  }
+  export interface Props {
+    attach?: string;
+    args?: any[];
+    children?: ReactNode;
+    ref?: any;
+    key?: any;
+    onUpdate?: (self: any) => void;
+    position?: [number, number, number];
+    up?: [number, number, number];
+    scale?: [number, number, number];
+    rotation?: [number, number, number];
+    matrix?: number[];
+    quaternion?: [number, number, number, number];
+    layers?: number;
+    dispose?: null;
+    onClick?: (e: any) => void;
+    onContextMenu?: (e: any) => void;
+    onDoubleClick?: (e: any) => void;
+    onPointerUp?: (e: any) => void;
+    onPointerDown?: (e: any) => void;
+    onPointerOver?: (e: any) => void;
+    onPointerOut?: (e: any) => void;
+    onPointerEnter?: (e: any) => void;
+    onPointerLeave?: (e: any) => void;
+    onPointerMove?: (e: any) => void;
+    onPointerMissed?: (e: any) => void;
+    onWheel?: (e: any) => void;
+    visible?: boolean;
+    userData?: { [key: string]: any };
+    castShadow?: boolean;
+    receiveShadow?: boolean;
+    renderOrder?: number;
+  }
+
+  export interface MaterialProps extends Props {
+    color?: string | number | Color;
+    opacity?: number;
+    transparent?: boolean;
+    side?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    blending?: number;
+    alphaTest?: number;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface ShaderMaterialProps extends MaterialProps {
+    uniforms?: { [uniform: string]: { value: any } };
+    vertexShader?: string;
+    fragmentShader?: string;
+  }
+
+  export interface PointsMaterialProps extends MaterialProps {
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface ThreeElements {
+    mesh: Props & MaterialProps;
+    points: Props & MaterialProps;
+    group: Props;
+    bufferGeometry: Props & {
+      attributes?: { [name: string]: any };
+    };
+    meshStandardMaterial: MaterialProps;
+    meshBasicMaterial: MaterialProps;
+    meshPhysicalMaterial: MaterialProps;
+    pointsMaterial: PointsMaterialProps;
+    shaderMaterial: ShaderMaterialProps;
+  }
+
+  export interface RootState {
+    gl: WebGLRenderer;
+    scene: Scene;
+    camera: Camera;
+    clock: Clock;
+    size: {
+      width: number;
+      height: number;
+    };
+    viewport: {
+      width: number;
+      height: number;
+      factor: number;
+    };
+    invalidate: () => void;
+    advance: (timestamp: number, runGlobalEffects?: boolean) => void;
+    legacy: boolean;
+    linear: boolean;
+    flat: boolean;
+    frameloop: 'always' | 'demand' | 'never';
+    performance: {
+      current: number;
+      min: number;
+      max: number;
+      debounce: number;
+    };
+  }
+
+  export interface CanvasProps {
+    children?: ReactNode;
+    gl?: Partial<WebGLRenderer> & {
+      precision?: string;
+      alpha?: boolean;
+      antialias?: boolean;
+      stencil?: boolean;
+      depth?: boolean;
+      preserveDrawingBuffer?: boolean;
+      powerPreference?: 'high-performance' | 'low-power' | 'default';
+      failIfMajorPerformanceCaveat?: boolean;
+      outputColorSpace?: string;
+    };
+    camera?: Partial<Camera>;
+    scene?: Partial<Scene>;
+    shadows?: boolean;
+    raycaster?: any;
+    frameloop?: 'always' | 'demand' | 'never';
+    dpr?: number | [min: number, max: number];
+    size?: {
+      width: number;
+      height: number;
+    };
+    events?: any;
+    onCreated?: (state: RootState) => void;
+  }
+
+  export function Canvas(props: CanvasProps): JSX.Element;
+  export function useThree<T = RootState>(): T;
+  export function useFrame(callback: (state: RootState, delta: number) => void, renderPriority?: number): void;
+  export function useLoader<T>(loader: any, url: string | string[], extensions?: any): T;
+  export function extend(objects: { [key: string]: any }): void;
+  import { Camera, Material, Object3D, Scene, WebGLRenderer, Color, Clock, BufferGeometry, ShaderMaterial } from 'three';
+  import { ReactNode } from 'react';
+
+  export interface MaterialProps<T = any> {
+    color?: string | number | Color;
+    transparent?: boolean;
+    opacity?: number;
+    side?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    blending?: number;
+    alphaTest?: number;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface NodeProps<T = any, P = any> {
+    attach?: string;
+    args?: P;
+    children?: ReactNode;
+    ref?: React.Ref<T>;
+    position?: [number, number, number];
+    rotation?: [number, number, number];
+    scale?: [number, number, number];
+    quaternion?: [number, number, number, number];
+    matrix?: number[];
+    lookAt?: [number, number, number];
+    up?: [number, number, number];
+    dispose?: null;
+  }
+
+  export interface MaterialNode<T extends Material = Material> extends MaterialProps<T>, NodeProps<T> {}
+
+  export interface ColorProps {
+    color?: string | number | Color;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    transparent?: boolean;
+    opacity?: number;
+    metalness?: number;
+    roughness?: number;
+    wireframe?: boolean;
+    fog?: boolean;
+    vertexColors?: boolean;
+    side?: number;
+    blending?: number;
+  }
+
+  export interface PointsMaterialProps extends ColorProps {
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface ShaderMaterialProps extends ColorProps {
+    uniforms?: { [uniform: string]: { value: any } };
+    vertexShader?: string;
+    fragmentShader?: string;
+    blending?: number;
+  }
+
+  export interface BufferGeometryNode<T extends BufferGeometry = BufferGeometry> extends NodeProps<T> {
+    attributes?: { [name: string]: any };
+  }
+
+  export interface ShaderMaterialNode<T extends ShaderMaterial = ShaderMaterial> extends MaterialNode<T> {
+    uniforms?: { [uniform: string]: { value: any } };
+    vertexShader?: string;
+    fragmentShader?: string;
+  }
+
+  export interface ExtendedColors<T> extends MaterialNode<T> {}
+
+  export interface RootState {
+    gl: WebGLRenderer;
+    scene: Scene;
+    camera: Camera;
+    clock: Clock;
+    size: {
+      width: number;
+      height: number;
+    };
+    viewport: {
+      width: number;
+      height: number;
+      factor: number;
+    };
+    invalidate: () => void;
+    advance: (timestamp: number, runGlobalEffects?: boolean) => void;
+    legacy: boolean;
+    linear: boolean;
+    flat: boolean;
+    frameloop: 'always' | 'demand' | 'never';
+    performance: {
+      current: number;
+      min: number;
+      max: number;
+      debounce: number;
+    };
+  }
+
+  export interface Props {
+    children?: ReactNode;
+    gl?: Partial<WebGLRenderer> & {
+      precision?: string;
+      stencil?: boolean;
+      depth?: boolean;
+      preserveDrawingBuffer?: boolean;
+      failIfMajorPerformanceCaveat?: boolean;
+      antialias?: boolean;
+      alpha?: boolean;
+      powerPreference?: 'high-performance' | 'low-power' | 'default';
+      outputColorSpace?: string;
+    };
+    camera?: Partial<Camera>;
+    scene?: Partial<Scene>;
+    shadows?: boolean;
+    raycaster?: any;
+    frameloop?: 'always' | 'demand' | 'never';
+    dpr?: number | [min: number, max: number];
+    size?: {
+      width: number;
+      height: number;
+    };
+    events?: any;
+    onCreated?: (state: RootState) => void;
+  }
+
+  export type CanvasProps = Partial<Props>;
+
+  export function Canvas(props: CanvasProps): JSX.Element;
+  export function useThree<T = RootState>(): T;
+  export function useFrame(callback: (state: RootState, delta: number) => void, renderPriority?: number): void;
+  export function extend(objects: { [key: string]: any }): void;
+
+  export interface ThreeElements {
+    mesh: JSX.IntrinsicElements & MaterialNode;
+    group: JSX.IntrinsicElements & NodeProps;
+    points: JSX.IntrinsicElements & MaterialNode;
+    bufferGeometry: JSX.IntrinsicElements & BufferGeometryNode;
+    meshStandardMaterial: MaterialNode;
+    meshBasicMaterial: MaterialNode;
+    meshPhysicalMaterial: MaterialNode;
+    pointsMaterial: MaterialNode;
+    shaderMaterial: ShaderMaterialNode;
+  }
+  import { Camera, Material, Object3D, Scene, WebGLRenderer, Color, Clock } from 'three';
+  import { ReactNode } from 'react';
+
+  export interface RootState {
+    gl: WebGLRenderer;
+    scene: Scene;
+    camera: Camera;
+    clock: Clock;
+    size: {
+      width: number;
+      height: number;
+    };
+    viewport: {
+      width: number;
+      height: number;
+      factor: number;
+    };
+    invalidate: () => void;
+    advance: (timestamp: number, runGlobalEffects?: boolean) => void;
+    legacy: boolean;
+    linear: boolean;
+    flat: boolean;
+    frameloop: 'always' | 'demand' | 'never';
+    performance: {
+      current: number;
+      min: number;
+      max: number;
+      debounce: number;
+    };
+  }
+
+  export interface MaterialNode<T extends Material = Material> {
+    attach?: string;
+    args?: ConstructorParameters<T>;
+    color?: string | number | Color;
+    opacity?: number;
+    transparent?: boolean;
+    side?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number | Color;
+    emissiveIntensity?: number;
+    fog?: boolean;
+    wireframe?: boolean;
+    vertexColors?: boolean;
+    blending?: number;
+    alphaTest?: number;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    size?: number;
+    sizeAttenuation?: boolean;
+  }
+
+  export interface ExtendedColors<T> extends MaterialNode {}
+
+  export interface ThreeElements {
+    mesh: JSX.IntrinsicElements & MaterialNode;
+    meshStandardMaterial: MaterialNode;
+    meshBasicMaterial: MaterialNode;
+    meshPhysicalMaterial: MaterialNode;
+    pointsMaterial: MaterialNode;
+    shaderMaterial: MaterialNode & {
+      uniforms?: { [uniform: string]: { value: any } };
+      vertexShader?: string;
+      fragmentShader?: string;
+    };
+  }
+
+  export interface Props {
+    children?: ReactNode;
+    gl?: Partial<WebGLRenderer> & {
+      antialias?: boolean;
+      alpha?: boolean;
+    };
+    camera?: Partial<Camera>;
+    scene?: Partial<Scene>;
+    shadows?: boolean;
+    raycaster?: any;
+    frameloop?: 'always' | 'demand' | 'never';
+    dpr?: number | [min: number, max: number];
+    size?: {
+      width: number;
+      height: number;
+    };
+    events?: any;
+    onCreated?: (state: RootState) => void;
+  }
+
+  export type CanvasProps = Partial<Props>;
+
+  export function Canvas(props: CanvasProps): JSX.Element;
+  export function useThree<T = RootState>(): T;
+  export function useFrame(callback: (state: RootState, delta: number) => void, renderPriority?: number): void;
+  export function extend(objects: { [key: string]: any }): void;
+  import { Camera, Material, Object3D, Scene, WebGLRenderer } from 'three';
+  import { ReactNode } from 'react';
+
+  export interface MaterialNode<T extends Material = Material> {
+    color?: string | number;
+    transparent?: boolean;
+    opacity?: number;
+    metalness?: number;
+    roughness?: number;
+    emissive?: string | number;
+    emissiveIntensity?: number;
+    wireframe?: boolean;
+    fog?: boolean;
+    vertexColors?: boolean;
+    side?: number;
+    blending?: number;
+    depthWrite?: boolean;
+    depthTest?: boolean;
+  }
+
+  export interface ThreeElements {
+    mesh: any;
+    group: any;
+    primitive: any;
+    points: any;
+    pointLight: any;
+    ambientLight: any;
+    spotLight: any;
+    directionalLight: any;
+    hemisphereLight: any;
+    rectAreaLight: any;
+  }
+
+  export interface Canvas extends HTMLCanvasElement {
+    scene: Scene;
+    camera: Camera;
+    gl: WebGLRenderer;
+    invalidate(): void;
+    events: {
+      connect: (target: Object3D) => void;
+      disconnect: (target: Object3D) => void;
+    };
+  }
+
+  export interface Props {
+    children?: ReactNode;
+    className?: string;
+    style?: React.CSSProperties;
+    camera?: Partial<Camera>;
+    gl?: Partial<WebGLRenderer>;
+    scene?: Partial<Scene>;
+    vr?: boolean;
+    shadows?: boolean;
+    linear?: boolean;
+    flat?: boolean;
+    orthographic?: boolean;
+    frameloop?: 'always' | 'demand' | 'never';
+    performance?: {
+      current?: number;
+      min?: number;
+      max?: number;
+      debounce?: number;
+    };
+    raycaster?: {
+      enabled?: boolean;
+      filter?: (intersections: any[]) => any[];
+      computeOffsets?: (event: any) => { offsetX: number; offsetY: number };
+    };
+    size?: {
+      width: number;
+      height: number;
+    };
+    dpr?: number | [min: number, max: number];
+    onCreated?: (state: RootState) => void;
+    onPointerMissed?: (event: MouseEvent) => void;
+  }
+
+  export interface RootState {
+    gl: WebGLRenderer;
+    scene: Scene;
+    camera: Camera;
+    invalidate: () => void;
+    advance: (timestamp: number, runGlobalEffects?: boolean) => void;
+    legacy: boolean;
+    linear: boolean;
+    flat: boolean;
+    frameloop: 'always' | 'demand' | 'never';
+    performance: {
+      current: number;
+      min: number;
+      max: number;
+      debounce: number;
+    };
+  }
+
+  export type CanvasProps = Partial<Props>;
+
+  export function Canvas(props: CanvasProps): JSX.Element;
+  export function useThree<T = RootState>(): T;
+  export function useFrame(callback: (state: RootState, delta: number) => void, renderPriority?: number): void;
+  export function useLoader<T>(loader: any, url: string | string[], extensions?: any): T;
+}

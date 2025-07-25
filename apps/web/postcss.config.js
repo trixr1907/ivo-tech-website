@@ -1,7 +1,5 @@
-// @ts-check
-
 /** @type {import('postcss').Config} */
-module.exports = {
+export default {
   plugins: {
     tailwindcss: {
       config: './tailwind.config.js',

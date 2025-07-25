@@ -30,7 +30,6 @@
       "node",
       "three",
       "@types/three",
-      "@types/web-vitals"
     ],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true

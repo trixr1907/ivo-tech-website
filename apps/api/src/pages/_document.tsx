@@ -1,7 +1,6 @@
-import type { DocumentType } from 'next/document';
 import { Html, Head, Main, NextScript } from 'next/document';
 
-const Document: DocumentType = () => {
+const Document = () => {
   return (
     <Html lang="en">
       <Head />

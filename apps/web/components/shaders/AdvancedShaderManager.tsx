@@ -477,7 +477,7 @@ export function AdvancedShaderManager() {
 
   // Animation loop
   useFrame(state => {
-    const time = state.clock.elapsedTime;
+    const time = state.clock.getElapsedTime();
 
     // Update audio data
     if (audioAnalyser.current) {
