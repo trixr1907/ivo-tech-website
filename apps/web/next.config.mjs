@@ -9,8 +9,6 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   experimental: {
-    serverActions: true,
-    serverComponents: true,
     instrumentationHook: true,
   },
   images: {
@@ -39,6 +37,7 @@ const nextConfig = {
       },
     ];
   },
+  output: 'export',
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
