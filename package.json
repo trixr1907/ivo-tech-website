@@ -7,8 +7,6 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "prepare": "husky",
-    "pre-commit": "lint-staged",
     "lhci": "lhci autorun"
   },
   "devDependencies": {
@@ -19,7 +17,6 @@
     "@types/next": "^9.0.0",
     "cssnano": "^6.0.5",
     "fs-extra": "^11.3.0",
-    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.35",
     "postcss-preset-env": "^9.4.0",
