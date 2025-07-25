@@ -11,7 +11,7 @@ import {
   Stars,
   Float,
   Html,
-  MeshStandardMaterial,
+  meshStandardMaterial as MeshStandardMaterial,
   MeshBasicMaterial,
   AmbientLight,
   PointLight,
