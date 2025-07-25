@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd apps/web && pnpm run build",
-  "outputDirectory": "apps/web/.next",
+  "buildCommand": "pnpm install \u0026\u0026 pnpm build",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "devCommand": "pnpm dev",
+  "outputDirectory": ".next",
   "crons": [
     {
       "path": "/api/revalidate",
