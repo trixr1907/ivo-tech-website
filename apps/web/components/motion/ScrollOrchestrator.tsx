@@ -89,12 +89,7 @@ export const ParallaxSection3D: React.FC<{
   speed?: number;
   direction?: 'up' | 'down';
   className?: string;
-}> = ({
-  children,
-  speed = 0.5,
-  direction = 'up',
-  className = '',
-}) => {
+}> = ({ children, speed = 0.5, direction = 'up', className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -104,7 +99,9 @@ export const ParallaxSection3D: React.FC<{
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    direction === 'up' ? [100 * speed, -100 * speed] : [-100 * speed, 100 * speed]
+    direction === 'up'
+      ? [100 * speed, -100 * speed]
+      : [-100 * speed, 100 * speed]
   );
 
   return (
