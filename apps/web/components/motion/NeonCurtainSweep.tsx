@@ -3,7 +3,9 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { ThreeProvider, useThree } from '../../components/three/ThreeProvider';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+import { ThreeProvider } from '../../components/three/ThreeProvider';
 
 // Neon Curtain Sweep Shader
 const neonCurtainVertexShader = `
@@ -74,7 +76,6 @@ const CurtainMesh: React.FC<{
   color: [number, number, number];
   intensity: number;
 }> = ({ progress, color, intensity }) => {
-  const { renderer, scene, camera } = useThree();
   const meshRef = useRef<THREE.Mesh>(null);
 
   const shaderMaterial = useMemo(
@@ -94,11 +95,12 @@ const CurtainMesh: React.FC<{
     [color, intensity]
   );
 
-  useFrame(({ clock }) => {
-    if (shaderMaterial) {
-      shaderMaterial.uniforms.uTime.value = clock.elapsedTime;
-      shaderMaterial.uniforms.uProgress.value = progress;
-      shaderMaterial.uniforms.uIntensity.value = intensity;
+useFrame(({ clock }) => {
+    if (meshRef.current?.material) {
+      const material = meshRef.current.material as THREE.ShaderMaterial;
+      material.uniforms.uTime.value = clock.getElapsedTime();
+      material.uniforms.uProgress.value = progress;
+      material.uniforms.uIntensity.value = intensity;
     }
   });
 

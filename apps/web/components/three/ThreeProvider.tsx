@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useRef, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface ThreeContextType {
@@ -85,16 +86,13 @@ export const ThreeProvider: React.FC<{
   }, []);
 
   return (
-    <ThreeContext.Provider
-      value={{
-        renderer: rendererRef.current,
-        scene: sceneRef.current,
-        camera: cameraRef.current,
-      }}
-    >
-      <div ref={containerRef} className="fixed inset-0 pointer-events-none">
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none">
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        style={{ background: 'transparent' }}
+      >
         {children}
-      </div>
-    </ThreeContext.Provider>
+      </Canvas>
+    </div>
   );
 };
