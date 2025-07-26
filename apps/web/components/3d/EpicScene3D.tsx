@@ -30,7 +30,7 @@ interface TechOrbProps {
   onClick?: () => void;
 }
 
-function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
+const TechOrb = React.forwardRef<THREE.Mesh, TechOrbProps>(function TechOrb({ position, color, tech, onClick }, ref) {
   const mesh = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -45,7 +45,11 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
       <Mesh
-        ref={mesh}
+        ref={(node) => {
+          mesh.current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) ref.current = node;
+        }}
         position={position}
         onClick={onClick}
         onPointerOver={() => setHovered(true)}
@@ -77,7 +81,7 @@ function TechOrb({ position, color, tech, onClick }: TechOrbProps) {
 }
 
 // Animated Grid Component
-function AnimatedGrid() {
+const AnimatedGrid = () => {
   const gridRef = useRef<THREE.Group>(null);
 
   useFrame(state => {

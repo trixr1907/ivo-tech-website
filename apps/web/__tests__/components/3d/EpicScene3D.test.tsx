@@ -32,6 +32,8 @@ jest.mock('@react-three/drei', () => ({
   Mesh: ({ children }) => <div data-testid="mesh">{children}</div>,
   SphereGeometry: () => <div data-testid="sphere-geometry" />,
   MeshStandardMaterial: () => <div data-testid="mesh-standard-material" />,
+  MeshBasicMaterial: () => <div data-testid="mesh-basic-material" />,
+  primitive: ({ object }) => <div data-testid="primitive" data-object={JSON.stringify(object)} />,
 }));
 
 jest.mock('three', () => ({
