@@ -1,7 +1,7 @@
-import { config as baseConfig } from '@config/eslint/base';
+const { config: baseConfig } = require('@config/eslint/base');
 
 /** @type {import("eslint").Linter.Config} */
-export default [
+module.exports = [
   ...baseConfig,
   {
     ignores: [

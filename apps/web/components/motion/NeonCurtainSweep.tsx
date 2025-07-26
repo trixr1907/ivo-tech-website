@@ -91,7 +91,7 @@ const CurtainMesh: React.FC<{
         },
         transparent: true,
       }),
-    [color, intensity, size]
+    [color, intensity]
   );
 
   useFrame(({ clock }) => {
