@@ -30,22 +30,18 @@ interface MotionOrchestratorContext {
 
 interface MotionSettings {
   enablePageTransitions: boolean;
-  enableCurtainSweep: boolean;
   enableScrollAnimations: boolean;
   enableParallax: boolean;
   transitionDuration: number;
-  curtainColor: [number, number, number];
   debugMode: boolean;
   reducedMotion: boolean;
 }
 
 const defaultMotionSettings: MotionSettings = {
   enablePageTransitions: true,
-  enableCurtainSweep: true,
   enableScrollAnimations: true,
   enableParallax: true,
   transitionDuration: 1.2,
-  curtainColor: [0, 1, 0.8],
   debugMode: false,
   reducedMotion: false,
 };
@@ -244,16 +240,7 @@ export const MotionOrchestratorProvider: React.FC<{
             children
           )}
 
-          {/* Neon Curtain Sweep */}
-          {motionSettings.enableCurtainSweep && (
-            <NeonCurtainSweep
-              isActive={isTransitioning && transitionType === 'curtain'}
-              direction="left-to-right"
-              color={motionSettings.curtainColor}
-              duration={motionSettings.transitionDuration}
-              intensity={1.5}
-            />
-          )}
+          {/* Page transitions are now handled by NeonLink */}
         </>
       )}
     </MotionContext.Provider>
@@ -355,18 +342,6 @@ export const MotionControlPanel: React.FC<{
                   updateMotionSettings({
                     enablePageTransitions: e.target.checked,
                   })
-                }
-                className="h-4 w-4 text-cyan-600"
-              />
-            </label>
-
-            <label className="flex items-center justify-between">
-              <span className="text-gray-300">Curtain Sweep</span>
-              <input
-                type="checkbox"
-                checked={motionSettings.enableCurtainSweep}
-                onChange={e =>
-                  updateMotionSettings({ enableCurtainSweep: e.target.checked })
                 }
                 className="h-4 w-4 text-cyan-600"
               />
