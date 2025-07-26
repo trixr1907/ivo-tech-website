@@ -10,7 +10,7 @@ import React, {
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { PageTransition, AnimatedSection } from './PageTransition';
-import { NeonCurtainSweep, useNeonRouteTransition } from './NeonCurtainSweep';
+import { NeonLink } from './NeonLink';
 import {
   ScrollOrchestrator,
   ScrollLinked3D,
