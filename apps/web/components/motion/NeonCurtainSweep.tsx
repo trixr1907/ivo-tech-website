@@ -1,115 +1,12 @@
 'use client';
 
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import { ThreeProvider } from '../../components/three/ThreeProvider';
 
-// Neon Curtain Sweep Shader
-const neonCurtainVertexShader = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const neonCurtainFragmentShader = `
-  uniform float uTime;
-  uniform float uProgress;
-  uniform vec2 uResolution;
-  uniform vec3 uNeonColor;
-  uniform float uIntensity;
-  varying vec2 vUv;
-
-  // Neon glow effect
-  float neonGlow(float d, float intensity) {
-    return 1.0 / (1.0 + d * 20.0) * intensity;
-  }
-
-  // Electric circuit pattern
-  float circuitPattern(vec2 uv, float time) {
-    vec2 grid = fract(uv * 8.0 + time * 0.5);
-    float lines = min(
-      step(0.02, grid.x) * step(grid.x, 0.98),
-      step(0.02, grid.y) * step(grid.y, 0.98)
-    );
-    return 1.0 - lines;
-  }
-
-  void main() {
-    vec2 uv = vUv;
-    
-    // Create sweep effect
-    float sweep = smoothstep(uProgress - 0.1, uProgress + 0.1, uv.x);
-    
-    // Add vertical noise for organic curtain movement
-    float noise = sin(uv.y * 20.0 + uTime * 5.0) * 0.05;
-    float curtain = smoothstep(uProgress - 0.15 + noise, uProgress + 0.05 + noise, uv.x);
-    
-    // Circuit pattern overlay
-    float circuit = circuitPattern(uv, uTime);
-    
-    // Neon edge glow
-    float edge = abs(uv.x - uProgress);
-    float glow = neonGlow(edge, uIntensity * 2.0);
-    
-    // Combine effects
-    vec3 color = uNeonColor * (curtain + glow + circuit * 0.3);
-    
-    // Add scan lines
-    float scanlines = sin(uv.y * uResolution.y * 2.0) * 0.1 + 0.9;
-    color *= scanlines;
-    
-    // Fade out at edges
-    float vignette = smoothstep(0.0, 0.3, uv.x) * smoothstep(1.0, 0.7, uv.x);
-    
-    gl_FragColor = vec4(color, curtain * vignette);
-  }
-`;
-
-// 3D Curtain Component
-const CurtainMesh: React.FC<{
-  progress: number;
-  color: [number, number, number];
-  intensity: number;
-}> = ({ progress, color, intensity }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  const shaderMaterial = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        vertexShader: neonCurtainVertexShader,
-        fragmentShader: neonCurtainFragmentShader,
-        uniforms: {
-          uTime: { value: 0 },
-          uProgress: { value: progress },
-          uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-          uNeonColor: { value: color },
-          uIntensity: { value: intensity },
-        },
-        transparent: true,
-      }),
-    [color, intensity]
-  );
-
-useFrame(({ clock }) => {
-    if (meshRef.current?.material) {
-      const material = meshRef.current.material as THREE.ShaderMaterial;
-      material.uniforms.uTime.value = clock.getElapsedTime();
-      material.uniforms.uProgress.value = progress;
-      material.uniforms.uIntensity.value = intensity;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} material={shaderMaterial}>
-      <planeGeometry args={[2, 2]} />
-    </mesh>
-  );
-};
+// Helper to convert RGB array to CSS color string
+const rgbToString = (color: [number, number, number]) => 
+  `rgb(${Math.round(color[0] * 255)}, ${Math.round(color[1] * 255)}, ${Math.round(color[2] * 255)})`;
 
 // Main Neon Curtain Sweep Component
 interface NeonCurtainSweepProps {
@@ -171,13 +68,33 @@ export const NeonCurtainSweep: React.FC<NeonCurtainSweepProps> = ({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <ThreeProvider>
-        <CurtainMesh
-          progress={progress}
-          color={color}
-          intensity={intensity}
-        />
-      </ThreeProvider>
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(90deg, 
+            transparent 0%, 
+            ${rgbToString(color)} ${progress * 100 - 10}%, 
+            ${rgbToString(color)} ${progress * 100}%, 
+            transparent 100%
+          )`,
+          filter: `blur(20px) brightness(${1 + intensity})`,
+          mixBlendMode: 'screen',
+        }}
+      />
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(90deg, 
+            transparent 0%, 
+            ${rgbToString(color)} ${progress * 100 - 5}%, 
+            ${rgbToString(color)} ${progress * 100 + 5}%, 
+            transparent 100%
+          )`,
+          filter: `blur(10px)`,
+          opacity: 0.7,
+          mixBlendMode: 'screen',
+        }}
+      />
 
       {/* Additional CSS-based effect overlay */}
       <div
