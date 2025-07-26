@@ -1,15 +1,9 @@
 'use client';
 
 import React, { useEffect, useRef, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../../utils/gsap';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { useThree } from '@react-three/fiber';
-
-// GSAP Plugin Registration
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // 3D Keyframe Configuration Interface
 interface Keyframe3D {
