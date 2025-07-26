@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-const { ShaderMaterial, Vector2 } = THREE;
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
@@ -81,13 +80,13 @@ const CurtainMesh: React.FC<{
 
   const shaderMaterial = useMemo(
     () =>
-      new ShaderMaterial({
+      new THREE.ShaderMaterial({
         vertexShader: neonCurtainVertexShader,
         fragmentShader: neonCurtainFragmentShader,
         uniforms: {
           uTime: { value: 0 },
           uProgress: { value: progress },
-          uResolution: { value: new Vector2(size.width, size.height) },
+          uResolution: { value: new THREE.Vector2(size.width, size.height) },
           uNeonColor: { value: color },
           uIntensity: { value: intensity },
         },
