@@ -62,57 +62,38 @@ export const ScrollOrchestrator: React.FC<ScrollOrchestratorProps> = ({
 // Scroll-Linked Animation Component for Individual Elements
 export const ScrollLinked3D: React.FC<{
   children: React.ReactNode;
-  sectionId: string;
-  keyframes: Keyframe3D[];
   className?: string;
-}> = ({ children, sectionId, keyframes, className = '' }) => {
+}> = ({ children, className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  // Transform scroll progress to animation values
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0.8, 1, 1, 0.9]
-  );
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -10]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
     <motion.div
       ref={containerRef}
       className={`scroll-linked-3d ${className}`}
-      style={{
-        opacity,
-        scale,
-        y,
-        rotateX,
-        perspective: 1000,
-        transformStyle: 'preserve-3d',
-      }}
+      style={{ y }}
     >
       {children}
     </motion.div>
   );
 };
 
-// Complex Parallax Section Component
+// Parallax Section Component
 export const ParallaxSection3D: React.FC<{
   children: React.ReactNode;
   speed?: number;
-  direction?: 'up' | 'down' | 'left' | 'right';
+  direction?: 'up' | 'down';
   className?: string;
-  enable3D?: boolean;
 }> = ({
   children,
   speed = 0.5,
   direction = 'up',
   className = '',
-  enable3D = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -120,45 +101,17 @@ export const ParallaxSection3D: React.FC<{
     offset: ['start end', 'end start'],
   });
 
-  // Calculate movement based on direction and speed
-  const getTransform = (direction: string, progress: MotionValue<number>) => {
-    const movement = progress.get() * 100 * speed;
-
-    switch (direction) {
-      case 'up':
-        return `translateY(${-movement}px)`;
-      case 'down':
-        return `translateY(${movement}px)`;
-      case 'left':
-        return `translateX(${-movement}px)`;
-      case 'right':
-        return `translateX(${movement}px)`;
-      default:
-        return `translateY(${-movement}px)`;
-    }
-  };
-
-  const transform3D = enable3D
-    ? useTransform(
-        scrollYProgress,
-        [0, 1],
-        [
-          `${getTransform(direction, scrollYProgress)} rotateX(0deg) rotateY(0deg)`,
-          `${getTransform(direction, scrollYProgress)} rotateX(5deg) rotateY(2deg)`,
-        ]
-      )
-    : useTransform(scrollYProgress, progress =>
-        getTransform(direction, { get: () => progress } as MotionValue<number>)
-      );
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    direction === 'up' ? [100 * speed, -100 * speed] : [-100 * speed, 100 * speed]
+  );
 
   return (
     <motion.div
       ref={containerRef}
-      className={`parallax-section-3d ${className}`}
-      style={{
-        transform: transform3D,
-        transformStyle: enable3D ? 'preserve-3d' : 'flat',
-      }}
+      className={`parallax-section ${className}`}
+      style={{ y }}
     >
       {children}
     </motion.div>

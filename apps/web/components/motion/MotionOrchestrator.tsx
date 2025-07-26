@@ -132,84 +132,6 @@ export const MotionOrchestratorProvider: React.FC<{
     };
   }, [contextValue, motionSettings]);
 
-  // 3D Section Configurations for ScrollTrigger
-  const scrollSections = [
-    {
-      id: 'hero',
-      element: '#hero',
-      keyframes: [
-        {
-          progress: 0,
-          position: [0, 0, 0] as [number, number, number],
-          rotation: [0, 0, 0] as [number, number, number],
-          scale: [1, 1, 1] as [number, number, number],
-          opacity: 1,
-        },
-        {
-          progress: 1,
-          position: [0, -2, -1] as [number, number, number],
-          rotation: [0.2, 0, 0] as [number, number, number],
-          scale: [0.9, 0.9, 0.9] as [number, number, number],
-          opacity: 0.8,
-        },
-      ],
-    },
-    {
-      id: 'about',
-      element: '#about',
-      keyframes: [
-        {
-          progress: 0,
-          position: [2, 0, 0] as [number, number, number],
-          rotation: [0, -0.3, 0] as [number, number, number],
-          scale: [0.8, 0.8, 0.8] as [number, number, number],
-          opacity: 0,
-        },
-        {
-          progress: 0.5,
-          position: [0, 0, 0] as [number, number, number],
-          rotation: [0, 0, 0] as [number, number, number],
-          scale: [1, 1, 1] as [number, number, number],
-          opacity: 1,
-        },
-        {
-          progress: 1,
-          position: [-1, 0, -0.5] as [number, number, number],
-          rotation: [0, 0.2, 0] as [number, number, number],
-          scale: [0.95, 0.95, 0.95] as [number, number, number],
-          opacity: 0.9,
-        },
-      ],
-    },
-    {
-      id: 'services',
-      element: '#services',
-      keyframes: [
-        {
-          progress: 0,
-          position: [0, 3, 0] as [number, number, number],
-          rotation: [-0.5, 0, 0] as [number, number, number],
-          scale: [0.7, 0.7, 0.7] as [number, number, number],
-          opacity: 0,
-        },
-        {
-          progress: 0.3,
-          position: [0, 0, 0] as [number, number, number],
-          rotation: [0, 0, 0] as [number, number, number],
-          scale: [1, 1, 1] as [number, number, number],
-          opacity: 1,
-        },
-        {
-          progress: 1,
-          position: [0, -1, 0.5] as [number, number, number],
-          rotation: [0.1, 0, 0] as [number, number, number],
-          scale: [1.05, 1.05, 1.05] as [number, number, number],
-          opacity: 1,
-        },
-      ],
-    },
-  ];
-
   return (
     <MotionContext.Provider value={contextValue}>
       {/* Reduced Motion Fallback */}
@@ -220,7 +142,6 @@ export const MotionOrchestratorProvider: React.FC<{
           {/* Global Scroll Orchestrator */}
           {motionSettings.enableScrollAnimations && (
             <ScrollOrchestrator
-              sections={scrollSections}
               debugMode={motionSettings.debugMode}
               enableSmoothing={true}
             />
@@ -239,8 +160,6 @@ export const MotionOrchestratorProvider: React.FC<{
           ) : (
             children
           )}
-
-          {/* Page transitions are now handled by NeonLink */}
         </>
       )}
     </MotionContext.Provider>
