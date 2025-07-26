@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { THREE } from '../../utils/three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { ThreeProvider, useThree } from '../../components/three/ThreeProvider';
 
 // Neon Curtain Sweep Shader
 const neonCurtainVertexShader = `
@@ -75,8 +74,8 @@ const CurtainMesh: React.FC<{
   color: [number, number, number];
   intensity: number;
 }> = ({ progress, color, intensity }) => {
+  const { renderer, scene, camera } = useThree();
   const meshRef = useRef<THREE.Mesh>(null);
-  const { size } = useThree();
 
   const shaderMaterial = useMemo(
     () =>
@@ -86,7 +85,7 @@ const CurtainMesh: React.FC<{
         uniforms: {
           uTime: { value: 0 },
           uProgress: { value: progress },
-          uResolution: { value: new THREE.Vector2(size.width, size.height) },
+          uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
           uNeonColor: { value: color },
           uIntensity: { value: intensity },
         },
@@ -170,18 +169,13 @@ export const NeonCurtainSweep: React.FC<NeonCurtainSweepProps> = ({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="h-full w-full">
-        <Canvas
-          camera={{ position: [0, 0, 1], fov: 75 }}
-          style={{ background: 'transparent' }}
-        >
-          <CurtainMesh
-            progress={progress}
-            color={color}
-            intensity={intensity}
-          />
-        </Canvas>
-      </div>
+      <ThreeProvider>
+        <CurtainMesh
+          progress={progress}
+          color={color}
+          intensity={intensity}
+        />
+      </ThreeProvider>
 
       {/* Additional CSS-based effect overlay */}
       <div
